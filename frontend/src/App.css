@@ -1,34 +1,68 @@
-.App-logo {
-    height: 40vmin;
-    pointer-events: none;
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+/* ==========================================
+   NEXT STEP — Landing Page Styles
+   Conf-Mono / Warm Charcoal + Gold Accent
+   ========================================== */
+
+/* Font families */
+.font-heading {
+  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-    .App-logo {
-        animation: App-logo-spin infinite 20s linear;
-    }
+/* Gentle bounce animation for scroll indicator */
+@keyframes gentle-bounce {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+  }
+  50% {
+    transform: translateX(-50%) translateY(6px);
+  }
 }
 
-.App-header {
-    background-color: #0f0f10;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
+.animate-gentle-bounce {
+  animation: gentle-bounce 2.5s ease-in-out infinite;
 }
 
-.App-link {
-    color: #61dafb;
+/* Smooth scroll for the whole page */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
-@keyframes App-logo-spin {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
+/* Selection styling */
+::selection {
+  background-color: rgba(184, 150, 62, 0.15);
+  color: #1A1A1A;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #FAFAF7;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4D0C8;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #B8963E;
+}
+
+/* Button transitions — specific, not universal */
+button, a {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+}
+
+/* Focus ring override for accessibility */
+*:focus-visible {
+  outline: 2px solid rgba(184, 150, 62, 0.5);
+  outline-offset: 2px;
+}
+
+/* Height utility for h-13 (3.25rem / 52px) */
+.h-13 {
+  height: 3.25rem;
 }
