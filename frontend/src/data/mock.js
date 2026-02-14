@@ -8,12 +8,12 @@ export const heroImages = [
     alt: "Tavira - Historic town with white buildings and terracotta roofs"
   },
   {
-    url: "https://images.unsplash.com/photo-1707862991399-f1513ecdc765?auto=format&fit=crop&w=1920&q=80",
-    alt: "Ria Formosa - Luxury waterfront houses by the lagoon"
+    url: "https://images.unsplash.com/photo-1754221715854-157c677101c5?auto=format&fit=crop&w=1920&q=80",
+    alt: "Quinta do Lago - Aerial view of pristine beach with lush vegetation"
   },
   {
-    url: "https://images.unsplash.com/photo-1560242374-7befcc667b39?auto=format&fit=crop&w=1920&q=80",
-    alt: "Benagil Cave - Iconic sea cave beach on the Algarve coast"
+    url: "https://images.unsplash.com/photo-1725344153786-22686793e5a3?auto=format&fit=crop&w=1920&q=80",
+    alt: "Lagos - Dramatic rock formations and cliffs along the coastline"
   }
 ];
 export const heroImage = heroImages[0].url;
