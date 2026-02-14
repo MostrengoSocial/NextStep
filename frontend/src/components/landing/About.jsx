@@ -18,13 +18,10 @@ export const About = () => {
         {/* Two column: Image + Text */}
         <div
           ref={sectionRef}
-          className={cn(
-            'grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24 transition-all duration-1000 ease-out',
-            sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          )}
+          className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24"
         >
           {/* Image */}
-          <div className="relative">
+          <div className={cn('relative img-zoom anim-slide-left', sectionVisible ? 'visible' : '')}>
             <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10">
               <img
                 src={aboutImage}
