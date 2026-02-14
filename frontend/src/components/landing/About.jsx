@@ -42,7 +42,7 @@ export const About = () => {
           </div>
 
           {/* Text */}
-          <div>
+          <div className={cn('anim-slide-right', sectionVisible ? 'visible' : '')}>
             <h2 className="font-heading text-3xl sm:text-4xl lg:text-[2.8rem] text-[#1A1A1A] leading-tight mb-8 italic">
               {t.title}
             </h2>
