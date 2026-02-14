@@ -59,15 +59,16 @@ export const About = () => {
         {/* Stats */}
         <div
           ref={statsRef}
-          className={cn(
-            'grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24 transition-all duration-1000 ease-out delay-200',
-            statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          )}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24"
         >
           {t.stats.map((stat, i) => {
             const colors = ['#E44D60', '#E8893C', '#3BAF6A', '#4A7FBF'];
             return (
-              <div key={i} className="text-center p-8 rounded-2xl bg-white shadow-sm card-lift">
+              <div
+                key={i}
+                className={cn('text-center p-8 rounded-2xl bg-white shadow-sm card-lift anim-scale-in', statsVisible ? 'visible' : '')}
+                style={{ transitionDelay: statsVisible ? `${i * 0.12}s` : '0s' }}
+              >
                 <div className="font-heading text-4xl lg:text-5xl text-[#1A1A1A] mb-2">
                   {stat.number}
                 </div>
