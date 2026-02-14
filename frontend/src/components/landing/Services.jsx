@@ -65,8 +65,8 @@ export const Services = () => {
         <div
           ref={headerRef}
           className={cn(
-            'mb-16 transition-all duration-1000 ease-out',
-            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            'mb-16 anim-fade-up',
+            headerVisible ? 'visible' : ''
           )}
         >
           <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl text-[#1A1A1A] italic">
@@ -74,16 +74,20 @@ export const Services = () => {
           </h2>
         </div>
 
-        {/* 2-column grid — matching the reference layout */}
+        {/* 2-column grid with stagger */}
         <div
           ref={gridRef}
-          className={cn(
-            'grid md:grid-cols-2 gap-x-16 gap-y-16 transition-all duration-1000 ease-out delay-200',
-            gridVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          )}
+          className="grid md:grid-cols-2 gap-x-16 gap-y-16"
         >
           {t.items.map((item, i) => (
-            <div key={i} className="group">
+            <div
+              key={i}
+              className={cn(
+                'group anim-fade-up',
+                gridVisible ? 'visible' : ''
+              )}
+              style={{ transitionDelay: gridVisible ? `${i * 0.12}s` : '0s' }}
+            >
               <ServiceHeading item={item} />
               <p className="text-[#5C5C5C] leading-relaxed mt-5 max-w-md">
                 {item.description}
