@@ -44,7 +44,7 @@ export const Header = () => {
           >
             <RainbowLogo size="small" />
             <span className={cn(
-              'font-heading text-xl tracking-tight transition-colors duration-300',
+              'font-heading text-2xl tracking-tight transition-colors duration-300',
               scrolled ? 'text-[#1A1A1A]' : 'text-white'
             )}>
               nextStep
