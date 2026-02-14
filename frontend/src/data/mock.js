@@ -17,7 +17,7 @@ export const heroImages = [
   }
 ];
 export const heroImage = heroImages[0].url;
-export const aboutImage = "https://images.unsplash.com/photo-1712777825064-d66a9a8b0b61?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHw0fHxMaXNib24lMjBjb2JibGVzdG9uZXxlbnwwfHx8fDE3NzEwNzg5ODR8MA&ixlib=rb-4.1.0&q=85&w=800";
+export const aboutImage = "https://images.unsplash.com/photo-1762335358426-72c27db3f5ff?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwyfHxMaXNib24lMjB5ZWxsb3clMjB0cmFtJTIwaGlzdG9yaWMlMjBzdHJlZXQlMjBQb3J0dWdhbHxlbnwwfHx8fDE3NzEwODY4MTV8MA&ixlib=rb-4.1.0&q=85&w=1200";
 export const contactImage = "https://images.unsplash.com/photo-1607010899763-108e728056f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHw0fHxQb3J0dWdhbCUyMGNvYXN0YWwlMjB0b3dufGVufDB8fHx8MTc3MTA3ODk4OHww&ixlib=rb-4.1.0&q=85&w=800";
 
 export const content = {
