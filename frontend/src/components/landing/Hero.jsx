@@ -15,34 +15,42 @@ export const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden">
-      {/* Background image */}
+      {/* Background image with subtle zoom */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{ backgroundImage: `url(${heroImage})` }}
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat scale-105"
+        style={{
+          backgroundImage: `url(${heroImage})`,
+          animation: 'hero-zoom 20s ease-in-out infinite alternate',
+        }}
       />
+      <style>{`
+        @keyframes hero-zoom {
+          from { transform: scale(1.05); }
+          to { transform: scale(1.12); }
+        }
+      `}</style>
       {/* Dark overlay */}
       <div className="absolute inset-0 hero-overlay" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-20 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Left — Heading */}
+          {/* Left — Heading with staggered reveal */}
           <div>
             <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl text-white leading-[1.1] tracking-tight">
-              {t.titleLine1}
-              <br />
-              <span className="italic">{t.titleLine2}</span>
+              <span className="block hero-reveal hero-reveal-1">{t.titleLine1}</span>
+              <span className="block italic hero-reveal hero-reveal-2">{t.titleLine2}</span>
             </h1>
           </div>
 
           {/* Right — Subtitle + CTAs */}
           <div>
-            <p className="text-lg lg:text-xl text-white/75 leading-relaxed mb-10">
+            <p className="text-lg lg:text-xl text-white/80 leading-relaxed mb-10 hero-reveal hero-reveal-3">
               {t.subtitle}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col sm:flex-row gap-4 hero-reveal hero-reveal-4">
               <Button
                 onClick={() => scrollToSection('contact')}
-                className="bg-white hover:bg-white/90 text-[#1A1A1A] text-sm font-semibold px-8 h-13 rounded-full transition-all duration-300 shadow-xl shadow-black/10"
+                className="bg-white hover:bg-white/90 text-[#1A1A1A] text-sm font-semibold px-8 h-13 rounded-full transition-all duration-300 shadow-xl shadow-black/10 hover:scale-[1.03]"
               >
                 {t.cta1}
                 <ArrowRight className="ml-2 h-4 w-4" />
