@@ -18,8 +18,8 @@ export const Testimonials = () => {
         <div
           ref={headerRef}
           className={cn(
-            'mb-16 transition-all duration-1000 ease-out',
-            headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            'mb-16 anim-fade-up',
+            headerVisible ? 'visible' : ''
           )}
         >
           <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl text-[#1A1A1A] italic mb-5">
@@ -30,15 +30,16 @@ export const Testimonials = () => {
 
         <div
           ref={cardsRef}
-          className={cn(
-            'grid md:grid-cols-3 gap-6 transition-all duration-1000 ease-out delay-200',
-            cardsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-          )}
+          className="grid md:grid-cols-3 gap-6"
         >
           {t.items.map((item, i) => (
             <div
               key={i}
-              className="bg-white rounded-2xl p-8 shadow-sm card-lift relative overflow-hidden"
+              className={cn(
+                'bg-white rounded-2xl p-8 shadow-sm card-lift relative overflow-hidden anim-fade-up',
+                cardsVisible ? 'visible' : ''
+              )}
+              style={{ transitionDelay: cardsVisible ? `${i * 0.15}s` : '0s' }}
             >
               {/* Color accent top bar */}
               <div className="absolute top-0 left-0 right-0 h-1" style={{ background: colors[i] }} />
