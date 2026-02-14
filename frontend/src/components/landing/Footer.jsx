@@ -25,7 +25,10 @@ export const Footer = ({ selectedLogo = 1 }) => {
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-16">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
-            <Logo className="text-white mb-5" />
+            <div className="flex items-center gap-2.5 mb-5">
+              <LogoIcon size={26} />
+              <span className="font-heading text-xl font-semibold text-white">Next Step</span>
+            </div>
             {/* Pride accent */}
             <div className="flex gap-[2px] mb-5">
               <div className="h-[2px] w-5 bg-[#C44D58]/60 rounded-full" />
