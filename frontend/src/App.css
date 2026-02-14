@@ -1,182 +1,175 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400;1,9..40,500&display=swap');
 
 /* ==========================================
-   NEXT STEP — Modern Landing Page Styles
+   NEXT STEP — Modern Mixed Theme
+   Light/Dark sections, pride color accents
    ========================================== */
 
 .font-heading {
-  font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  font-family: 'DM Serif Display', Georgia, serif;
 }
 
-/* Smooth scroll */
+.font-body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 80px;
 }
 
-/* Selection */
 ::selection {
-  background-color: rgba(184, 150, 62, 0.2);
+  background-color: rgba(26, 138, 132, 0.15);
   color: #1A1A1A;
 }
 
-/* Custom scrollbar */
 ::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #0D0D0D; }
-::-webkit-scrollbar-thumb { background: #B8963E; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #D4AA4F; }
+::-webkit-scrollbar-track { background: #F8F7F4; }
+::-webkit-scrollbar-thumb { background: #C4C0B8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #1A8A84; }
 
-/* Specific transitions for interactive elements */
 button, a {
   transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
 }
 
-/* Focus ring */
 *:focus-visible {
-  outline: 2px solid rgba(184, 150, 62, 0.5);
+  outline: 2px solid rgba(26, 138, 132, 0.5);
   outline-offset: 2px;
 }
 
-/* Height utility */
 .h-13 { height: 3.25rem; }
 
 /* ==========================================
-   NOISE / GRAIN TEXTURE OVERLAY
+   SECTION STYLES
    ========================================== */
-.noise-overlay::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  opacity: 0.03;
-  z-index: 1;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-  background-repeat: repeat;
-  background-size: 128px 128px;
+.section-light {
+  background: #FFFFFF;
+}
+.section-warm {
+  background: #F8F7F4;
+}
+.section-dark {
+  background: #141414;
+  color: #FFFFFF;
 }
 
 /* ==========================================
-   ANIMATED GRADIENT ORBS
+   ANIMATIONS
    ========================================== */
-@keyframes float-slow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -20px) scale(1.05); }
-  66% { transform: translate(-20px, 15px) scale(0.95); }
-}
-
-@keyframes float-slow-reverse {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(-25px, 20px) scale(0.95); }
-  66% { transform: translate(15px, -25px) scale(1.05); }
-}
-
 @keyframes gentle-bounce {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50% { transform: translateX(-50%) translateY(6px); }
 }
 
-@keyframes shimmer {
-  0% { background-position: -200% center; }
-  100% { background-position: 200% center; }
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0); }
+  50% { transform: translate(0, -10px); }
 }
 
-@keyframes pulse-glow {
-  0%, 100% { opacity: 0.4; }
-  50% { opacity: 0.7; }
-}
-
-@keyframes gradient-shift {
-  0% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
-}
-
-@keyframes reveal-line {
+@keyframes draw-underline {
   from { width: 0; }
   to { width: 100%; }
 }
 
-.animate-float-slow { animation: float-slow 12s ease-in-out infinite; }
-.animate-float-reverse { animation: float-slow-reverse 14s ease-in-out infinite; }
 .animate-gentle-bounce { animation: gentle-bounce 2.5s ease-in-out infinite; }
-.animate-shimmer {
-  background-size: 200% 100%;
-  animation: shimmer 3s ease-in-out infinite;
-}
-.animate-pulse-glow { animation: pulse-glow 3s ease-in-out infinite; }
-.animate-gradient-shift {
-  background-size: 200% 200%;
-  animation: gradient-shift 6s ease infinite;
-}
 
 /* ==========================================
-   GLASS-MORPHISM
+   PRIDE ACCENT DECORATIONS (for service headings)
    ========================================== */
-.glass {
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.glass-light {
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.8);
-}
-
-.glass-card {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-/* ==========================================
-   GRADIENT BORDER EFFECT
-   ========================================== */
-.gradient-border {
+.accent-underline-red {
   position: relative;
+  display: inline;
 }
-.gradient-border::before {
+.accent-underline-red::after {
   content: '';
   position: absolute;
-  inset: 0;
-  padding: 1px;
-  border-radius: inherit;
-  background: linear-gradient(135deg, rgba(184, 150, 62, 0.3), rgba(184, 150, 62, 0.05), rgba(184, 150, 62, 0.3));
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  opacity: 0;
-  transition: opacity 0.5s ease;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #E44D60;
+  border-radius: 2px;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='6' viewBox='0 0 100 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 3 Q 5 0, 10 3 Q 15 6, 20 3 Q 25 0, 30 3 Q 35 6, 40 3 Q 45 0, 50 3 Q 55 6, 60 3 Q 65 0, 70 3 Q 75 6, 80 3 Q 85 0, 90 3 Q 95 6, 100 3' fill='none' stroke='%23E44D60' stroke-width='2.5'/%3E%3C/svg%3E");
+  background-size: 100px 6px;
+  background-repeat: repeat-x;
+  background-color: transparent;
+  height: 6px;
 }
-.gradient-border:hover::before {
-  opacity: 1;
+
+.accent-underline-orange {
+  position: relative;
+  display: inline;
+  border-bottom: 3px solid #E8893C;
+  padding-bottom: 2px;
+}
+
+.accent-underline-yellow {
+  position: relative;
+  display: inline;
+  border-bottom: 3px solid #E8C93C;
+  padding-bottom: 2px;
+}
+
+.accent-circle-green {
+  position: relative;
+  display: inline;
+  border: 2.5px solid #3BAF6A;
+  border-radius: 50%;
+  padding: 2px 8px;
+}
+
+.accent-underline-blue {
+  position: relative;
+  display: inline;
+}
+.accent-underline-blue::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='6' viewBox='0 0 100 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 3 Q 5 0, 10 3 Q 15 6, 20 3 Q 25 0, 30 3 Q 35 6, 40 3 Q 45 0, 50 3 Q 55 6, 60 3 Q 65 0, 70 3 Q 75 6, 80 3 Q 85 0, 90 3 Q 95 6, 100 3' fill='none' stroke='%234A7FBF' stroke-width='2.5'/%3E%3C/svg%3E");
+  background-size: 100px 6px;
+  background-repeat: repeat-x;
+  background-color: transparent;
+}
+
+.accent-highlight-magenta {
+  display: inline;
+  background: #C94FAB;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 3px;
 }
 
 /* ==========================================
-   MODERN SECTION STYLES
+   DIAGONAL SECTION DIVIDER
    ========================================== */
-.section-dark {
-  background: #0A0A0A;
-  color: #FAFAF7;
+.diagonal-top {
+  position: relative;
+}
+.diagonal-top::before {
+  content: '';
+  position: absolute;
+  top: -60px;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: inherit;
+  clip-path: ellipse(55% 100% at 50% 100%);
 }
 
-.section-rich {
-  background: linear-gradient(180deg, #0D0D0D 0%, #141414 100%);
+/* ==========================================
+   HERO OVERLAY
+   ========================================== */
+.hero-overlay {
+  background: linear-gradient(135deg, rgba(20, 30, 48, 0.75) 0%, rgba(20, 30, 48, 0.55) 50%, rgba(20, 30, 48, 0.4) 100%);
 }
 
-/* Subtle line decoration */
-.accent-line {
-  width: 48px;
-  height: 2px;
-  background: linear-gradient(90deg, #B8963E, rgba(184, 150, 62, 0.2));
-}
-
-/* Modern tag/badge */
+/* ==========================================
+   MODERN TAG
+   ========================================== */
 .modern-tag {
   display: inline-flex;
   align-items: center;
@@ -189,31 +182,20 @@ button, a {
   text-transform: uppercase;
 }
 
-/* Text gradient */
-.text-gradient-gold {
-  background: linear-gradient(135deg, #D4B262, #B8963E, #A07830);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+/* ==========================================
+   ACCENT LINE
+   ========================================== */
+.accent-line {
+  width: 48px;
+  height: 2px;
+  background: #1A8A84;
 }
 
-/* Card glow on hover */
-.card-glow {
-  transition: box-shadow 0.5s ease, border-color 0.5s ease, transform 0.5s ease;
+/* Card hover */
+.card-lift {
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
-.card-glow:hover {
-  box-shadow: 0 20px 60px -15px rgba(184, 150, 62, 0.12), 0 0 0 1px rgba(184, 150, 62, 0.15);
+.card-lift:hover {
   transform: translateY(-4px);
+  box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.08);
 }
-
-/* Stagger children animations */
-.stagger-children > * {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
-}
-.stagger-children.visible > *:nth-child(1) { transition-delay: 0.1s; opacity: 1; transform: translateY(0); }
-.stagger-children.visible > *:nth-child(2) { transition-delay: 0.2s; opacity: 1; transform: translateY(0); }
-.stagger-children.visible > *:nth-child(3) { transition-delay: 0.3s; opacity: 1; transform: translateY(0); }
-.stagger-children.visible > *:nth-child(4) { transition-delay: 0.4s; opacity: 1; transform: translateY(0); }
-.stagger-children.visible > *:nth-child(5) { transition-delay: 0.5s; opacity: 1; transform: translateY(0); }
