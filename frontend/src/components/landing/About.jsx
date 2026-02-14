@@ -13,8 +13,11 @@ export const About = () => {
   const [whyRef, whyVisible] = useInView();
 
   return (
-    <section id="about" className="py-28 lg:py-36 bg-white">
-      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+    <section id="about" className="relative py-28 lg:py-36 bg-[#0A0A0A] overflow-hidden noise-overlay">
+      {/* Background orb */}
+      <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#B8963E]/[0.03] blur-[100px]" />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
         {/* Main content */}
         <div
           ref={sectionRef}
@@ -23,64 +26,71 @@ export const About = () => {
             sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           )}
         >
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-[#B8963E] mb-5">
+          <div className="accent-line mb-6" />
+          <span className="modern-tag bg-white/5 text-[#B8963E] border border-white/10 mb-6">
             {t.tagline}
           </span>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-semibold text-[#1A1A1A] leading-tight max-w-3xl mb-10">
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[3.5rem] font-semibold text-white leading-tight max-w-3xl mb-12 tracking-tight">
             {t.title}
           </h2>
           <div className="grid lg:grid-cols-2 gap-8 mb-20">
             {t.paragraphs.map((p, i) => (
-              <p key={i} className="text-[#5C5C5C] text-lg leading-relaxed">
+              <p key={i} className="text-white/40 text-lg leading-relaxed">
                 {p}
               </p>
             ))}
           </div>
         </div>
 
-        {/* Stats */}
+        {/* Stats — Glass cards */}
         <div
           ref={statsRef}
           className={cn(
-            'grid grid-cols-2 lg:grid-cols-4 gap-8 mb-24 transition-all duration-1000 ease-out delay-200',
-            statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            'grid grid-cols-2 lg:grid-cols-4 gap-4 mb-24 stagger-children',
+            statsVisible ? 'visible' : ''
           )}
         >
           {t.stats.map((stat, i) => (
             <div
               key={i}
-              className="text-center lg:text-left p-6 rounded-xl border border-[#E8E5DE] bg-[#FAFAF7] hover:border-[#B8963E]/30 transition-colors duration-300"
+              className="glass-card rounded-2xl p-7 text-center hover:bg-white/[0.06] transition-all duration-500 group card-glow"
             >
-              <div className="font-heading text-4xl lg:text-5xl font-semibold text-[#1A1A1A] mb-2">
+              <div className="font-heading text-4xl lg:text-5xl font-semibold text-white mb-2 group-hover:text-gradient-gold transition-colors duration-300">
                 {stat.number}
               </div>
-              <div className="text-sm text-[#8A8A8A] font-medium tracking-wide">
+              <div className="text-xs text-white/30 font-medium tracking-wider uppercase">
                 {stat.label}
               </div>
             </div>
           ))}
         </div>
 
-        {/* Why Portugal */}
+        {/* Why Portugal — Rich card */}
         <div
           ref={whyRef}
           className={cn(
-            'relative p-10 lg:p-14 rounded-2xl bg-[#1A1A1A] text-white overflow-hidden transition-all duration-1000 ease-out delay-300',
+            'relative rounded-3xl overflow-hidden transition-all duration-1000 ease-out',
             whyVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           )}
         >
-          <div className="absolute top-0 right-0 w-[300px] h-[300px] bg-[#B8963E]/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-          <div className="relative">
-            <h3 className="font-heading text-3xl lg:text-4xl font-semibold mb-8">
+          {/* Card gradient background */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#B8963E]/10 via-[#141414] to-[#B8963E]/5" />
+          <div className="absolute inset-0 border border-[#B8963E]/15 rounded-3xl" />
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#B8963E]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
+
+          <div className="relative p-10 lg:p-16">
+            <h3 className="font-heading text-3xl lg:text-4xl font-semibold text-white mb-10">
               {t.whyPortugal.title}
             </h3>
-            <div className="grid sm:grid-cols-2 gap-x-12 gap-y-5">
+            <div className="grid sm:grid-cols-2 gap-x-14 gap-y-6">
               {t.whyPortugal.points.map((point, i) => (
-                <div key={i} className="flex items-start gap-4">
-                  <div className="flex-shrink-0 mt-1 w-5 h-5 rounded-full bg-[#B8963E]/20 flex items-center justify-center">
-                    <Check className="w-3 h-3 text-[#B8963E]" />
+                <div key={i} className="flex items-start gap-4 group">
+                  <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-[#B8963E]/15 flex items-center justify-center group-hover:bg-[#B8963E]/25 transition-colors duration-300">
+                    <Check className="w-3.5 h-3.5 text-[#B8963E]" />
                   </div>
-                  <span className="text-[#B0B0B0] leading-relaxed">{point}</span>
+                  <span className="text-white/50 leading-relaxed group-hover:text-white/70 transition-colors duration-300">
+                    {point}
+                  </span>
                 </div>
               ))}
             </div>

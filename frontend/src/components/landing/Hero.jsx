@@ -14,37 +14,48 @@ export const Hero = () => {
   };
 
   return (
-    <section className="relative min-h-screen flex items-center bg-[#FAFAF7] overflow-hidden">
-      {/* Subtle decorative elements */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#B8963E]/[0.03] rounded-full blur-3xl -translate-y-1/2 translate-x-1/3" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#B8963E]/[0.02] rounded-full blur-3xl translate-y-1/2 -translate-x-1/3" />
+    <section className="relative min-h-screen flex items-center bg-[#0A0A0A] overflow-hidden noise-overlay">
+      {/* Animated gradient orbs */}
+      <div className="absolute top-[-20%] right-[-10%] w-[700px] h-[700px] rounded-full bg-[#B8963E]/[0.06] blur-[120px] animate-float-slow" />
+      <div className="absolute bottom-[-10%] left-[-15%] w-[600px] h-[600px] rounded-full bg-[#B8963E]/[0.04] blur-[100px] animate-float-reverse" />
+      <div className="absolute top-[40%] right-[30%] w-[300px] h-[300px] rounded-full bg-[#D4B262]/[0.03] blur-[80px] animate-pulse-glow" />
 
-      <div className="relative max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-20 w-full">
+      {/* Subtle grid pattern */}
+      <div
+        className="absolute inset-0 opacity-[0.025]"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '80px 80px',
+        }}
+      />
+
+      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10 pt-32 pb-20 w-full">
         <div className="max-w-3xl">
-          {/* Pride accent line */}
-          <div className="flex gap-[2px] mb-10 opacity-80">
-            <div className="h-[2px] w-6 bg-[#C44D58] rounded-full" />
-            <div className="h-[2px] w-6 bg-[#D4895C] rounded-full" />
-            <div className="h-[2px] w-6 bg-[#D4B96A] rounded-full" />
-            <div className="h-[2px] w-6 bg-[#6A9E6C] rounded-full" />
-            <div className="h-[2px] w-6 bg-[#5B7FA5] rounded-full" />
-            <div className="h-[2px] w-6 bg-[#8E6A9E] rounded-full" />
+          {/* Pride accent line — muted, sophisticated */}
+          <div className="flex gap-[3px] mb-10">
+            <div className="h-[2px] w-8 bg-[#C44D58]/70 rounded-full" />
+            <div className="h-[2px] w-8 bg-[#D4895C]/70 rounded-full" />
+            <div className="h-[2px] w-8 bg-[#D4B96A]/70 rounded-full" />
+            <div className="h-[2px] w-8 bg-[#6A9E6C]/70 rounded-full" />
+            <div className="h-[2px] w-8 bg-[#5B7FA5]/70 rounded-full" />
+            <div className="h-[2px] w-8 bg-[#8E6A9E]/70 rounded-full" />
           </div>
 
-          {/* Tagline */}
-          <span className="inline-block text-xs font-semibold tracking-[0.2em] uppercase text-[#B8963E] mb-6">
+          {/* Tagline badge */}
+          <div className="modern-tag bg-[#B8963E]/10 text-[#B8963E] border border-[#B8963E]/20 mb-8">
+            <div className="w-1.5 h-1.5 rounded-full bg-[#B8963E] animate-pulse-glow" />
             {t.tagline}
-          </span>
+          </div>
 
           {/* Heading */}
-          <h1 className="font-heading text-5xl sm:text-6xl lg:text-7xl font-semibold text-[#1A1A1A] leading-[1.08] mb-8">
+          <h1 className="font-heading text-5xl sm:text-6xl lg:text-[5.5rem] font-semibold text-white leading-[1.05] mb-8 tracking-tight">
             {t.titleLine1}
             <br />
-            <span className="text-[#B8963E]">{t.titleLine2}</span>
+            <span className="text-gradient-gold">{t.titleLine2}</span>
           </h1>
 
           {/* Subtitle */}
-          <p className="text-lg lg:text-xl text-[#5C5C5C] leading-relaxed max-w-2xl mb-12">
+          <p className="text-lg lg:text-xl text-white/45 leading-relaxed max-w-2xl mb-14">
             {t.subtitle}
           </p>
 
@@ -52,7 +63,7 @@ export const Hero = () => {
           <div className="flex flex-col sm:flex-row gap-4">
             <Button
               onClick={() => scrollToSection('contact')}
-              className="bg-[#B8963E] hover:bg-[#A68535] text-[#FAFAF7] text-sm font-medium px-8 h-13 rounded-md transition-colors duration-300 shadow-lg shadow-[#B8963E]/20"
+              className="bg-[#B8963E] hover:bg-[#C9A74F] text-[#0A0A0A] text-sm font-semibold px-8 h-13 rounded-full transition-all duration-300 shadow-xl shadow-[#B8963E]/20 hover:shadow-[#B8963E]/30 hover:scale-[1.02]"
             >
               {t.cta1}
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -60,7 +71,7 @@ export const Hero = () => {
             <Button
               variant="outline"
               onClick={() => scrollToSection('services')}
-              className="border-[#D4D0C8] text-[#1A1A1A] hover:bg-[#F2F0EB] hover:border-[#B8963E]/40 text-sm font-medium px-8 h-13 rounded-md transition-all duration-300"
+              className="border-white/15 text-white/70 hover:bg-white/5 hover:text-white hover:border-white/25 text-sm font-medium px-8 h-13 rounded-full transition-all duration-300"
             >
               {t.cta2}
             </Button>
@@ -71,10 +82,13 @@ export const Hero = () => {
       {/* Scroll indicator */}
       <button
         onClick={() => scrollToSection('about')}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-[#8A8A8A] hover:text-[#B8963E] transition-colors duration-300 animate-gentle-bounce"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/25 hover:text-[#B8963E] transition-colors duration-300 animate-gentle-bounce"
       >
         <ChevronDown className="h-5 w-5" />
       </button>
+
+      {/* Bottom fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#0A0A0A] to-transparent" />
     </section>
   );
 };
