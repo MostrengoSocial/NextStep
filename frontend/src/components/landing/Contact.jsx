@@ -47,8 +47,8 @@ export const Contact = () => {
           <div
             ref={headerRef}
             className={cn(
-              'mb-14 transition-all duration-1000 ease-out',
-              headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              'mb-14 anim-fade-up',
+              headerVisible ? 'visible' : ''
             )}
           >
             <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl text-white italic">
