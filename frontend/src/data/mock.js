@@ -1,7 +1,7 @@
 export const heroImages = [
   {
-    url: "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80",
-    alt: "Modern luxury villa with pool in the Algarve"
+    url: "https://images.unsplash.com/photo-1757264119016-7e6b568b810d?auto=format&fit=crop&w=1920&q=80",
+    alt: "Modern contemporary white villa with swimming pool and palm trees"
   },
   {
     url: "https://images.unsplash.com/photo-1770163821178-d1f705ca0952?auto=format&fit=crop&w=1920&q=80",
