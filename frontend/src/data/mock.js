@@ -1,4 +1,4 @@
-export const heroImage = "https://images.unsplash.com/photo-1715929344430-83e121770bb2?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzZ8MHwxfHNlYXJjaHwzfHxQb3J0dWdhbCUyMHZpbGxhZ2V8ZW58MHx8fHwxNzcxMDc4OTc5fDA&ixlib=rb-4.1.0&q=85&w=1920";
+export const heroImage = "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=1920&q=80";
 export const aboutImage = "https://images.unsplash.com/photo-1712777825064-d66a9a8b0b61?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzR8MHwxfHNlYXJjaHw0fHxMaXNib24lMjBjb2JibGVzdG9uZXxlbnwwfHx8fDE3NzEwNzg5ODR8MA&ixlib=rb-4.1.0&q=85&w=800";
 export const contactImage = "https://images.unsplash.com/photo-1607010899763-108e728056f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHw0fHxQb3J0dWdhbCUyMGNvYXN0YWwlMjB0b3dufGVufDB8fHx8MTc3MTA3ODk4OHww&ixlib=rb-4.1.0&q=85&w=800";
 
