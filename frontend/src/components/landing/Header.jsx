@@ -43,9 +43,10 @@ export const Header = ({ selectedLogo = 1 }) => {
           {/* Logo */}
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="group"
+            className="group flex items-center gap-2.5"
           >
-            <Logo className="text-white" />
+            <LogoIcon size={26} />
+            <span className="font-heading text-xl font-semibold text-white">Next Step</span>
           </button>
 
           {/* Desktop Nav */}
