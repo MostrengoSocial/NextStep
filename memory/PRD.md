@@ -30,7 +30,7 @@ Build a modern, minimalist, and sophisticated landing page for "Next Step" - a b
 
 ### Completed Features (December 2025)
 1. **Hero Section with Slideshow**
-   - 4 high-quality images: Luxury villa, Tavira, Ria Formosa waterfront, Benagil cave
+   - 4 high-quality images: Luxury villa, Tavira, Quinta do Lago aerial beach, Lagos cliffs
    - Auto-transitions every 6 seconds with Ken Burns effect
    - Clickable slide indicators with progress animation
 
