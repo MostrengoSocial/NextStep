@@ -59,8 +59,8 @@ export const Contact = () => {
           <div
             ref={contentRef}
             className={cn(
-              'grid lg:grid-cols-2 gap-12 lg:gap-16 transition-all duration-1000 ease-out delay-200',
-              contentVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              'grid lg:grid-cols-2 gap-12 lg:gap-16 anim-fade-up delay-200',
+              contentVisible ? 'visible' : ''
             )}
           >
             {/* Left — Form */}
