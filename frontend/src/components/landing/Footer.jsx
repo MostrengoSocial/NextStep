@@ -19,7 +19,7 @@ export const Footer = () => {
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
               <RainbowLogo size="small" />
-              <span className="font-heading text-xl text-white">nextStep</span>
+              <span className="font-heading text-2xl text-white">nextStep</span>
             </div>
             <p className="text-sm text-white/30 leading-relaxed max-w-xs">{t.description}</p>
           </div>
