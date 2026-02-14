@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { content } from '../../data/mock';
+import { content, aboutImage } from '../../data/mock';
 import { useInView } from '../../hooks/useInView';
 import { Check } from 'lucide-react';
 import { cn } from '../../lib/utils';
@@ -13,86 +13,96 @@ export const About = () => {
   const [whyRef, whyVisible] = useInView();
 
   return (
-    <section id="about" className="relative py-28 lg:py-36 bg-[#0A0A0A] overflow-hidden noise-overlay">
-      {/* Background orb */}
-      <div className="absolute top-[20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#B8963E]/[0.03] blur-[100px]" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
-        {/* Main content */}
+    <section id="about" className="py-24 lg:py-32 bg-[#F8F7F4]">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
+        {/* Two column: Image + Text */}
         <div
           ref={sectionRef}
           className={cn(
-            'transition-all duration-1000 ease-out',
+            'grid lg:grid-cols-2 gap-12 lg:gap-20 items-center mb-24 transition-all duration-1000 ease-out',
             sectionVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           )}
         >
-          <div className="accent-line mb-6" />
-          <span className="modern-tag bg-white/5 text-[#B8963E] border border-white/10 mb-6">
-            {t.tagline}
-          </span>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[3.5rem] font-semibold text-white leading-tight max-w-3xl mb-12 tracking-tight">
-            {t.title}
-          </h2>
-          <div className="grid lg:grid-cols-2 gap-8 mb-20">
-            {t.paragraphs.map((p, i) => (
-              <p key={i} className="text-white/40 text-lg leading-relaxed">
-                {p}
-              </p>
-            ))}
+          {/* Image */}
+          <div className="relative">
+            <div className="rounded-3xl overflow-hidden shadow-2xl shadow-black/10">
+              <img
+                src={aboutImage}
+                alt="Lisbon street"
+                className="w-full h-[500px] object-cover"
+                loading="lazy"
+              />
+            </div>
+            {/* Pride accent dots */}
+            <div className="absolute -bottom-4 -right-4 flex gap-2">
+              <div className="w-3 h-3 rounded-full bg-[#E44D60]" />
+              <div className="w-3 h-3 rounded-full bg-[#E8893C]" />
+              <div className="w-3 h-3 rounded-full bg-[#E8C93C]" />
+              <div className="w-3 h-3 rounded-full bg-[#3BAF6A]" />
+              <div className="w-3 h-3 rounded-full bg-[#4A7FBF]" />
+              <div className="w-3 h-3 rounded-full bg-[#C94FAB]" />
+            </div>
+          </div>
+
+          {/* Text */}
+          <div>
+            <h2 className="font-heading text-3xl sm:text-4xl lg:text-[2.8rem] text-[#1A1A1A] leading-tight mb-8 italic">
+              {t.title}
+            </h2>
+            <div className="space-y-5">
+              {t.paragraphs.map((p, i) => (
+                <p key={i} className="text-[#5C5C5C] text-lg leading-relaxed">
+                  {p}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Stats — Glass cards */}
+        {/* Stats */}
         <div
           ref={statsRef}
           className={cn(
-            'grid grid-cols-2 lg:grid-cols-4 gap-4 mb-24 stagger-children',
-            statsVisible ? 'visible' : ''
+            'grid grid-cols-2 lg:grid-cols-4 gap-6 mb-24 transition-all duration-1000 ease-out delay-200',
+            statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           )}
         >
-          {t.stats.map((stat, i) => (
-            <div
-              key={i}
-              className="glass-card rounded-2xl p-7 text-center hover:bg-white/[0.06] transition-all duration-500 group card-glow"
-            >
-              <div className="font-heading text-4xl lg:text-5xl font-semibold text-white mb-2 group-hover:text-gradient-gold transition-colors duration-300">
-                {stat.number}
+          {t.stats.map((stat, i) => {
+            const colors = ['#E44D60', '#E8893C', '#3BAF6A', '#4A7FBF'];
+            return (
+              <div key={i} className="text-center p-8 rounded-2xl bg-white shadow-sm card-lift">
+                <div className="font-heading text-4xl lg:text-5xl text-[#1A1A1A] mb-2">
+                  {stat.number}
+                </div>
+                <div className="text-sm text-[#8A8A8A] font-medium">{stat.label}</div>
+                <div className="w-8 h-[3px] rounded-full mx-auto mt-4" style={{ background: colors[i] }} />
               </div>
-              <div className="text-xs text-white/30 font-medium tracking-wider uppercase">
-                {stat.label}
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
-        {/* Why Portugal — Rich card */}
+        {/* Why Portugal */}
         <div
           ref={whyRef}
           className={cn(
-            'relative rounded-3xl overflow-hidden transition-all duration-1000 ease-out',
+            'relative p-10 lg:p-14 rounded-3xl bg-[#1A1A1A] text-white overflow-hidden transition-all duration-1000 ease-out delay-300',
             whyVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           )}
         >
-          {/* Card gradient background */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#B8963E]/10 via-[#141414] to-[#B8963E]/5" />
-          <div className="absolute inset-0 border border-[#B8963E]/15 rounded-3xl" />
-          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[#B8963E]/10 rounded-full blur-[120px] -translate-y-1/2 translate-x-1/3" />
-
-          <div className="relative p-10 lg:p-16">
-            <h3 className="font-heading text-3xl lg:text-4xl font-semibold text-white mb-10">
-              {t.whyPortugal.title}
-            </h3>
+          <div className="relative">
+            <h3 className="font-heading text-3xl lg:text-4xl italic mb-10">{t.whyPortugal.title}</h3>
             <div className="grid sm:grid-cols-2 gap-x-14 gap-y-6">
-              {t.whyPortugal.points.map((point, i) => (
-                <div key={i} className="flex items-start gap-4 group">
-                  <div className="flex-shrink-0 mt-1 w-6 h-6 rounded-full bg-[#B8963E]/15 flex items-center justify-center group-hover:bg-[#B8963E]/25 transition-colors duration-300">
-                    <Check className="w-3.5 h-3.5 text-[#B8963E]" />
+              {t.whyPortugal.points.map((point, i) => {
+                const colors = ['#E44D60', '#E8893C', '#E8C93C', '#3BAF6A', '#4A7FBF'];
+                return (
+                  <div key={i} className="flex items-start gap-4">
+                    <div className="flex-shrink-0 mt-1 w-5 h-5 rounded-full flex items-center justify-center" style={{ background: `${colors[i]}25` }}>
+                      <Check className="w-3 h-3" style={{ color: colors[i] }} />
+                    </div>
+                    <span className="text-white/60 leading-relaxed">{point}</span>
                   </div>
-                  <span className="text-white/50 leading-relaxed group-hover:text-white/70 transition-colors duration-300">
-                    {point}
-                  </span>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

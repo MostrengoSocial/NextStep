@@ -2,10 +2,55 @@ import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { content } from '../../data/mock';
 import { useInView } from '../../hooks/useInView';
-import { Scale, Handshake, TrendingUp, Shield, ArrowRight } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
-const iconMap = { Scale, Handshake, TrendingUp, Shield };
+/* Render the decorated heading based on decoration type */
+const ServiceHeading = ({ item }) => {
+  switch (item.decoration) {
+    case 'red-wavy':
+      return (
+        <h3 className="font-heading text-2xl lg:text-[1.7rem] text-[#1A1A1A] leading-snug">
+          {item.title} <span className="accent-underline-red">{item.highlight}</span>
+        </h3>
+      );
+    case 'orange-line':
+      return (
+        <h3 className="font-heading text-2xl lg:text-[1.7rem] text-[#1A1A1A] leading-snug">
+          <span className="accent-underline-orange">{item.title.replace(',', '')}</span>, {item.highlight}
+        </h3>
+      );
+    case 'yellow-line':
+      return (
+        <h3 className="font-heading text-2xl lg:text-[1.7rem] text-[#1A1A1A] leading-snug">
+          {item.title} <span className="accent-underline-yellow">{item.highlight}</span>
+        </h3>
+      );
+    case 'green-circle':
+      return (
+        <h3 className="font-heading text-2xl lg:text-[1.7rem] text-[#1A1A1A] leading-snug">
+          {item.title} {item.highlight} <span className="accent-circle-green">{item.highlightAccent}</span>
+        </h3>
+      );
+    case 'blue-wavy':
+      return (
+        <h3 className="font-heading text-2xl lg:text-[1.7rem] text-[#1A1A1A] leading-snug">
+          {item.title} <span className="accent-underline-blue">{item.highlight}</span>
+        </h3>
+      );
+    case 'magenta-highlight':
+      return (
+        <h3 className="font-heading text-2xl lg:text-[1.7rem] text-[#1A1A1A] leading-snug">
+          {item.title} <span className="accent-highlight-magenta">{item.highlight}</span>
+        </h3>
+      );
+    default:
+      return (
+        <h3 className="font-heading text-2xl lg:text-[1.7rem] text-[#1A1A1A] leading-snug">
+          {item.title} {item.highlight}
+        </h3>
+      );
+  }
+};
 
 export const Services = () => {
   const { language } = useLanguage();
@@ -14,14 +59,8 @@ export const Services = () => {
   const [gridRef, gridVisible] = useInView();
 
   return (
-    <section id="services" className="relative py-28 lg:py-36 bg-[#0D0D0D] overflow-hidden noise-overlay">
-      {/* Decorative orbs */}
-      <div className="absolute bottom-[-15%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#B8963E]/[0.04] blur-[120px] animate-float-reverse" />
-
-      {/* Top section divider */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
-
-      <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
+    <section id="services" className="py-24 lg:py-32 bg-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Header */}
         <div
           ref={headerRef}
@@ -30,54 +69,27 @@ export const Services = () => {
             headerVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           )}
         >
-          <div className="accent-line mb-6" />
-          <span className="modern-tag bg-white/5 text-[#B8963E] border border-white/10 mb-6">
+          <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl text-[#1A1A1A] italic">
             {t.tagline}
-          </span>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-[3.5rem] font-semibold text-white leading-tight max-w-3xl mb-5 tracking-tight">
-            {t.title}
           </h2>
-          <p className="text-lg text-white/40 max-w-2xl">{t.subtitle}</p>
         </div>
 
-        {/* Grid */}
+        {/* 2-column grid — matching the reference layout */}
         <div
           ref={gridRef}
           className={cn(
-            'grid md:grid-cols-2 gap-5 stagger-children',
-            gridVisible ? 'visible' : ''
+            'grid md:grid-cols-2 gap-x-16 gap-y-16 transition-all duration-1000 ease-out delay-200',
+            gridVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           )}
         >
-          {t.items.map((item, i) => {
-            const IconComponent = iconMap[item.icon];
-            return (
-              <div
-                key={i}
-                className="group relative glass-card rounded-2xl p-8 lg:p-10 gradient-border card-glow cursor-default overflow-hidden"
-              >
-                {/* Hover glow */}
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-[#B8963E]/[0.03] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                <div className="relative">
-                  <div className="w-14 h-14 rounded-2xl bg-[#B8963E]/10 flex items-center justify-center mb-7 group-hover:bg-[#B8963E]/15 transition-colors duration-300">
-                    {IconComponent && (
-                      <IconComponent className="w-7 h-7 text-[#B8963E]" strokeWidth={1.5} />
-                    )}
-                  </div>
-                  <h3 className="font-heading text-xl lg:text-2xl font-semibold text-white mb-4">
-                    {item.title}
-                  </h3>
-                  <p className="text-white/35 leading-relaxed mb-7">
-                    {item.description}
-                  </p>
-                  <div className="flex items-center gap-2 text-sm font-medium text-[#B8963E] opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-2 group-hover:translate-y-0">
-                    <span>{language === 'en' ? 'Learn more' : 'Saber mais'}</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </div>
-                </div>
-              </div>
-            );
-          })}
+          {t.items.map((item, i) => (
+            <div key={i} className="group">
+              <ServiceHeading item={item} />
+              <p className="text-[#5C5C5C] leading-relaxed mt-5 max-w-md">
+                {item.description}
+              </p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

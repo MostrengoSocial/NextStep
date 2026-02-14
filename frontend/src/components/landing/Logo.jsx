@@ -1,39 +1,17 @@
 import React from 'react';
 
-export const Logo = ({ className = '', size = 'default', variant = 'full' }) => {
-  const sizes = {
-    small: { icon: 20, text: 'text-lg' },
-    default: { icon: 26, text: 'text-xl' },
-    large: { icon: 34, text: 'text-2xl' },
-  };
+/* Rainbow chevron logo inspired by the reference — pride colors */
+export const RainbowLogo = ({ size = 'default' }) => {
+  const sizes = { small: 32, default: 40, large: 52 };
   const s = sizes[size] || sizes.default;
-
   return (
-    <div className={`flex items-center gap-2.5 ${className}`}>
-      {/* Icon mark — ascending steps */}
-      <svg
-        width={s.icon}
-        height={s.icon}
-        viewBox="0 0 32 32"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        className="flex-shrink-0"
-      >
-        <rect x="0" y="22" width="9" height="10" rx="2" fill="#B8963E" />
-        <rect x="11.5" y="12" width="9" height="20" rx="2" fill="#B8963E" opacity="0.7" />
-        <rect x="23" y="0" width="9" height="32" rx="2" fill="#B8963E" opacity="0.4" />
-      </svg>
-      {/* Wordmark */}
-      {variant === 'full' && (
-        <div className="flex flex-col leading-none">
-          <span
-            className={`font-heading font-semibold tracking-tight ${s.text}`}
-            style={{ lineHeight: 1.1 }}
-          >
-            Next Step
-          </span>
-        </div>
-      )}
-    </div>
+    <svg width={s} height={s} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+      {/* Overlapping chevrons in pride colors */}
+      <path d="M8 8 L20 20 L8 32" stroke="#E44D60" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M14 8 L26 20 L14 32" stroke="#E8893C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M20 8 L32 20 L20 32" stroke="#E8C93C" strokeWidth="4" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M26 11 L35 20 L26 29" stroke="#3BAF6A" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M30 14 L37 20 L30 26" stroke="#4A7FBF" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
   );
 };
