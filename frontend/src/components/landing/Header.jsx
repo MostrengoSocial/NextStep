@@ -3,17 +3,19 @@ import { useLanguage } from '../../context/LanguageContext';
 import { content } from '../../data/mock';
 import { Button } from '../ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
-import { Logo } from './Logo';
+import { LogoIcon1, LogoIcon2, LogoIcon3, LogoIcon4, LogoIcon5 } from './LogoShowcase';
 import { Menu, ArrowRight } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
+const logoMap = { 1: LogoIcon1, 2: LogoIcon2, 3: LogoIcon3, 4: LogoIcon4, 5: LogoIcon5 };
 const navLinks = ['about', 'services', 'testimonials', 'contact'];
 
-export const Header = () => {
+export const Header = ({ selectedLogo = 1 }) => {
   const { language, toggleLanguage } = useLanguage();
   const t = content[language].nav;
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const LogoIcon = logoMap[selectedLogo] || LogoIcon1;
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
