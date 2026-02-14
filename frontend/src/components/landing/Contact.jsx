@@ -132,7 +132,7 @@ export const Contact = () => {
 
             {/* Right — Image */}
             <div className="hidden lg:block">
-              <div className="rounded-3xl overflow-hidden h-full">
+              <div className="rounded-3xl overflow-hidden h-full img-zoom">
                 <img
                   src={contactImage}
                   alt="Portugal"
