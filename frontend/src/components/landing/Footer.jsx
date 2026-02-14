@@ -13,7 +13,7 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#0D0D0D] text-white">
+    <footer className="bg-[#0D0D0D] text-white border-t border-white/[0.06]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10 pt-16 pb-10">
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-16 mb-14">
           <div className="sm:col-span-2 lg:col-span-1">
