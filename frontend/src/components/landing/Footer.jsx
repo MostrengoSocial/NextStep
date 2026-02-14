@@ -1,11 +1,14 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
 import { content } from '../../data/mock';
-import { Logo } from './Logo';
+import { LogoIcon1, LogoIcon2, LogoIcon3, LogoIcon4, LogoIcon5 } from './LogoShowcase';
 
-export const Footer = () => {
+const logoMap = { 1: LogoIcon1, 2: LogoIcon2, 3: LogoIcon3, 4: LogoIcon4, 5: LogoIcon5 };
+
+export const Footer = ({ selectedLogo = 1 }) => {
   const { language } = useLanguage();
   const t = content[language].footer;
+  const LogoIcon = logoMap[selectedLogo] || LogoIcon1;
 
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
