@@ -143,7 +143,7 @@ export const content = {
       },
       info: {
         address: "Av. da Liberdade 110, 1269-046 Lisboa",
-        email: "hello@nextstep.pt",
+        email: "hello@nextstep.com.pt",
         phone: "+351 21 000 0000",
         hours: "Mon\u2013Fri: 9:00\u201318:00 | Sat: By appointment"
       },
@@ -290,7 +290,7 @@ export const content = {
       },
       info: {
         address: "Av. da Liberdade 110, 1269-046 Lisboa",
-        email: "hello@nextstep.pt",
+        email: "hello@nextstep.com.pt",
         phone: "+351 21 000 0000",
         hours: "Seg\u2013Sex: 9:00\u201318:00 | S\u00e1b: Por marca\u00e7\u00e3o"
       },
