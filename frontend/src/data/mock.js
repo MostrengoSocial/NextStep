@@ -4,16 +4,16 @@ export const heroImages = [
     alt: "Modern luxury villa with pool in the Algarve"
   },
   {
-    url: "https://images.unsplash.com/photo-1763578481200-a7eb67b36744?auto=format&fit=crop&w=1920&q=80",
-    alt: "Traditional Algarve village with white houses and red roofs"
+    url: "https://images.unsplash.com/photo-1770163821178-d1f705ca0952?auto=format&fit=crop&w=1920&q=80",
+    alt: "Tavira - Historic town with white buildings and terracotta roofs"
   },
   {
-    url: "https://images.unsplash.com/photo-1717167350923-58ad2fa17c9e?auto=format&fit=crop&w=1920&q=80",
-    alt: "Algarve golf resort with lush green fairways"
+    url: "https://images.unsplash.com/photo-1707862991399-f1513ecdc765?auto=format&fit=crop&w=1920&q=80",
+    alt: "Ria Formosa - Luxury waterfront houses by the lagoon"
   },
   {
-    url: "https://images.unsplash.com/photo-1652092521197-f1f75f445eb8?auto=format&fit=crop&w=1920&q=80",
-    alt: "Dramatic cliff beach on the Portuguese Algarve coast"
+    url: "https://images.unsplash.com/photo-1560242374-7befcc667b39?auto=format&fit=crop&w=1920&q=80",
+    alt: "Benagil Cave - Iconic sea cave beach on the Algarve coast"
   }
 ];
 export const heroImage = heroImages[0].url;
