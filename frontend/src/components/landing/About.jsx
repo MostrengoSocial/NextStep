@@ -83,8 +83,8 @@ export const About = () => {
         <div
           ref={whyRef}
           className={cn(
-            'relative p-10 lg:p-14 rounded-3xl bg-[#1A1A1A] text-white overflow-hidden transition-all duration-1000 ease-out delay-300',
-            whyVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            'relative p-10 lg:p-14 rounded-3xl bg-[#1A1A1A] text-white overflow-hidden anim-scale-in',
+            whyVisible ? 'visible' : ''
           )}
         >
           <div className="relative">
