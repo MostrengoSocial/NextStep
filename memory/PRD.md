@@ -124,4 +124,4 @@ Build a modern, minimalist, and sophisticated landing page for "Next Step" - a b
 - WhatsApp: 351934229144
 - Email: hello@nextstep.com.pt (domain not yet propagated)
 - Messenger: nextstepportugal
-- Preview URL: https://pride-legal-hub.preview.emergentagent.com
+- Preview URL: https://next-step-preview.preview.emergentagent.com
