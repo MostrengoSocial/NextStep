@@ -95,9 +95,62 @@ async def get_status_checks():
 
 
 # Contact Form Endpoints
+async def send_notification_email(submission: ContactSubmission):
+    """Send email notification for new contact form submission"""
+    try:
+        html_content = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+            <h2 style="color: #1A1A1A; border-bottom: 2px solid #1A8A84; padding-bottom: 10px;">New Contact Form Submission</h2>
+            
+            <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                <tr>
+                    <td style="padding: 10px; background-color: #f5f5f5; font-weight: bold; width: 30%;">Name:</td>
+                    <td style="padding: 10px; background-color: #fafafa;">{submission.name}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; background-color: #f5f5f5; font-weight: bold;">Email:</td>
+                    <td style="padding: 10px; background-color: #fafafa;"><a href="mailto:{submission.email}" style="color: #1A8A84;">{submission.email}</a></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; background-color: #f5f5f5; font-weight: bold;">Phone:</td>
+                    <td style="padding: 10px; background-color: #fafafa;">{submission.phone or 'Not provided'}</td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px; background-color: #f5f5f5; font-weight: bold;">Service Interest:</td>
+                    <td style="padding: 10px; background-color: #fafafa;">{submission.service or 'Not specified'}</td>
+                </tr>
+            </table>
+            
+            <div style="margin-top: 20px; padding: 15px; background-color: #f8f7f4; border-left: 4px solid #1A8A84;">
+                <h3 style="margin: 0 0 10px 0; color: #1A1A1A;">Message:</h3>
+                <p style="margin: 0; color: #444; line-height: 1.6;">{submission.message}</p>
+            </div>
+            
+            <p style="margin-top: 20px; font-size: 12px; color: #888;">
+                Submitted on: {submission.timestamp.strftime('%B %d, %Y at %H:%M UTC')}
+            </p>
+        </div>
+        """
+        
+        params = {
+            "from": SENDER_EMAIL,
+            "to": [NOTIFICATION_EMAIL],
+            "subject": f"nextStep - New Inquiry from {submission.name}",
+            "html": html_content
+        }
+        
+        # Run sync SDK in thread to keep FastAPI non-blocking
+        email = await asyncio.to_thread(resend.Emails.send, params)
+        logger.info(f"Notification email sent successfully. Email ID: {email.get('id')}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send notification email: {str(e)}")
+        return False
+
+
 @api_router.post("/contact", response_model=ContactSubmission)
 async def submit_contact_form(input: ContactSubmissionCreate):
-    """Submit a contact form inquiry - saves to database"""
+    """Submit a contact form inquiry - saves to database and sends email notification"""
     submission_dict = input.model_dump()
     submission_obj = ContactSubmission(**submission_dict)
     
@@ -107,6 +160,9 @@ async def submit_contact_form(input: ContactSubmissionCreate):
     await db.contact_submissions.insert_one(doc)
     
     logger.info(f"New contact submission from {input.name} ({input.email})")
+    
+    # Send email notification (non-blocking, don't fail if email fails)
+    await send_notification_email(submission_obj)
     
     return submission_obj
 
