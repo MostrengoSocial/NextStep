@@ -162,7 +162,7 @@ export const content = {
       }
     },
     footer: {
-      description: "A boutique legal practice dedicated to LGBTQIA+ individuals and families building new lives in Portugal. We're your bridge, your advocate, your safe harbor.",
+      description: "A boutique consultancy dedicated to LGBTQIA+ individuals and families building new lives in Portugal. We're your bridge, your advocate, your safe harbor.",
       sections: {
         services: "Services",
         company: "Company",
@@ -324,7 +324,7 @@ export const content = {
       }
     },
     footer: {
-      description: "Um escritório de advocacia boutique dedicado a indivíduos e famílias LGBTQIA+ construindo novas vidas em Portugal. Somos a sua ponte, o seu advogado, o seu porto seguro.",
+      description: "Um serviço de consultoria boutique dedicado a indivíduos e famílias LGBTQIA+ construindo novas vidas em Portugal. Somos a sua ponte, o seu advogado, o seu porto seguro.",
       sections: {
         services: "Serviços",
         company: "Empresa",
