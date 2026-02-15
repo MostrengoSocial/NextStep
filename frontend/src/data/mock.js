@@ -12,13 +12,13 @@ export const heroImages = [
     alt: "Quinta do Lago - Aerial view of pristine beach with lush vegetation"
   },
   {
-    url: "https://images.unsplash.com/photo-1721120135035-7eb316da0fdc?auto=format&fit=crop&w=1920&q=80",
-    alt: "Happy couple enjoying their new life in Portugal"
+    url: "https://images.unsplash.com/photo-1725344153786-22686793e5a3?auto=format&fit=crop&w=1920&q=80",
+    alt: "Lagos - Dramatic rock formations and cliffs along the coastline"
   }
 ];
 export const heroImage = heroImages[0].url;
 export const aboutImage = "https://images.unsplash.com/photo-1762335358426-72c27db3f5ff?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwyfHxMaXNib24lMjB5ZWxsb3clMjB0cmFtJTIwaGlzdG9yaWMlMjBzdHJlZXQlMjBQb3J0dWdhbHxlbnwwfHx8fDE3NzEwODY4MTV8MA&ixlib=rb-4.1.0&q=85&w=1200";
-export const contactImage = "https://images.unsplash.com/photo-1767858703755-6add71d448b7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwzfHx0d28lMjBtZW4lMjBjb3VwbGUlMjBodWdnaW5nJTIwaGFwcHklMjBvdXRkb29ycyUyMG1hdHVyZXxlbnwwfHx8fDE3NzExODIyNjN8MA&ixlib=rb-4.1.0&q=85&w=1200";
+export const contactImage = "https://images.unsplash.com/photo-1721120135035-7eb316da0fdc?auto=format&fit=crop&w=1200&q=80";
 
 export const content = {
   en: {
