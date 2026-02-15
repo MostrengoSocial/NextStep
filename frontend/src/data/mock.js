@@ -109,19 +109,19 @@ export const content = {
       subtitle: "Real stories from individuals and couples who trusted us with their life-changing move to Portugal.",
       items: [
         {
-          quote: "After the 2024 election, we knew we had to leave the US. NextStep didn't just handle our D7 Visa - they gave us hope and a clear path forward during an uncertain time. Six months later, we're home.",
+          quote: "After the 2024 election, we knew we had to leave the US. nextStep didn't just handle our D7 Visa - they gave us hope and a clear path forward during an uncertain time. Six months later, we're home.",
           name: "Marcus & David Chen",
           location: "San Francisco → Cascais",
           initials: "MD"
         },
         {
-          quote: "As a trans woman, I was terrified of the legal complexities and potential discrimination. NextStep treated me with such dignity and professionalism. They knew exactly what I was going through and made everything feel safe.",
+          quote: "As a trans woman, I was terrified of the legal complexities and potential discrimination. nextStep treated me with such dignity and professionalism. They knew exactly what I was going through and made everything feel safe.",
           name: "Sarah T.",
           location: "Toronto → Algarve (Faro)",
           initials: "ST"
         },
         {
-          quote: "We needed lawyers who understood Brazilian documentation AND Portuguese requirements AND our situation as a same-sex couple with kids. NextStep's team handled it all flawlessly. They even helped us find schools!",
+          quote: "We needed lawyers who understood Brazilian documentation AND Portuguese requirements AND our situation as a same-sex couple with kids. nextStep's team handled it all flawlessly. They even helped us find schools!",
           name: "Maria & Ana Ferreira",
           location: "São Paulo → Algarve (Tavira)",
           initials: "MA"
