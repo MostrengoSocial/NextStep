@@ -59,7 +59,7 @@ export const Services = () => {
   const [gridRef, gridVisible] = useInView();
 
   return (
-    <section id="services" className="py-24 lg:py-32 bg-white">
+    <section id="services" className="pt-12 lg:pt-16 pb-24 lg:pb-32 bg-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         {/* Header */}
         <div

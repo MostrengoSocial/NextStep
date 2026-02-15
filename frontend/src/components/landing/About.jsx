@@ -91,7 +91,7 @@ export const About = () => {
             <h3 className="font-heading text-3xl lg:text-4xl italic mb-10">{t.whyPortugal.title}</h3>
             <div className="grid sm:grid-cols-2 gap-x-14 gap-y-6">
               {t.whyPortugal.points.map((point, i) => {
-                const colors = ['#E44D60', '#E8893C', '#E8C93C', '#3BAF6A', '#4A7FBF'];
+                const colors = ['#E44D60', '#E8893C', '#E8C93C', '#3BAF6A', '#4A7FBF', '#C94FAB'];
                 return (
                   <div key={i} className="flex items-start gap-4">
                     <div className="flex-shrink-0 mt-1 w-5 h-5 rounded-full flex items-center justify-center" style={{ background: `${colors[i]}25` }}>
