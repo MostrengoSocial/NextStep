@@ -1,127 +1,116 @@
-# Next Step - Product Requirements Document
+# nextStep - Product Requirements Document
 
 ## Original Problem Statement
-Build a modern, minimalist, and sophisticated landing page for "Next Step" - a boutique consultancy firm providing lawyer/mediator/consultancy services for LGBTQIA+ individuals investing in Portugal.
+Build a modern, minimalist, and sophisticated landing page for "nextStep," a business providing lawyer/mediator/consultancy services for LGBTQIA+ individuals investing in Portugal.
 
-## Target Audience
-- Boomer/Gen X LGBTQIA+ individuals and families
-- Looking to invest, relocate, or establish business presence in Portugal
-- International clients (primarily from UK, Canada, Brazil, USA)
+## Business Information
+- **Business Name:** nextStep (case-sensitive)
+- **Services:** Legal/immigration/consultancy for LGBTQIA+ individuals relocating to Portugal
+- **Target Audience:** LGBTQIA+ individuals and families from US, Canada, Brazil, and other countries seeking to move to Portugal
 
 ## Core Requirements
-
-### Functionality
-- Bilingual support (English & Portuguese) with toggle
+- Bilingual support (English & Portuguese) with language toggle
 - Testimonials/Client Stories section
-- Contact form with backend submission
-- WhatsApp integration (934229144)
-- Facebook Messenger integration
+- Contact form that saves submissions to database
+- WhatsApp integration
+- Basic legal pages (Privacy Policy, Terms, Legal Disclaimer)
+- SEO-optimized with proper meta tags
+- Hero section with cross-fading image slideshow
+- Custom logo with ">" symbol (also used as favicon)
+- Consistent branding ("nextStep" casing)
+- Smooth, modern animations
 
-### Design
-- Sophisticated, modern look and feel
-- Inspired by reference site: https://apricot-harmonica-egca.squarespace.com/
-- Hero slideshow featuring Algarve region (Tavira, Ria Formosa, Benagil)
-- Smooth page-wide animations
-- Custom rainbow-themed logo
-
----
-
-## What's Been Implemented
-
-### Completed Features (December 2025)
-1. **Hero Section with Slideshow**
-   - 4 high-quality images: Luxury villa, Tavira, Quinta do Lago aerial beach, Lagos cliffs
-   - Auto-transitions every 6 seconds with Ken Burns effect
-   - Clickable slide indicators with progress animation
-
-2. **Bilingual Support**
-   - Language context with EN/PT toggle
-   - All content translatable via mock.js data file
-
-3. **Contact Form (Full Stack)**
-   - Frontend form with validation
-   - Backend API: POST /api/contact
-   - Saves submissions to MongoDB (contact_submissions collection)
-   - Success/error toast notifications
-   - Loading state with spinner
-
-4. **WhatsApp Integration**
-   - Direct link: wa.me/351934229144
-   - Styled button in contact section
-
-5. **Messenger Integration**
-   - Direct link: m.me/nextstepportugal
-   - Styled button in contact section
-
-6. **Page Sections**
-   - Header with navigation and language toggle
-   - Hero with slideshow
-   - About section with stats
-   - Services section (6 service cards)
-   - Testimonials section (3 testimonials)
-   - Contact section with form
-   - Footer
-
-7. **Design & Animations**
-   - Scroll-triggered fade animations
-   - Mixed light/dark theme
-   - Pride-colored accents on logo
-   - Mobile responsive
-
----
+## Tech Stack
+- **Frontend:** React, TailwindCSS, React Router, Shadcn/UI components
+- **Backend:** FastAPI (Python)
+- **Database:** MongoDB
+- **Deployment:** Self-hosted on Hostinger VPS (Ubuntu), Nginx, systemd, Certbot SSL
 
 ## Architecture
+```
+/app
+├── backend/
+│   ├── server.py (FastAPI app with /api/contact endpoint)
+│   ├── requirements.txt
+│   └── .env (MONGO_URL, DB_NAME)
+├── frontend/
+│   ├── src/
+│   │   ├── components/landing/ (Hero, About, Services, Testimonials, Contact, Footer)
+│   │   ├── pages/ (Privacy, Terms, Legal)
+│   │   ├── data/mock.js (centralized content for translations)
+│   │   └── context/LanguageContext.js
+│   └── .env (REACT_APP_BACKEND_URL)
+└── deploy-vps.sh (deployment automation script)
+```
 
-### Frontend
-- React 18
-- TailwindCSS
-- Shadcn UI components
-- CSS animations (no external animation library)
+## API Endpoints
+- `POST /api/contact` - Submit contact form (saves to MongoDB)
+- `GET /api/contact` - Retrieve all submissions
 
-### Backend
-- FastAPI
-- MongoDB (motor async driver)
-- Pydantic models
-
-### Key Files
-- `/frontend/src/data/mock.js` - All page content (EN/PT)
-- `/frontend/src/components/landing/` - Page sections
-- `/frontend/src/context/LanguageContext.jsx` - Language state
-- `/backend/server.py` - API endpoints
-
-### API Endpoints
-- `GET /api/` - Health check
-- `POST /api/contact` - Submit contact form
-- `GET /api/contact` - List submissions (admin)
+## Database Schema
+- **contacts collection:** `{ id, name, email, phone?, service?, message, timestamp }`
 
 ---
 
-## Backlog
+## Completed Features (as of Feb 15, 2026)
+
+### Landing Page Components
+- [x] Hero section with 4-image cross-fading slideshow
+- [x] About section with company description
+- [x] Stats section (300+ families, 20+ years, 99% success, 24/7)
+- [x] "Why Portugal for LGBTQIA+ Families?" section with colored checkmarks
+- [x] Services section (6 service categories with decorative highlights)
+- [x] Testimonials section (3 client stories)
+- [x] Contact section with form + WhatsApp link
+- [x] Footer with navigation and legal links
+
+### Functionality
+- [x] Bilingual toggle (EN/PT)
+- [x] Contact form saves to MongoDB
+- [x] WhatsApp integration button
+- [x] React Router for legal pages
+- [x] SEO meta tags and pre-rendering setup
+
+### Design
+- [x] Custom nextStep logo with ">" symbol
+- [x] Custom favicon.svg
+- [x] Pride-themed accent colors (rainbow dots, colored underlines)
+- [x] Smooth scroll animations (fade-up, slide-in)
+- [x] Responsive design (mobile-first)
+
+### Deployment
+- [x] VPS deployment script (deploy-vps.sh)
+- [x] Nginx reverse proxy configuration
+- [x] systemd service for backend
+- [x] SSL via Certbot
+
+### Recent Fixes (Feb 15, 2026)
+- [x] Added 6th color (purple #C94FAB) to "Why Portugal" checkmarks
+- [x] Reduced whitespace between "Why Portugal" and "Services" sections
+- [x] Updated last slideshow image to user's chosen couple photo
+- [x] Fixed VPS backend (uvicorn not installed in venv)
+
+---
+
+## Pending/Backlog
 
 ### P1 - High Priority
-- **Email Notifications**: When domain is propagated, add Resend integration to send email notifications for contact form submissions to hello@nextstep.com.pt
+- [ ] Populate legal pages with real content (Privacy, Terms, Legal Disclaimer)
+- [ ] Move legal content to mock.js for translation support
 
-### P2 - Medium Priority
-- **Admin Dashboard**: View and manage contact submissions
-- **SEO Optimization**: Meta tags, Open Graph, sitemap
-
-### P3 - Future Enhancements
-- **Blog/Resources Section**: Articles about moving to Portugal
-- **Team Page**: Individual team member profiles
-- **FAQ Section**: Common questions about relocation
-- **Google Maps Integration**: Office location
+### P2 - Future Enhancements
+- [ ] Email notifications via Resend for contact form submissions
+- [ ] Add more testimonials/case studies
+- [ ] Analytics integration
 
 ---
 
-## Testing Status
-- Backend: 100% (9/9 pytest tests passed)
-- Frontend: 100% (all features verified)
-- Test report: `/app/test_reports/iteration_1.json`
+## Deployment Notes
+After code changes, rebuild and deploy on VPS:
+```bash
+cd /var/www/nextstep/frontend && npm run build
+sudo systemctl restart nextstep-backend
+```
 
----
-
-## Credentials & Config
-- WhatsApp: 351934229144
-- Email: hello@nextstep.com.pt (domain not yet propagated)
-- Messenger: nextstepportugal
-- Preview URL: https://next-step-preview.preview.emergentagent.com
+## Known Issues
+- npm audit shows some vulnerabilities in dev dependencies (low priority)
