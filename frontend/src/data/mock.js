@@ -40,7 +40,7 @@ export const content = {
       tagline: "Who We Are",
       title: "Your bridge between cultures, your advocate in law, your partner in building a new life",
       paragraphs: [
-        "NextStep is a boutique legal practice specializing in immigration, investment, and relocation services for LGBTQIA+ individuals and families choosing Portugal. Founded by attorneys with deep Portuguese legal expertise and lived international experience, we understand both worlds—and we're here to translate not just law, but culture.",
+        "nextStep is a boutique legal practice specializing in immigration, investment, and relocation services for LGBTQIA+ individuals and families choosing Portugal. Founded by attorneys with deep Portuguese legal expertise and lived international experience, we understand both worlds—and we're here to translate not just law, but culture.",
         "We're more than lawyers. We're your concierge for life-changing decisions, your cultural interpreters, and your advocates who genuinely get it. Whether you're escaping uncertainty or embracing opportunity, we provide the legal security, personal attention, and safe harbor you deserve. With us, you're never just a case number—you're part of our community."
       ],
       stats: [
@@ -201,7 +201,7 @@ export const content = {
       tagline: "Quem Somos",
       title: "A sua ponte entre culturas, o seu advogado na lei, o seu parceiro na construção de uma nova vida",
       paragraphs: [
-        "A NextStep é um escritório de advocacia boutique especializado em imigração, investimento e serviços de relocalização para indivíduos e famílias LGBTQIA+ que escolhem Portugal. Fundado por advogados com profunda expertise jurídica portuguesa e experiência internacional vivida, entendemos ambos os mundos—e estamos aqui para traduzir não apenas a lei, mas a cultura.",
+        "A nextStep é um escritório de advocacia boutique especializado em imigração, investimento e serviços de relocalização para indivíduos e famílias LGBTQIA+ que escolhem Portugal. Fundado por advogados com profunda expertise jurídica portuguesa e experiência internacional vivida, entendemos ambos os mundos—e estamos aqui para traduzir não apenas a lei, mas a cultura.",
         "Somos mais do que advogados. Somos o seu concierge para decisões que mudam vidas, os seus intérpretes culturais e os seus advogados que genuinamente entendem. Quer esteja a escapar da incerteza ou a abraçar oportunidades, proporcionamos a segurança jurídica, atenção pessoal e porto seguro que merece. Connosco, nunca é apenas um número de caso—é parte da nossa comunidade."
       ],
       stats: [
