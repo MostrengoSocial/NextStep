@@ -89,17 +89,18 @@ Build a modern, minimalist, and sophisticated landing page for "nextStep," a bus
 - [x] Reduced whitespace between "Why Portugal" and "Services" sections
 - [x] Updated last slideshow image to user's chosen couple photo
 - [x] Fixed VPS backend (uvicorn not installed in venv)
+- [x] Integrated Resend email notifications for contact form submissions
 
 ---
 
 ## Pending/Backlog
 
 ### P1 - High Priority
-- [ ] Populate legal pages with real content (Privacy, Terms, Legal Disclaimer)
-- [ ] Move legal content to mock.js for translation support
+- [ ] Verify domain in Resend to use custom sender email (noreply@nextstep.com.pt)
+- [ ] Deploy latest changes to VPS
 
 ### P2 - Future Enhancements
-- [ ] Email notifications via Resend for contact form submissions
+- [ ] Send confirmation email to form submitter
 - [ ] Add more testimonials/case studies
 - [ ] Analytics integration
 
