@@ -18,7 +18,7 @@ export const heroImages = [
 ];
 export const heroImage = heroImages[0].url;
 export const aboutImage = "https://images.unsplash.com/photo-1762335358426-72c27db3f5ff?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwyfHxMaXNib24lMjB5ZWxsb3clMjB0cmFtJTIwaGlzdG9yaWMlMjBzdHJlZXQlMjBQb3J0dWdhbHxlbnwwfHx8fDE3NzEwODY4MTV8MA&ixlib=rb-4.1.0&q=85&w=1200";
-export const contactImage = "https://images.unsplash.com/photo-1607010899763-108e728056f4?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1MTN8MHwxfHNlYXJjaHw0fHxQb3J0dWdhbCUyMGNvYXN0YWwlMjB0b3dufGVufDB8fHx8MTc3MTA3ODk4OHww&ixlib=rb-4.1.0&q=85&w=800";
+export const contactImage = "https://images.unsplash.com/photo-1767858703755-6add71d448b7?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzV8MHwxfHNlYXJjaHwzfHx0d28lMjBtZW4lMjBjb3VwbGUlMjBodWdnaW5nJTIwaGFwcHklMjBvdXRkb29ycyUyMG1hdHVyZXxlbnwwfHx8fDE3NzExODIyNjN8MA&ixlib=rb-4.1.0&q=85&w=1200";
 
 export const content = {
   en: {
