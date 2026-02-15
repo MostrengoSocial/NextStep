@@ -139,7 +139,6 @@ async def send_notification_email(submission: ContactSubmission):
             "html": html_content
         }
         
-        # Run sync SDK in thread to keep FastAPI non-blocking
         email = await asyncio.to_thread(resend.Emails.send, params)
         logger.info(f"Notification email sent successfully. Email ID: {email.get('id')}")
         return True
@@ -148,9 +147,73 @@ async def send_notification_email(submission: ContactSubmission):
         return False
 
 
+async def send_confirmation_email(submission: ContactSubmission):
+    """Send confirmation email to the person who submitted the form"""
+    try:
+        html_content = f"""
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; background-color: #ffffff;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <h1 style="color: #1A1A1A; font-size: 28px; margin: 0;">
+                    <span style="color: #E44D60;">></span>
+                    <span style="color: #E8893C;">></span>
+                    <span style="font-style: italic;">nextStep</span>
+                </h1>
+            </div>
+            
+            <h2 style="color: #1A1A1A; margin-bottom: 20px;">Thank you for reaching out, {submission.name.split()[0]}!</h2>
+            
+            <p style="color: #444; line-height: 1.8; margin-bottom: 20px;">
+                We've received your inquiry and one of our team members will get back to you within 24 hours to schedule your confidential consultation.
+            </p>
+            
+            <div style="background-color: #f8f7f4; padding: 20px; border-radius: 8px; margin: 25px 0;">
+                <h3 style="color: #1A1A1A; margin: 0 0 15px 0; font-size: 16px;">Your Message Summary:</h3>
+                <p style="color: #666; margin: 0 0 10px 0;"><strong>Service Interest:</strong> {submission.service or 'General Consultation'}</p>
+                <p style="color: #666; margin: 0; font-style: italic;">"{submission.message[:200]}{'...' if len(submission.message) > 200 else ''}"</p>
+            </div>
+            
+            <p style="color: #444; line-height: 1.8; margin-bottom: 20px;">
+                In the meantime, feel free to reach us directly via WhatsApp for faster response:
+            </p>
+            
+            <div style="text-align: center; margin: 25px 0;">
+                <a href="https://wa.me/351934229144" style="display: inline-block; background-color: #25D366; color: white; padding: 12px 30px; text-decoration: none; border-radius: 25px; font-weight: bold;">
+                    Chat on WhatsApp
+                </a>
+            </div>
+            
+            <hr style="border: none; border-top: 1px solid #eee; margin: 30px 0;">
+            
+            <p style="color: #888; font-size: 12px; line-height: 1.6; margin: 0;">
+                nextStep | Your Trusted Partner for Moving to Portugal<br>
+                Largo de São Luís, nº11 C, 4ºD, 8000-143 Faro, Portugal<br>
+                <a href="mailto:hello@nextstep.com.pt" style="color: #1A8A84;">hello@nextstep.com.pt</a> | +351 934 229 144
+            </p>
+            
+            <p style="color: #aaa; font-size: 11px; margin-top: 20px;">
+                This is an automated confirmation. Please do not reply directly to this email.
+            </p>
+        </div>
+        """
+        
+        params = {
+            "from": SENDER_EMAIL,
+            "to": [submission.email],
+            "subject": "Thank you for contacting nextStep - We'll be in touch soon!",
+            "html": html_content
+        }
+        
+        email = await asyncio.to_thread(resend.Emails.send, params)
+        logger.info(f"Confirmation email sent to {submission.email}. Email ID: {email.get('id')}")
+        return True
+    except Exception as e:
+        logger.error(f"Failed to send confirmation email: {str(e)}")
+        return False
+
+
 @api_router.post("/contact", response_model=ContactSubmission)
 async def submit_contact_form(input: ContactSubmissionCreate):
-    """Submit a contact form inquiry - saves to database and sends email notification"""
+    """Submit a contact form inquiry - saves to database and sends email notifications"""
     submission_dict = input.model_dump()
     submission_obj = ContactSubmission(**submission_dict)
     
@@ -161,8 +224,12 @@ async def submit_contact_form(input: ContactSubmissionCreate):
     
     logger.info(f"New contact submission from {input.name} ({input.email})")
     
-    # Send email notification (non-blocking, don't fail if email fails)
-    await send_notification_email(submission_obj)
+    # Send emails concurrently (non-blocking, don't fail if emails fail)
+    await asyncio.gather(
+        send_notification_email(submission_obj),
+        send_confirmation_email(submission_obj),
+        return_exceptions=True
+    )
     
     return submission_obj
 
