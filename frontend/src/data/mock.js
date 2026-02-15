@@ -12,8 +12,8 @@ export const heroImages = [
     alt: "Quinta do Lago - Aerial view of pristine beach with lush vegetation"
   },
   {
-    url: "https://images.unsplash.com/photo-1725344153786-22686793e5a3?auto=format&fit=crop&w=1920&q=80",
-    alt: "Lagos - Dramatic rock formations and cliffs along the coastline"
+    url: "https://images.unsplash.com/photo-1721120135035-7eb316da0fdc?auto=format&fit=crop&w=1920&q=80",
+    alt: "Happy couple enjoying their new life in Portugal"
   }
 ];
 export const heroImage = heroImages[0].url;
