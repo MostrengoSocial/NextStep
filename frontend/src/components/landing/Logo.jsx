@@ -2,7 +2,7 @@ import React from 'react';
 
 /* Rainbow chevron logo inspired by the reference — pride colors */
 export const RainbowLogo = ({ size = 'default' }) => {
-  const sizes = { small: 32, default: 40, large: 52 };
+  const sizes = { small: 40, default: 56, large: 72 };
   const s = sizes[size] || sizes.default;
   return (
     <svg width={s} height={s} viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
