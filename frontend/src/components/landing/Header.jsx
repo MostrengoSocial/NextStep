@@ -8,7 +8,7 @@ import { RainbowLogo } from './Logo';
 import { Menu, ArrowRight } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
-const navLinks = ['services', 'about', 'testimonials', 'contact'];
+const navLinks = ['about', 'services', 'testimonials', 'contact'];
 
 export const Header = () => {
   const { language, toggleLanguage } = useLanguage();
