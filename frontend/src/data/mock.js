@@ -340,8 +340,8 @@ export const content = {
       ],
       companyLinks: ["Sobre Nós", "Nossa Equipa", "Histórias de Clientes", "Contacto"],
       legalLinks: ["Política de Privacidade", "Termos de Serviço", "Aviso Legal"],
-      copyright: "© 2025 NextStep. Todos os direitos reservados.",
-      disclaimer: "A NextStep é um escritório de advocacia registado em Portugal. Este website fornece apenas informação geral e não constitui aconselhamento jurídico. Cada caso é único e requer consulta individual."
+      copyright: "© 2025 nextStep. Todos os direitos reservados.",
+      disclaimer: "A nextStep é um serviço de consultoria pertencente a um escritório de advocacia registado em Portugal. Este website fornece apenas informação geral e não constitui aconselhamento jurídico. Cada caso é único e requer consulta individual."
     }
   }
 };
