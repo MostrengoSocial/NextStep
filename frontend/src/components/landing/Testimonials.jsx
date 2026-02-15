@@ -13,7 +13,7 @@ export const Testimonials = () => {
   const colors = ['#E44D60', '#E8893C', '#3BAF6A'];
 
   return (
-    <section id="testimonials" className="py-24 lg:py-32 bg-[#F8F7F4]">
+    <section id="testimonials" className="pt-12 lg:pt-16 pb-24 lg:pb-32 bg-[#F8F7F4]">
       <div className="max-w-7xl mx-auto px-6 lg:px-10">
         <div
           ref={headerRef}
