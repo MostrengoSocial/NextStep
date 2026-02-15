@@ -178,8 +178,8 @@ export const content = {
       ],
       companyLinks: ["About Us", "Our Team", "Client Stories", "Contact"],
       legalLinks: ["Privacy Policy", "Terms of Service", "Legal Disclaimer"],
-      copyright: "© 2025 NextStep. All rights reserved.",
-      disclaimer: "NextStep is a registered legal practice in Portugal (OA License #xxxxx). This website provides general information only and does not constitute legal advice. Each case is unique and requires individual consultation."
+      copyright: "© 2025 nextStep. All rights reserved.",
+      disclaimer: "nextStep is a consultancy service owned by a registered legal practice in Portugal. This website provides general information only and does not constitute legal advice. Each case is unique and requires individual consultation."
     }
   },
   pt: {
