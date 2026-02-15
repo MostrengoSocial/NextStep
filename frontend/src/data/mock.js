@@ -198,10 +198,9 @@ export const content = {
     },
  about: {
       tagline: "Quem Somos",
-      title: "A sua ponte entre culturas, o seu advogado na lei, o seu parceiro na construção de uma nova vida",
+      title: "A nextStep é um escritório de advocacia boutique especializado em imigração, investimento e serviços de relocalização para indivíduos e famílias LGBTQIA+ que escolhem Portugal. Fundado por advogados com profunda expertise jurídica portuguesa e experiência internacional vivida, entendemos ambos os mundos - e estamos aqui para traduzir não apenas a lei, mas a cultura.",
       paragraphs: [
-        "A nextStep é um escritório de advocacia boutique especializado em imigração, investimento e serviços de relocalização para indivíduos e famílias LGBTQIA+ que escolhem Portugal. Fundado por advogados com profunda expertise jurídica portuguesa e experiência internacional vivida, entendemos ambos os mundos—e estamos aqui para traduzir não apenas a lei, mas a cultura.",
-        "Somos mais do que advogados. Somos o seu concierge para decisões que mudam vidas, os seus intérpretes culturais e os seus advogados que genuinamente entendem. Quer esteja a escapar da incerteza ou a abraçar oportunidades, proporcionamos a segurança jurídica, atenção pessoal e porto seguro que merece. Connosco, nunca é apenas um número de caso—é parte da nossa comunidade."
+        "Somos mais do que advogados. Somos o seu concierge para decisões que mudam vidas, os seus intérpretes culturais e os seus advogados que genuinamente entendem. Quer esteja a escapar da incerteza ou a abraçar oportunidades, proporcionamos a segurança jurídica, atenção pessoal e porto seguro que merece. Connosco, nunca é apenas um número de caso - é parte da nossa comunidade."
       ],
       stats: [
         { number: "300+", label: "Famílias Apoiadas" },
