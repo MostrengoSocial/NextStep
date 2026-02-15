@@ -271,19 +271,19 @@ export const content = {
       subtitle: "Histórias reais de indivíduos e casais que confiaram em nós para a sua mudança de vida para Portugal.",
       items: [
         {
-          quote: "Após as eleições de 2024, sabíamos que tínhamos de deixar os EUA. A NextStep não tratou apenas do nosso Golden Visa—deu-nos esperança e um caminho claro durante um tempo incerto. Seis meses depois, estamos em casa.",
+          quote: "Após as eleições de 2024, sabíamos que tínhamos de deixar os EUA. A nextStep não tratou apenas do nosso Golden Visa—deu-nos esperança e um caminho claro durante um tempo incerto. Seis meses depois, estamos em casa.",
           name: "Marcus & David Chen",
           location: "São Francisco → Cascais",
           initials: "MD"
         },
         {
-          quote: "Como mulher trans, estava aterrorizada com as complexidades legais e potencial discriminação. A NextStep tratou-me com tanta dignidade e profissionalismo. Sabiam exatamente pelo que estava a passar e fizeram tudo parecer seguro.",
+          quote: "Como mulher trans, estava aterrorizada com as complexidades legais e potencial discriminação. A nextStep tratou-me com tanta dignidade e profissionalismo. Sabiam exatamente pelo que estava a passar e fizeram tudo parecer seguro.",
           name: "Sarah T.",
           location: "Toronto → Porto",
           initials: "ST"
         },
         {
-          quote: "Precisávamos de advogados que entendessem documentação brasileira E requisitos portugueses E a nossa situação como casal do mesmo sexo com filhos. A equipa da NextStep tratou de tudo impecavelmente. Até nos ajudaram a encontrar escolas!",
+          quote: "Precisávamos de advogados que entendessem documentação brasileira E requisitos portugueses E a nossa situação como casal do mesmo sexo com filhos. A equipa da nextStep tratou de tudo impecavelmente. Até nos ajudaram a encontrar escolas!",
           name: "Maria & Ana Ferreira",
           location: "São Paulo → Algarve",
           initials: "MA"
