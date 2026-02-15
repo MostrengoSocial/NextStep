@@ -38,10 +38,9 @@ export const content = {
     },
      about: {
       tagline: "Who We Are",
-      title: "Your bridge between cultures, your advocate in law, your partner in building a new life",
+      title: "nextStep is a boutique legal practice specializing in immigration, investment, and relocation services for LGBTQIA+ individuals and families choosing Portugal. Founded by attorneys with deep Portuguese legal expertise and lived international experience, we understand both worlds - and we're here to translate not just law, but culture.",
       paragraphs: [
-        "nextStep is a boutique legal practice specializing in immigration, investment, and relocation services for LGBTQIA+ individuals and families choosing Portugal. Founded by attorneys with deep Portuguese legal expertise and lived international experience, we understand both worlds—and we're here to translate not just law, but culture.",
-        "We're more than lawyers. We're your concierge for life-changing decisions, your cultural interpreters, and your advocates who genuinely get it. Whether you're escaping uncertainty or embracing opportunity, we provide the legal security, personal attention, and safe harbor you deserve. With us, you're never just a case number—you're part of our community."
+        "We're more than lawyers. We're your concierge for life-changing decisions, your cultural interpreters, and your advocates who genuinely get it. Whether you're escaping uncertainty or embracing opportunity, we provide the legal security, personal attention, and safe harbor you deserve. With us, you're never just a case number - you're part of our community."
       ],
       stats: [
         { number: "300+", label: "Families Supported" },
