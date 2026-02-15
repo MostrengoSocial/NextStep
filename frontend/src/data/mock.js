@@ -27,292 +27,321 @@ export const content = {
       services: "Services",
       testimonials: "Testimonials",
       contact: "Contact",
-      cta: "Let's Talk"
+      cta: "Get Started"
     },
-    hero: {
-      titleLine1: "Proudly Guiding",
-      titleLine2: "your next Chapter",
-      subtitle: "Ready for a fresh start in Portugal? We're here to make your move smooth, safe, and affirming\u2014every step of the way. From visas to finding your new home, our team is by your side, so you can feel at home from day one.",
-      cta1: "Get Started",
-      cta2: "Learn More"
+   hero: {
+      titleLine1: "Your Trusted Partner for",
+      titleLine2: "Moving to Portugal",
+      subtitle: "Expert legal guidance and personalized support for LGBTQIA+ individuals and families investing in their Portuguese dream. We don't just handle paperwork - we build bridges to your new life.",
+      cta1: "Schedule Consultation",
+      cta2: "Our Services"
     },
-    about: {
+     about: {
       tagline: "Who We Are",
-      title: "A multifaceted team specialized in helping you settle in Portugal",
+      title: "Your bridge between cultures, your advocate in law, your partner in building a new life",
       paragraphs: [
-        "Next Step is a boutique consultancy firm specializing in legal advisory, mediation, and investment guidance for LGBTQIA+ individuals and families looking to invest, relocate, or establish business presence in Portugal.",
-        "With deep expertise in Portuguese law and an unwavering commitment to the LGBTQIA+ community, we provide a safe, knowledgeable, and professional environment where every client is treated with dignity and respect. Your dream is our objective!"
+        "NextStep is a boutique legal practice specializing in immigration, investment, and relocation services for LGBTQIA+ individuals and families choosing Portugal. Founded by attorneys with deep Portuguese legal expertise and lived international experience, we understand both worlds—and we're here to translate not just law, but culture.",
+        "We're more than lawyers. We're your concierge for life-changing decisions, your cultural interpreters, and your advocates who genuinely get it. Whether you're escaping uncertainty or embracing opportunity, we provide the legal security, personal attention, and safe harbor you deserve. With us, you're never just a case number—you're part of our community."
       ],
       stats: [
-        { number: "200+", label: "Clients Served" },
-        { number: "15+", label: "Years Experience" },
-        { number: "98%", label: "Client Satisfaction" },
-        { number: "50+", label: "Investments Facilitated" }
+        { number: "300+", label: "Families Supported" },
+        { number: "20+", label: "Years Experience" },
+        { number: "99%", label: "Success Rate" },
+        { number: "24/7", label: "Availability" }
       ],
       whyPortugal: {
-        title: "Why Portugal?",
+        title: "Why Portugal for LGBTQIA+ Families?",
         points: [
-          "Ranked among the most LGBTQIA+-friendly nations globally",
-          "Same-sex marriage legal since 2010",
-          "Strong legal protections against discrimination",
-          "Golden Visa and D7 Visa investment pathways",
-          "Thriving expat communities in Lisbon, Porto, and Algarve"
+          "Same-sex marriage legal since 2010; adoption rights fully recognized",
+          "Ranked among the world's most LGBTQIA+-friendly nations (ILGA-Europe)",
+          "Strong anti-discrimination laws with constitutional protections",
+          "Welcoming expat communities in Lisbon, Porto, and Algarve",
+          "Golden Visa, D7, and Digital Nomad pathways to residency and citizenship",
+          "High quality of life with affordable living and excellent healthcare"
         ]
       }
-    },
+   },
     services: {
-      tagline: "Our Services",
+      tagline: "Comprehensive Services, Personal Touch",
       items: [
         {
-          title: "Visa support,",
-          highlight: "every detail handled",
+          title: "Immigration & Visas:",
+          highlight: "Your pathway secured",
           decoration: "red-wavy",
-          description: "Let us take the stress out of your move. We'll guide you through every visa step, answer your questions, and make sure you feel confident from day one."
+          description: "Golden Visa, D7 Passive Income, Digital Nomad, family reunification, residency permits, and citizenship applications. We handle every detail with technical precision and personal care."
         },
         {
-          title: "Find your home,",
-          highlight: "feel at home",
+          title: "Real Estate & Investment:",
+          highlight: "Smart decisions, safe harbor",
           decoration: "orange-line",
-          description: "Whether you dream of city life or a quiet beach town, we'll help you discover the perfect place and make the process feel easy and welcoming."
+          description: "Property due diligence, purchase contracts, investment structuring, and tax planning. We protect your interests and ensure you're making informed decisions in a foreign market."
         },
         {
-          title: "Relocation help,",
-          highlight: "every step of the way",
+          title: "Relocation Concierge:",
+          highlight: "Seamless settlement",
           decoration: "yellow-line",
-          description: "From your first question to your first day in Portugal, we're here with answers, encouragement, and a warm welcome."
+          description: "NIF registration, social security enrollment, bank accounts, healthcare, driver's license conversion, school enrollment. We handle the bureaucracy so you can focus on settling in."
         },
         {
-          title: "Legal guidance,",
-          highlight: "always on your",
-          highlightAccent: "side",
+          title: "Family & Personal Law:",
+          highlight: "Your rights",
+          highlightAccent: "protected",
           decoration: "green-circle",
-          description: "With decades of experience, our legal team protects your interests and ensures your move is safe, smooth, and fully compliant."
+          description: "Marriage recognition, adoption procedures, parental rights, divorce, custody matters, and estate planning. Specialized expertise in LGBTQIA+ family law and cross-border issues."
         },
         {
-          title: "Connect, belong,",
-          highlight: "thrive together",
+          title: "Employment & Business:",
+          highlight: "Build your future",
           decoration: "blue-wavy",
-          description: "We'll introduce you to local LGBTQIA+ groups and resources, so you can build friendships and feel at home from the start."
+          description: "Work permits, employment contracts, company formation, commercial law, and business structuring. Whether you're relocating for work or starting fresh, we've got you covered."
         },
         {
-          title: "Start your business",
-          highlight: "with ease",
+          title: "Community Connection:",
+          highlight: "Belong from day one",
           decoration: "magenta-highlight",
-          description: "From paperwork to local rules, we'll walk you through every step of setting up your business, so you can focus on your vision."
+          description: "Introductions to LGBTQIA+ organizations, expat networks, and local resources. You're not just moving to Portugal—you're joining a community that welcomes you."
         }
       ]
-    },
+     },
     testimonials: {
       tagline: "Client Stories",
-      title: "Trusted by Clients Worldwide",
-      subtitle: "Hear from individuals and families who have successfully made their next step.",
+      title: "Trusted by Families Worldwide",
+      subtitle: "Real stories from individuals and couples who trusted us with their life-changing move to Portugal.",
       items: [
         {
-          quote: "Next Step made our dream of living in Portugal a reality. Their expertise in both investment law and LGBTQIA+ rights gave us complete confidence throughout the process.",
-          name: "James & Robert M.",
-          location: "London, UK \u2192 Lisbon",
-          initials: "JR"
+          quote: "After the 2024 election, we knew we had to leave the US. NextStep didn't just handle our D7 Visa - they gave us hope and a clear path forward during an uncertain time. Six months later, we're home.",
+          name: "Marcus & David Chen",
+          location: "San Francisco → Cascais",
+          initials: "MD"
         },
         {
-          quote: "As a trans woman, I was concerned about navigating the legal complexities alone. The team at Next Step was incredibly supportive and professional at every turn.",
+          quote: "As a trans woman, I was terrified of the legal complexities and potential discrimination. NextStep treated me with such dignity and professionalism. They knew exactly what I was going through and made everything feel safe.",
           name: "Sarah T.",
-          location: "Toronto, CA \u2192 Porto",
+          location: "Toronto → Algarve (Faro)",
           initials: "ST"
         },
         {
-          quote: "Their mediation services resolved a complex property dispute that other firms couldn't handle. Professional, discreet, and genuinely caring.",
-          name: "Maria & Ana L.",
-          location: "S\u00e3o Paulo, BR \u2192 Algarve",
+          quote: "We needed lawyers who understood Brazilian documentation AND Portuguese requirements AND our situation as a same-sex couple with kids. NextStep's team handled it all flawlessly. They even helped us find schools!",
+          name: "Maria & Ana Ferreira",
+          location: "São Paulo → Algarve (Tavira)",
           initials: "MA"
         }
       ]
     },
     contact: {
-      tagline: "Get in Touch",
-      title: "Contact Us",
-      subtitle: "Ready to take the next step? Reach out through your preferred channel and let's discuss how we can help make Portugal your new home.",
+      tagline: "Ready to Take the Next Step?",
+      title: "Let's Start Your Journey",
+      subtitle: "Schedule a confidential consultation (protected by attorney-client legal privilege) to discuss your unique situation and goals. We're available when you need us - even at odd hours across time zones.",
       form: {
         name: "Full Name",
         email: "Email Address",
         phone: "Phone Number (optional)",
-        service: "Service of Interest",
-        serviceOptions: ["Visa Support", "Find Your Home", "Relocation Help", "Legal Guidance", "Community Connection", "Business Setup", "General Inquiry"],
-        message: "Tell us about your goals and how we can help...",
-        submit: "Send Message",
-        success: "Thank you! We'll be in touch within 24 hours."
+        service: "Primary Interest",
+        serviceOptions: [
+          "Golden Visa / Investment Immigration",
+          "D7 Visa / Passive Income",
+          "Digital Nomad Visa",
+          "Family Reunification",
+          "Real Estate Purchase",
+          "Business Formation",
+          "General Consultation"
+        ],
+        message: "Tell us about your situation and what you're hoping to achieve...",
+        submit: "Request Consultation",
+        success: "Thank you! We'll respond within 24 hours to schedule your consultation."
       },
       info: {
-        address: "Av. da Liberdade 110, 1269-046 Lisboa",
+        address: "Largo de São Luís, nº11 C, 4ºD, 8000-143 Faro",
         email: "hello@nextstep.com.pt",
-        phone: "+351 21 000 0000",
-        hours: "Mon\u2013Fri: 9:00\u201318:00 | Sat: By appointment"
+        phone: "+351 934 229 144",
+        hours: "Available 24/7 by appointment"
       },
       messaging: {
         whatsapp: "Chat on WhatsApp",
-        messenger: "Message on Facebook",
-        whatsappDesc: "Quick responses during business hours",
-        messengerDesc: "Connect with us on Facebook"
+        whatsappDesc: "Fast response, even outside business hours"
       }
     },
     footer: {
-      description: "Proudly guiding LGBTQIA+ individuals and families through every step of their journey to Portugal.",
+      description: "A boutique legal practice dedicated to LGBTQIA+ individuals and families building new lives in Portugal. We're your bridge, your advocate, your safe harbor.",
       sections: {
         services: "Services",
         company: "Company",
         legal: "Legal"
       },
-      serviceLinks: ["Visa Support", "Find Your Home", "Relocation Help", "Legal Guidance", "Community", "Business Setup"],
-      companyLinks: ["About Us", "Our Team", "Testimonials", "Contact"],
-      legalLinks: ["Privacy Policy", "Terms of Service", "Cookie Policy"],
-      copyright: "\u00a9 2025 Next Step. All rights reserved.",
-      disclaimer: "Next Step is a registered consultancy firm in Portugal. This website does not constitute legal advice."
+      serviceLinks: [
+        "Immigration & Visas",
+        "Real Estate & Investment",
+        "Relocation Concierge",
+        "Family Law",
+        "Employment & Business",
+        "Community Connection"
+      ],
+      companyLinks: ["About Us", "Our Team", "Client Stories", "Contact"],
+      legalLinks: ["Privacy Policy", "Terms of Service", "Legal Disclaimer"],
+      copyright: "© 2025 NextStep. All rights reserved.",
+      disclaimer: "NextStep is a registered legal practice in Portugal (OA License #xxxxx). This website provides general information only and does not constitute legal advice. Each case is unique and requires individual consultation."
     }
   },
   pt: {
     nav: {
       about: "Sobre",
-      services: "Servi\u00e7os",
+      services: "Serviços",
       testimonials: "Testemunhos",
       contact: "Contacto",
-      cta: "Fale Connosco"
+      cta: "Começar"
     },
     hero: {
-      titleLine1: "Orgulhosamente Guiando",
-      titleLine2: "o seu pr\u00f3ximo Cap\u00edtulo",
-      subtitle: "Pronto para um novo come\u00e7o em Portugal? Estamos aqui para tornar a sua mudan\u00e7a tranquila, segura e afirmativa\u2014em cada passo do caminho. De vistos a encontrar o seu novo lar, a nossa equipa est\u00e1 ao seu lado.",
-      cta1: "Come\u00e7ar",
-      cta2: "Saber Mais"
+      titleLine1: "O Seu Parceiro de Confiança para",
+      titleLine2: "Mudar-se para Portugal",
+      subtitle: "Orientação jurídica especializada e apoio personalizado para indivíduos e famílias LGBTQIA+ que investem no seu sonho português. Não tratamos apenas de papelada - construímos pontes para a sua nova vida.",
+      cta1: "Agendar Consulta",
+      cta2: "Nossos Serviços"
     },
-    about: {
+ about: {
       tagline: "Quem Somos",
-      title: "Uma equipa multifacetada especializada em ajud\u00e1-lo a estabelecer-se em Portugal",
+      title: "A sua ponte entre culturas, o seu advogado na lei, o seu parceiro na construção de uma nova vida",
       paragraphs: [
-        "A Next Step \u00e9 uma firma de consultoria boutique especializada em assessoria jur\u00eddica, media\u00e7\u00e3o e orienta\u00e7\u00e3o de investimentos para indiv\u00edduos e fam\u00edlias LGBTQIA+ que desejam investir, mudar-se ou estabelecer presen\u00e7a empresarial em Portugal.",
-        "Com profunda expertise no direito portugu\u00eas e um compromisso inabal\u00e1vel com a comunidade LGBTQIA+, proporcionamos um ambiente seguro, informado e profissional onde cada cliente \u00e9 tratado com dignidade e respeito. O seu sonho \u00e9 o nosso objetivo!"
+        "A NextStep é um escritório de advocacia boutique especializado em imigração, investimento e serviços de relocalização para indivíduos e famílias LGBTQIA+ que escolhem Portugal. Fundado por advogados com profunda expertise jurídica portuguesa e experiência internacional vivida, entendemos ambos os mundos—e estamos aqui para traduzir não apenas a lei, mas a cultura.",
+        "Somos mais do que advogados. Somos o seu concierge para decisões que mudam vidas, os seus intérpretes culturais e os seus advogados que genuinamente entendem. Quer esteja a escapar da incerteza ou a abraçar oportunidades, proporcionamos a segurança jurídica, atenção pessoal e porto seguro que merece. Connosco, nunca é apenas um número de caso—é parte da nossa comunidade."
       ],
       stats: [
-        { number: "200+", label: "Clientes Atendidos" },
-        { number: "15+", label: "Anos de Experi\u00eancia" },
-        { number: "98%", label: "Satisfa\u00e7\u00e3o do Cliente" },
-        { number: "50+", label: "Investimentos Facilitados" }
+        { number: "300+", label: "Famílias Apoiadas" },
+        { number: "20+", label: "Anos de Experiência" },
+        { number: "99%", label: "Taxa de Sucesso" },
+        { number: "24/7", label: "Disponibilidade" }
       ],
+
       whyPortugal: {
-        title: "Porqu\u00ea Portugal?",
+        title: "Porquê Portugal para Famílias LGBTQIA+?",
         points: [
-          "Classificado entre as na\u00e7\u00f5es mais amigas da comunidade LGBTQIA+",
-          "Casamento entre pessoas do mesmo sexo legal desde 2010",
-          "Fortes prote\u00e7\u00f5es legais contra discrimina\u00e7\u00e3o",
-          "Caminhos de investimento Golden Visa e Visto D7",
-          "Comunidades de expatriados pr\u00f3speras em Lisboa, Porto e Algarve"
+          "Casamento entre pessoas do mesmo sexo legal desde 2010; direitos de adoção totalmente reconhecidos",
+          "Classificado entre as nações mais amigas LGBTQIA+ do mundo (ILGA-Europe)",
+          "Fortes leis antidiscriminação com proteções constitucionais",
+          "Comunidades de expatriados acolhedoras em Lisboa, Porto e Algarve",
+          "Caminhos Golden Visa, D7 e Nómada Digital para residência e cidadania",
+          "Alta qualidade de vida com custo acessível e excelente saúde"
         ]
       }
     },
     services: {
-      tagline: "Nossos Servi\u00e7os",
+      tagline: "Serviços Abrangentes, Toque Pessoal",
       items: [
         {
-          title: "Apoio em vistos,",
-          highlight: "cada detalhe tratado",
+          title: "Imigração & Vistos:",
+          highlight: "O seu caminho garantido",
           decoration: "red-wavy",
-          description: "Tiramos o stress da sua mudan\u00e7a. Guiamo-lo em cada passo do visto, respondemos \u00e0s suas perguntas e garantimos que se sinta confiante desde o primeiro dia."
+          description: "Golden Visa, D7 Rendimento Passivo, Nómada Digital, reunificação familiar, autorizações de residência e pedidos de cidadania. Tratamos de cada detalhe com precisão técnica e cuidado pessoal."
         },
         {
-          title: "Encontre o seu lar,",
-          highlight: "sinta-se em casa",
+          title: "Imobiliário & Investimento:",
+          highlight: "Decisões inteligentes, porto seguro",
           decoration: "orange-line",
-          description: "Quer sonhe com a vida na cidade ou numa vila tranquila, ajudamo-lo a descobrir o lugar perfeito e tornamos o processo f\u00e1cil e acolhedor."
+          description: "Due diligence imobiliária, contratos de compra, estruturação de investimentos e planeamento fiscal. Protegemos os seus interesses e garantimos decisões informadas num mercado estrangeiro."
         },
         {
-          title: "Ajuda na reloca\u00e7\u00e3o,",
-          highlight: "em cada passo do caminho",
+          title: "Concierge de Relocalização:",
+          highlight: "Instalação sem costura",
           decoration: "yellow-line",
-          description: "Da sua primeira pergunta ao seu primeiro dia em Portugal, estamos aqui com respostas, encorajamento e boas-vindas calorosas."
+          description: "Registo de NIF, inscrição na segurança social, contas bancárias, saúde, conversão de carta de condução, inscrição escolar. Tratamos da burocracia para que possa focar-se em instalar-se."
         },
         {
-          title: "Orienta\u00e7\u00e3o jur\u00eddica,",
-          highlight: "sempre ao seu",
-          highlightAccent: "lado",
+          title: "Direito Familiar & Pessoal:",
+          highlight: "Os seus direitos",
+          highlightAccent: "protegidos",
           decoration: "green-circle",
-          description: "Com d\u00e9cadas de experi\u00eancia, a nossa equipa jur\u00eddica protege os seus interesses e garante que a sua mudan\u00e7a seja segura e conforme."
+          description: "Reconhecimento de casamento, procedimentos de adoção, direitos parentais, divórcio, questões de custódia e planeamento sucessório. Expertise especializada em direito familiar LGBTQIA+ e questões transfronteiriças."
         },
         {
-          title: "Conecte, perten\u00e7a,",
-          highlight: "prospere junto",
+          title: "Emprego & Negócios:",
+          highlight: "Construa o seu futuro",
           decoration: "blue-wavy",
-          description: "Apresentamo-lo a grupos e recursos LGBTQIA+ locais, para que possa construir amizades e sentir-se em casa desde o in\u00edcio."
+          description: "Autorizações de trabalho, contratos de emprego, constituição de empresas, direito comercial e estruturação de negócios. Quer se esteja a relocalizar por trabalho ou a começar de novo, temos a solução."
         },
         {
-          title: "Comece o seu neg\u00f3cio",
-          highlight: "com facilidade",
+          title: "Conexão Comunitária:",
+          highlight: "Pertença desde o primeiro dia",
           decoration: "magenta-highlight",
-          description: "Da burocracia \u00e0s regras locais, guiamo-lo em cada passo da cria\u00e7\u00e3o do seu neg\u00f3cio, para que possa focar-se na sua vis\u00e3o."
+          description: "Apresentações a organizações LGBTQIA+, redes de expatriados e recursos locais. Não está apenas a mudar-se para Portugal—está a juntar-se a uma comunidade que o acolhe."
         }
       ]
     },
     testimonials: {
-      tagline: "Hist\u00f3rias de Clientes",
-      title: "A Confian\u00e7a de Clientes em Todo o Mundo",
-      subtitle: "Ou\u00e7a de indiv\u00edduos e fam\u00edlias que deram com sucesso o seu pr\u00f3ximo passo.",
+      tagline: "Histórias de Clientes",
+      title: "A Confiança de Famílias em Todo o Mundo",
+      subtitle: "Histórias reais de indivíduos e casais que confiaram em nós para a sua mudança de vida para Portugal.",
       items: [
         {
-          quote: "A Next Step tornou o nosso sonho de viver em Portugal uma realidade. A sua expertise em direito de investimento e direitos LGBTQIA+ deu-nos total confian\u00e7a.",
-          name: "James & Robert M.",
-          location: "Londres, UK \u2192 Lisboa",
-          initials: "JR"
+          quote: "Após as eleições de 2024, sabíamos que tínhamos de deixar os EUA. A NextStep não tratou apenas do nosso Golden Visa—deu-nos esperança e um caminho claro durante um tempo incerto. Seis meses depois, estamos em casa.",
+          name: "Marcus & David Chen",
+          location: "São Francisco → Cascais",
+          initials: "MD"
         },
         {
-          quote: "Como mulher trans, estava preocupada em navegar sozinha nas complexidades legais. A equipa da Next Step foi incrivelmente solid\u00e1ria e profissional.",
+          quote: "Como mulher trans, estava aterrorizada com as complexidades legais e potencial discriminação. A NextStep tratou-me com tanta dignidade e profissionalismo. Sabiam exatamente pelo que estava a passar e fizeram tudo parecer seguro.",
           name: "Sarah T.",
-          location: "Toronto, CA \u2192 Porto",
+          location: "Toronto → Porto",
           initials: "ST"
         },
         {
-          quote: "Os seus servi\u00e7os de media\u00e7\u00e3o resolveram uma disputa imobili\u00e1ria complexa que outras firmas n\u00e3o conseguiram. Profissionais, discretos e genuinamente atenciosos.",
-          name: "Maria & Ana L.",
-          location: "S\u00e3o Paulo, BR \u2192 Algarve",
+          quote: "Precisávamos de advogados que entendessem documentação brasileira E requisitos portugueses E a nossa situação como casal do mesmo sexo com filhos. A equipa da NextStep tratou de tudo impecavelmente. Até nos ajudaram a encontrar escolas!",
+          name: "Maria & Ana Ferreira",
+          location: "São Paulo → Algarve",
           initials: "MA"
         }
       ]
     },
     contact: {
-      tagline: "Entre em Contacto",
-      title: "Contacte-nos",
-      subtitle: "Pronto para dar o pr\u00f3ximo passo? Entre em contacto e vamos discutir como podemos ajudar.",
+      tagline: "Pronto para Dar o Próximo Passo?",
+      title: "Vamos Começar a Sua Jornada",
+      subtitle: "Agende uma consulta confidencial para discutir a sua situação única e objetivos. Estamos disponíveis quando precisar—mesmo fora de horas em fusos horários diferentes.",
       form: {
         name: "Nome Completo",
-        email: "Endere\u00e7o de Email",
-        phone: "Telefone (opcional)",
-        service: "Servi\u00e7o de Interesse",
-        serviceOptions: ["Apoio em Vistos", "Encontrar Lar", "Reloca\u00e7\u00e3o", "Orienta\u00e7\u00e3o Jur\u00eddica", "Comunidade", "Neg\u00f3cios", "Consulta Geral"],
-        message: "Conte-nos sobre os seus objetivos...",
-        submit: "Enviar Mensagem",
-        success: "Obrigado! Entraremos em contacto dentro de 24 horas."
+        email: "Endereço de Email",
+        phone: "Número de Telefone (opcional)",
+        service: "Interesse Principal",
+        serviceOptions: [
+          "Golden Visa / Imigração por Investimento",
+          "Visto D7 / Rendimento Passivo",
+          "Visto Nómada Digital",
+          "Reunificação Familiar",
+          "Compra Imobiliária",
+          "Constituição de Empresa",
+          "Consulta Geral"
+        ],
+        message: "Conte-nos sobre a sua situação e o que espera alcançar...",
+        submit: "Solicitar Consulta",
+        success: "Obrigado! Responderemos dentro de 24 horas para agendar a sua consulta."
       },
       info: {
-        address: "Av. da Liberdade 110, 1269-046 Lisboa",
+        address: "Largo de São Luís, nº11 C, 4ºD, 8000-143 Faro",
         email: "hello@nextstep.com.pt",
-        phone: "+351 21 000 0000",
-        hours: "Seg\u2013Sex: 9:00\u201318:00 | S\u00e1b: Por marca\u00e7\u00e3o"
+        phone: "+351 934 229 144",
+        hours: "Disponível 24/7 por marcação"
       },
       messaging: {
         whatsapp: "Conversar no WhatsApp",
-        messenger: "Mensagem no Facebook",
-        whatsappDesc: "Respostas r\u00e1pidas durante o hor\u00e1rio comercial",
-        messengerDesc: "Conecte-se connosco no Facebook"
+        whatsappDesc: "Resposta rápida, mesmo fora do horário comercial"
       }
     },
     footer: {
-      description: "Orgulhosamente guiando indiv\u00edduos e fam\u00edlias LGBTQIA+ em cada passo da sua jornada para Portugal.",
+      description: "Um escritório de advocacia boutique dedicado a indivíduos e famílias LGBTQIA+ construindo novas vidas em Portugal. Somos a sua ponte, o seu advogado, o seu porto seguro.",
       sections: {
-        services: "Servi\u00e7os",
+        services: "Serviços",
         company: "Empresa",
         legal: "Legal"
       },
-      serviceLinks: ["Apoio em Vistos", "Encontrar Lar", "Reloca\u00e7\u00e3o", "Orienta\u00e7\u00e3o Jur\u00eddica", "Comunidade", "Neg\u00f3cios"],
-      companyLinks: ["Sobre N\u00f3s", "Nossa Equipa", "Testemunhos", "Contacto"],
-      legalLinks: ["Pol\u00edtica de Privacidade", "Termos de Servi\u00e7o", "Pol\u00edtica de Cookies"],
-      copyright: "\u00a9 2025 Next Step. Todos os direitos reservados.",
-      disclaimer: "A Next Step \u00e9 uma firma de consultoria registada em Portugal. Este website n\u00e3o constitui aconselhamento jur\u00eddico."
+      serviceLinks: [
+        "Imigração & Vistos",
+        "Imobiliário & Investimento",
+        "Concierge Relocalização",
+        "Direito Familiar",
+        "Emprego & Negócios",
+        "Conexão Comunitária"
+      ],
+      companyLinks: ["Sobre Nós", "Nossa Equipa", "Histórias de Clientes", "Contacto"],
+      legalLinks: ["Política de Privacidade", "Termos de Serviço", "Aviso Legal"],
+      copyright: "© 2025 NextStep. Todos os direitos reservados.",
+      disclaimer: "A NextStep é um escritório de advocacia registado em Portugal. Este website fornece apenas informação geral e não constitui aconselhamento jurídico. Cada caso é único e requer consulta individual."
     }
   }
 };
