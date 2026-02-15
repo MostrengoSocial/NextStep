@@ -1,5 +1,6 @@
 import React from "react";
 import "./App.css";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { LanguageProvider } from "./context/LanguageContext";
 import { Header } from "./components/landing/Header";
 import { Hero } from "./components/landing/Hero";
@@ -9,22 +10,40 @@ import { Testimonials } from "./components/landing/Testimonials";
 import { Contact } from "./components/landing/Contact";
 import { Footer } from "./components/landing/Footer";
 import { Toaster } from "./components/ui/sonner";
+import { PrivacyPolicy } from "./components/pages/PrivacyPolicy";
+import { TermsOfService } from "./components/pages/TermsOfService";
+import { LegalDisclaimer } from "./components/pages/LegalDisclaimer";
+
+function HomePage() {
+  return (
+    <>
+      <Hero />
+      <About />
+      <Services />
+      <Testimonials />
+      <Contact />
+    </>
+  );
+}
 
 function App() {
   return (
     <LanguageProvider>
-      <div className="App">
-        <Header />
-        <main>
-          <Hero />
-          <About />
-          <Services />
-          <Testimonials />
-          <Contact />
-        </main>
-        <Footer />
-        <Toaster position="bottom-right" richColors />
-      </div>
+      <Router>
+        <div className="App">
+          <Header />
+          <main>
+            <Routes>
+              <Route path="/" element={<HomePage />} />
+              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+              <Route path="/terms-of-service" element={<TermsOfService />} />
+              <Route path="/legal-disclaimer" element={<LegalDisclaimer />} />
+            </Routes>
+          </main>
+          <Footer />
+          <Toaster position="bottom-right" richColors />
+        </div>
+      </Router>
     </LanguageProvider>
   );
 }
