@@ -10,8 +10,6 @@ import { Send, ArrowUpRight, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { cn } from '../../lib/utils';
 
-const API_URL = process.env.REACT_APP_BACKEND_URL;
-
 export const Contact = () => {
   const { language } = useLanguage();
   const t = content[language].contact;
@@ -30,7 +28,8 @@ export const Contact = () => {
     setIsSubmitting(true);
     
     try {
-      const response = await fetch(`${API_URL}/api/contact`, {
+      // Changed to a relative path to target the Cloudflare Function
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
