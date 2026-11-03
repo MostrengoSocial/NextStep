@@ -1,0 +1,948 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>nextStep Redesign</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@1&display=swap">
+<style>
+/* Layout concept: a relocation dossier. Grotesque headlines, mono route labels,
+   and the pride spectrum used as the route line that marks where you land. */
+:root {
+  --paper: #F8F7F4;
+  --surface: #FFFFFF;
+  --sunk: #EFEDE8;
+  --ink: #141414;
+  --ink-2: #3A3A3A;
+  --muted: #5C5C5C;
+  --line: rgba(20, 20, 20, 0.14);
+  --dot: rgba(20, 20, 20, 0.09);
+  --teal: #1A8A84;
+  --teal-ink: #FFFFFF;
+  --teal-text: #146F6A;
+  --gold: #8E7130;
+  --red: #E44D60;
+  --orange: #E8893C;
+  --yellow: #E8C93C;
+  --green: #3BAF6A;
+  --blue: #4A7FBF;
+  --magenta: #C94FAB;
+  --band: #141414;
+  --band-ink: #F4F3F0;
+  --band-muted: #A9A69F;
+  --band-line: rgba(244, 243, 240, 0.16);
+  --wa: #1F9E50;
+
+  --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
+  --body: "Instrument Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono: "DM Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --serif: "DM Serif Display", Georgia, "Times New Roman", serif;
+
+  --max: 1280px;
+  --radius: 14px;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+  --spectrum: linear-gradient(90deg, var(--red) 0 16.7%, var(--orange) 0 33.3%, var(--yellow) 0 50%, var(--green) 0 66.7%, var(--blue) 0 83.3%, var(--magenta) 0);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0F1010; --surface: #171818; --sunk: #1E1F1F; --ink: #F1EFEA; --ink-2: #D2CFC8; --muted: #A09D96;
+    --line: rgba(241, 239, 234, 0.15); --dot: rgba(241, 239, 234, 0.07);
+    --teal: #2BB5AD; --teal-ink: #062120; --teal-text: #55CBC3; --gold: #D2B36A;
+    --band: #1A1B1B; --band-ink: #F1EFEA; --band-muted: #A09D96; --band-line: rgba(241, 239, 234, 0.14);
+    --wa: #2BC163;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0F1010; --surface: #171818; --sunk: #1E1F1F; --ink: #F1EFEA; --ink-2: #D2CFC8; --muted: #A09D96;
+  --line: rgba(241, 239, 234, 0.15); --dot: rgba(241, 239, 234, 0.07);
+  --teal: #2BB5AD; --teal-ink: #062120; --teal-text: #55CBC3; --gold: #D2B36A;
+  --band: #1A1B1B; --band-ink: #F1EFEA; --band-muted: #A09D96; --band-line: rgba(241, 239, 234, 0.14);
+  --wa: #2BC163;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 88px; }
+body {
+  margin: 0; background: var(--paper); color: var(--ink);
+  font: 400 17px/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 60; background: var(--paper); }
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+::selection { background: color-mix(in srgb, var(--teal) 25%, transparent); }
+:focus-visible { outline: 2px solid var(--teal); outline-offset: 3px; border-radius: 4px; }
+
+.wrap {
+  max-width: var(--max); margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px), 4vw);
+  padding-right: max(16px, env(safe-area-inset-right, 0px), 4vw);
+}
+section { padding-block: clamp(72px, 10vw, 136px); }
+
+/* ---------- type ---------- */
+.eyebrow {
+  font: 400 12.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 10px; margin: 0 0 22px;
+}
+.eyebrow b { font-weight: 500; color: var(--teal-text); }
+.h1, .h2, .h3 { font-family: var(--display); font-weight: 700; letter-spacing: -0.045em; margin: 0; text-wrap: balance; font-variation-settings: "opsz" 96; }
+.h1 { font-size: clamp(3rem, 6.4vw, 5.9rem); line-height: .93; }
+.h2 { font-size: clamp(2.4rem, 5.4vw, 4.6rem); line-height: .98; }
+.h3 { font-size: clamp(1.35rem, 2vw, 1.6rem); line-height: 1.1; letter-spacing: -0.03em; }
+.h2 .l2 { display: block; color: var(--teal-text); }
+.serif { font-family: var(--serif); font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.lede { font-size: clamp(1.08rem, 1.4vw, 1.22rem); color: var(--ink-2); max-width: 36rem; margin: 0; }
+.mono { font-family: var(--mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+.mark {
+  background: var(--spectrum) no-repeat 0 92% / 100% .11em;
+  padding-bottom: .04em;
+  animation: draw 1.1s .5s var(--ease) both;
+}
+@keyframes draw { from { background-size: 0 .11em; } }
+
+/* ---------- buttons ---------- */
+.btn {
+  display: inline-flex; align-items: center; gap: 14px; height: 52px; padding: 0 22px;
+  border-radius: 10px; font: 600 15px/1 var(--body); text-decoration: none; cursor: pointer;
+  border: 1px solid transparent; transition: background .25s, color .25s, border-color .25s, transform .25s var(--ease);
+}
+.btn-primary { background: var(--teal); color: var(--teal-ink); }
+.btn-primary:hover { background: var(--ink); color: var(--paper); }
+.btn-ghost { color: var(--ink); border-color: var(--line); background: transparent; }
+.btn-ghost:hover { border-color: var(--ink); }
+.btn .arr { font-family: var(--mono); font-weight: 400; transition: transform .25s var(--ease); }
+.btn:hover .arr { transform: translate(2px, -2px); }
+
+/* ---------- header ---------- */
+.site-head {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: color-mix(in srgb, var(--paper) 88%, transparent);
+  backdrop-filter: saturate(1.4) blur(12px); -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+.head-row { display: flex; align-items: center; gap: 28px; height: 76px; }
+.logo { display: flex; align-items: center; gap: 10px; text-decoration: none; font: 700 25px/1 var(--display); letter-spacing: -0.05em; }
+.logo svg { width: 34px; height: 34px; flex: none; }
+.logo small { font: 400 10.5px/1 var(--mono); letter-spacing: .14em; color: var(--muted); margin-left: 8px; padding-left: 12px; border-left: 1px solid var(--line); text-transform: uppercase; }
+.nav { display: flex; gap: 26px; margin-left: auto; }
+.nav a { text-decoration: none; font-weight: 500; font-size: 15px; color: var(--ink-2); padding-block: 6px; border-bottom: 1px solid transparent; }
+.nav a:hover { color: var(--ink); border-color: var(--ink); }
+.head-tools { display: flex; align-items: center; gap: 8px; }
+.pill {
+  height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: transparent; color: var(--ink);
+  font: 400 11.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;
+}
+.pill:hover { border-color: var(--ink); }
+.pill .dot { width: 10px; height: 10px; border-radius: 50%; background: linear-gradient(90deg, var(--ink) 50%, transparent 50%); border: 1px solid var(--ink); }
+.head-cta { height: 42px; padding: 0 18px; font-size: 14px; }
+@media (max-width: 1060px) { .nav { display: none; } .head-tools { margin-left: auto; } .logo small { display: none; } }
+@media (max-width: 560px) { .head-cta { display: none; } .head-row { gap: 12px; } }
+
+/* ---------- hero ---------- */
+.hero {
+  padding-block: clamp(48px, 7vw, 96px) 0;
+  background-image: radial-gradient(var(--dot) 1.2px, transparent 1.4px);
+  background-size: 22px 22px;
+}
+.hero-grid { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero-copy { min-width: 0; }
+.hero-copy .h1 { margin-bottom: 30px; }
+.hero-copy .h1 .serif { color: var(--teal-text); font-size: 1.04em; }
+.hero-ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 36px; }
+.live { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 0 4px color-mix(in srgb, var(--teal) 22%, transparent); }
+
+.postcard { min-width: 0; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: 12px; }
+.postcard-bar { display: flex; justify-content: space-between; gap: 12px; padding: 4px 6px 12px; color: var(--muted); }
+.postcard-bar span:first-child { color: var(--teal-text); }
+.frames { position: relative; aspect-ratio: 4 / 5; max-width: 100%; border-radius: 10px; overflow: hidden; background: var(--sunk); }
+.frames img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform: scale(1.04); transition: opacity 1.2s var(--ease), transform 7s linear; }
+.frames img.on { opacity: 1; transform: scale(1); }
+.postcard-foot { display: flex; align-items: center; gap: 12px; padding: 14px 6px 4px; }
+.postcard-foot .pc-place { font: 600 15px/1.2 var(--body); }
+.postcard-foot .coord { margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ticks { display: flex; gap: 6px; padding: 10px 6px 4px; }
+.ticks button { flex: 1; height: 4px; border: 0; padding: 0; border-radius: 2px; background: var(--line); cursor: pointer; position: relative; overflow: hidden; }
+.ticks button i { position: absolute; inset: 0; transform-origin: left; transform: scaleX(0); background: var(--ink); }
+.ticks button.done i { transform: scaleX(1); }
+.ticks button.on i { animation: fill 6s linear forwards; }
+@keyframes fill { to { transform: scaleX(1); } }
+
+.facts { margin-top: clamp(48px, 7vw, 88px); border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.facts div { padding: 20px 20px 22px 0; display: grid; gap: 8px; }
+.facts div + div { padding-left: 20px; border-left: 1px solid var(--line); }
+.facts dt { color: var(--muted); margin: 0; }
+.facts dd { margin: 0; font-weight: 500; font-size: 15px; font-variant-numeric: tabular-nums; }
+@media (max-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr); }
+  .postcard { max-width: 520px; }
+  .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .facts div:nth-child(3) { padding-left: 0; border-left: 0; }
+  .facts div:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* ---------- section head ---------- */
+.sec-head { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .8fr); gap: 32px 64px; align-items: end; margin-bottom: clamp(40px, 5vw, 64px); }
+.sec-head .lede { justify-self: end; }
+@media (max-width: 860px) { .sec-head { grid-template-columns: minmax(0, 1fr); } .sec-head .lede { justify-self: start; } }
+
+/* ---------- departures board ---------- */
+.board-shell { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: clamp(14px, 2vw, 24px); }
+.board-scroll { overflow-x: auto; }
+.board { border-collapse: collapse; min-width: 760px; width: 100%; }
+.board th { text-transform: uppercase; text-align: left; font: 400 11px/1 var(--mono); letter-spacing: .14em; color: var(--muted); padding: 6px 10px 14px 0; border-bottom: 1px solid var(--line); }
+.board td { padding: 12px 18px 12px 0; border-bottom: 1px solid var(--line); white-space: nowrap; }
+.board tr:last-child td { border-bottom: 0; }
+.flaps { display: inline-flex; gap: 2px; }
+.flap {
+  display: inline-grid; place-items: center; width: 1.32em; height: 1.75em;
+  font: 500 16px/1 var(--mono); color: var(--ink);
+  background: var(--sunk); border-radius: 3px; position: relative;
+}
+.flap::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: var(--paper); opacity: .9; }
+.flap.blank { background: color-mix(in srgb, var(--sunk) 45%, transparent); }
+.st-arrived .flap { color: var(--teal-text); }
+.st-boarding .flap { color: var(--gold); }
+.board-legend { display: flex; flex-wrap: wrap; gap: 8px 24px; margin-top: 18px; color: var(--muted); font-size: 14px; }
+.board-legend span::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; background: var(--teal); }
+.board-legend span + span::before { background: var(--gold); }
+
+/* ---------- about ---------- */
+.about-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.about-photo { border: 1px solid var(--line); border-radius: 18px; padding: 12px; background: var(--surface); }
+.about-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 10px; }
+.about-photo .postcard-bar { padding: 12px 6px 2px; }
+.about-copy { min-width: 0; display: grid; gap: 24px; }
+.about-copy p { margin: 0; max-width: 38rem; color: var(--ink-2); }
+.about-copy .big { font-size: clamp(1.25rem, 1.9vw, 1.55rem); line-height: 1.4; color: var(--ink); letter-spacing: -0.01em; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: clamp(56px, 7vw, 96px); border-top: 1px solid var(--line); }
+.stat { padding: 24px 20px 0 0; display: grid; gap: 10px; align-content: start; }
+.stat + .stat { padding-left: 20px; border-left: 1px solid var(--line); }
+.stat .num { font: 700 clamp(2.6rem, 5vw, 4.2rem)/1 var(--display); letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.stat .bar { width: 28px; height: 4px; border-radius: 2px; }
+.stat .lbl { color: var(--muted); }
+@media (max-width: 860px) {
+  .about-grid { grid-template-columns: minmax(0, 1fr); }
+  .about-photo { max-width: 460px; }
+  .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .stat:nth-child(3) { padding-left: 0; border-left: 0; }
+  .stat:nth-child(n+3) { margin-top: 24px; border-top: 1px solid var(--line); }
+}
+
+/* ---------- rights band ---------- */
+.band { background: var(--band); color: var(--band-ink); }
+.band .eyebrow { color: var(--band-muted); }
+.band .eyebrow b { color: #55CBC3; }
+.band .h2 .l2 { color: #55CBC3; }
+.band .lede { color: var(--band-muted); }
+.timeline { position: relative; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; padding-top: 34px; }
+.timeline::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 4px; border-radius: 2px; background: var(--spectrum); }
+.tl { position: relative; display: grid; gap: 10px; align-content: start; }
+.tl::before { content: ""; position: absolute; top: -40px; left: 0; width: 16px; height: 16px; border-radius: 50%; background: var(--band); border: 3px solid var(--band-ink); }
+.tl .yr { font: 700 clamp(2.2rem, 3.6vw, 3rem)/1 var(--display); letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
+.tl p { margin: 0; color: var(--band-muted); font-size: 15.5px; max-width: 18rem; }
+.tl p strong { color: var(--band-ink); font-weight: 600; display: block; margin-bottom: 4px; font-size: 16.5px; }
+.why { margin-top: clamp(56px, 7vw, 88px); display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); border-top: 1px solid var(--band-line); }
+.why li { list-style: none; display: flex; gap: 16px; align-items: baseline; padding: 20px 24px 20px 0; border-bottom: 1px solid var(--band-line); }
+.why li:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--band-line); }
+.why .k { font: 400 12px/1 var(--mono); color: var(--band-muted); flex: none; width: 1.8em; }
+.why .k::before { content: ""; display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 8px; background: var(--c); vertical-align: 1px; }
+.why ul { margin: 0; padding: 0; display: contents; }
+@media (max-width: 860px) {
+  .timeline { grid-template-columns: repeat(2, minmax(0, 1fr)); row-gap: 56px; }
+  .timeline::before { display: none; }
+  .tl { padding-top: 18px; border-top: 4px solid var(--c); }
+  .tl::before { display: none; }
+  .why { grid-template-columns: minmax(0, 1fr); }
+  .why li:nth-child(even) { padding-left: 0; border-left: 0; }
+}
+
+/* ---------- services ---------- */
+.svc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.svc {
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: 22px;
+  display: grid; grid-template-rows: auto auto 1fr auto; gap: 18px; min-width: 0;
+  transition: border-color .3s, transform .4s var(--ease);
+}
+.svc:hover { border-color: var(--c); transform: translateY(-3px); }
+.svc-top { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font: 400 11.5px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+.svc-top b { color: var(--c); font-weight: 500; }
+.svc-fig { border: 1px solid var(--line); border-radius: 8px; height: 132px; background-image: radial-gradient(var(--dot) 1px, transparent 1.2px); background-size: 14px 14px; overflow: hidden; }
+.svc-fig svg { width: 100%; height: 100%; display: block; }
+.svc-fig .s { stroke: var(--ink); fill: none; stroke-width: 1.5; }
+.svc-fig .sd { stroke: var(--muted); fill: none; stroke-width: 1.3; stroke-dasharray: 4 4; }
+.svc-fig .f { fill: var(--c); }
+.svc-fig .fs { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.svc-fig text { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; fill: var(--muted); }
+.svc-fig text.c { fill: var(--c); }
+.svc-body { display: grid; gap: 10px; align-content: start; }
+.svc-body .tag { font-family: var(--serif); font-style: italic; font-size: 19px; color: var(--ink-2); line-height: 1.25; }
+.svc-body p { margin: 0; color: var(--muted); font-size: 15.5px; }
+.svc-link { justify-self: start; text-decoration: none; font-weight: 600; font-size: 14.5px; border-bottom: 1px solid var(--line); padding-bottom: 3px; }
+.svc-link:hover { border-color: var(--c); }
+@media (max-width: 1000px) { .svc-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .svc-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- places ---------- */
+.places { display: grid; grid-template-columns: 1.25fr 1fr 1fr; grid-template-rows: auto auto; gap: 16px; }
+.place { position: relative; border-radius: var(--radius); overflow: hidden; min-height: 300px; background: var(--sunk); color: #fff; margin: 0; }
+.place img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform 1.2s var(--ease); }
+.place:hover img { transform: scale(1.04); }
+.place::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(0,0,0,.38) 0, rgba(0,0,0,0) 30%, rgba(0,0,0,0) 55%, rgba(0,0,0,.62) 100%); }
+.place figcaption { position: absolute; inset: 0; z-index: 1; display: flex; flex-direction: column; justify-content: space-between; padding: 18px; }
+.place .t { display: flex; justify-content: space-between; gap: 12px; font: 400 11.5px/1.3 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: rgba(255,255,255,.9); }
+.place .n { display: block; font: 700 clamp(1.6rem, 2.6vw, 2.2rem)/1 var(--display); letter-spacing: -0.04em; color: #fff; }
+.place .d { display: block; font-size: 14.5px; color: rgba(255,255,255,.86); margin-top: 6px; max-width: 26rem; }
+.place.tall { grid-row: span 2; min-height: 620px; }
+.place.wide { grid-column: span 2; }
+.place.pending .n .serif { color: #fff; }
+@media (max-width: 900px) {
+  .places { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .place.tall { grid-row: auto; grid-column: span 2; min-height: 420px; }
+}
+@media (max-width: 560px) {
+  .places { grid-template-columns: minmax(0, 1fr); }
+  .place.tall, .place.wide { grid-column: auto; }
+  .place { min-height: 340px; }
+}
+
+/* ---------- stories ---------- */
+.stories { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+.story { border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; display: grid; grid-template-rows: auto 1fr auto; gap: 22px; background: var(--paper); min-width: 0; }
+.story-top { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); padding-bottom: 16px; border-bottom: 1px dashed var(--line); }
+.story-top b { color: var(--c); font-weight: 500; }
+.story blockquote { margin: 0; font-size: 17px; line-height: 1.6; color: var(--ink-2); }
+.story blockquote::before { content: "\201C"; display: block; font: 400 56px/0.6 var(--serif); color: var(--c); height: 24px; }
+.who { display: flex; align-items: center; gap: 12px; }
+.who .ini { width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; font: 500 13px/1 var(--mono); background: color-mix(in srgb, var(--c) 18%, var(--paper)); color: var(--ink); border: 1px solid var(--c); flex: none; }
+.who strong { display: block; font-weight: 600; }
+.who span { color: var(--muted); font-size: 14px; }
+@media (max-width: 960px) { .stories { grid-template-columns: minmax(0, 1fr); max-width: 640px; } }
+.stories-sec { background: var(--surface); border-block: 1px solid var(--line); }
+
+/* ---------- contact ---------- */
+.contact-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(32px, 6vw, 88px); }
+.contact-copy { min-width: 0; display: grid; gap: 28px; align-content: start; }
+.contact-photo { border-radius: var(--radius); overflow: hidden; aspect-ratio: 16 / 10; max-width: 100%; }
+.contact-photo img { width: 100%; height: 100%; object-fit: cover; }
+.info { display: grid; border-top: 1px solid var(--line); margin: 0; }
+.info div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.info dt { color: var(--muted); }
+.info dd { margin: 0; font-weight: 500; overflow-wrap: anywhere; user-select: all; }
+.copy { font: 400 11px/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; border: 1px solid var(--line); background: transparent; color: var(--muted); border-radius: 6px; padding: 7px 9px; cursor: pointer; }
+.copy:hover { color: var(--ink); border-color: var(--ink); }
+.wa { display: flex; align-items: center; gap: 14px; padding: 16px 18px; border: 1px solid var(--line); border-radius: 12px; text-decoration: none; background: var(--surface); }
+.wa:hover { border-color: var(--wa); }
+.wa svg { width: 28px; height: 28px; flex: none; fill: var(--wa); }
+.wa strong { display: block; }
+.wa span { color: var(--muted); font-size: 14px; }
+.wa .arr { margin-left: auto; font-family: var(--mono); color: var(--muted); }
+
+.form { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: clamp(20px, 3vw, 36px); display: grid; gap: 18px; align-content: start; min-width: 0; }
+.form-top { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); padding-bottom: 18px; border-bottom: 1px dashed var(--line); }
+.form-top b { color: var(--teal-text); font-weight: 500; }
+.row2 { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 16px; }
+@media (max-width: 560px) { .row2 { grid-template-columns: minmax(0, 1fr); } }
+.field { display: grid; gap: 8px; min-width: 0; }
+.field label { font: 400 11.5px/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.field input, .field select, .field textarea {
+  width: 100%; font: 400 16px/1.4 var(--body); color: var(--ink); background: var(--paper);
+  border: 1px solid var(--line); border-radius: 10px; padding: 13px 14px; transition: border-color .2s;
+}
+.field textarea { min-height: 128px; resize: vertical; }
+.field input:focus, .field select:focus, .field textarea:focus { outline: none; border-color: var(--teal); box-shadow: 0 0 0 3px color-mix(in srgb, var(--teal) 18%, transparent); }
+.form .btn { justify-self: start; }
+.form-note { margin: 0; font-size: 13.5px; color: var(--muted); }
+.sent { border: 1px solid var(--teal); background: color-mix(in srgb, var(--teal) 10%, var(--surface)); border-radius: 10px; padding: 14px 16px; margin: 0; font-weight: 500; }
+@media (max-width: 900px) { .contact-grid { grid-template-columns: minmax(0, 1fr); } }
+
+/* ---------- footer ---------- */
+.foot { background: var(--band); color: var(--band-ink); padding-block: 72px 36px; }
+.foot-word { display: flex; align-items: center; gap: clamp(10px, 2vw, 22px); font: 800 clamp(3.6rem, 13vw, 11rem)/.85 var(--display); letter-spacing: -0.06em; margin: 0 0 48px; }
+.foot-word svg { width: .8em; height: .8em; flex: none; }
+.foot-grid { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); gap: 32px; padding-top: 32px; border-top: 1px solid var(--band-line); }
+.foot-grid p { margin: 0; color: var(--band-muted); font-size: 15px; max-width: 26rem; }
+.foot-grid h4 { margin: 0 0 14px; font: 400 11.5px/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--band-muted); }
+.foot-grid ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
+.foot-grid a { text-decoration: none; color: var(--band-ink); }
+.foot-grid a:hover { text-decoration: underline; text-underline-offset: 3px; }
+.foot-legal { margin-top: 48px; padding-top: 22px; border-top: 1px solid var(--band-line); display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; color: var(--band-muted); font-size: 13px; }
+.foot-legal p { margin: 0; max-width: 52rem; }
+.foot-spectrum { height: 6px; background: var(--spectrum); }
+@media (max-width: 860px) { .foot-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .foot-grid > div:first-child { grid-column: span 2; } }
+
+/* ---------- motion ---------- */
+.rise { animation: rise .9s var(--ease) both; }
+.d1 { animation-delay: .08s; } .d2 { animation-delay: .18s; } .d3 { animation-delay: .3s; } .d4 { animation-delay: .42s; }
+@keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+</style>
+
+</head>
+<body>
+<header class="site-head">
+  <div class="wrap head-row">
+    <a class="logo" href="#top" aria-label="nextStep home">
+      <svg viewBox="0 0 40 40" fill="none" aria-hidden="true">
+        <path d="M8 8 L20 20 L8 32" stroke="#E44D60" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 8 L26 20 L14 32" stroke="#E8893C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 8 L32 20 L20 32" stroke="#E8C93C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M26 11 L35 20 L26 29" stroke="#3BAF6A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M30 14 L37 20 L30 26" stroke="#4A7FBF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      nextStep<small>Faro · PT</small>
+    </a>
+    <nav class="nav" aria-label="Main">
+      <a href="#routes" data-i18n="nav.routes">Routes</a>
+      <a href="#about" data-i18n="nav.about">About</a>
+      <a href="#rights" data-i18n="nav.rights">Why Portugal</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#stories" data-i18n="nav.stories">Stories</a>
+    </nav>
+    <div class="head-tools">
+      <button class="pill" id="lang" type="button" aria-label="Mudar para Português">PT</button>
+      <button class="pill" id="theme" type="button"><span class="dot" aria-hidden="true"></span><span id="theme-label">Light</span></button>
+      <a class="btn btn-primary head-cta" href="#contact"><span data-i18n="nav.cta">Book a consultation</span><span class="arr" aria-hidden="true">↗</span></a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow rise"><span class="live" aria-hidden="true"></span><span data-i18n="hero.eyebrow">LGBTQIA+ relocation law · Portugal</span></p>
+          <h1 class="h1 rise d1" data-i18n-html="hero.title">Your next step<br>is <span class="serif mark">home.</span></h1>
+          <p class="lede rise d2" data-i18n="hero.sub">Legal guidance and personal support for LGBTQIA+ people and families moving to Portugal. We handle the visas, the property and the paperwork, and we help you settle in.</p>
+          <div class="hero-ctas rise d3">
+            <a class="btn btn-primary" href="#contact"><span data-i18n="hero.cta1">Book a confidential consultation</span><span class="arr" aria-hidden="true">↗</span></a>
+            <a class="btn btn-ghost" href="#services"><span data-i18n="hero.cta2">See our services</span><span class="arr" aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+        <figure class="postcard rise d2" style="margin:0" aria-label="Places in Portugal">
+          <div class="postcard-bar mono"><span id="pc-count">01 / 04</span><span data-i18n="hero.pc">Destination · PT</span></div>
+          <div class="frames" id="frames">
+            <img class="on" src="https://images.unsplash.com/photo-1770163821178-d1f705ca0952?auto=format&fit=crop&w=1100&q=62" alt="Tavira, white houses with terracotta roofs below a church" data-place="Tavira" data-coord="37.1264° N · 7.6486° W">
+            <img src="https://images.unsplash.com/photo-1754221715854-157c677101c5?auto=format&fit=crop&w=1100&q=62" alt="Aerial view of the beach and pine forest at Quinta do Lago" data-place="Quinta do Lago" data-coord="37.0287° N · 8.0170° W">
+            <img src="https://images.unsplash.com/photo-1762335358426-72c27db3f5ff?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwyfHxMaXNib24lMjB5ZWxsb3clMjB0cmFtJTIwaGlzdG9yaWMlMjBzdHJlZXQlMjBQb3J0dWdhbHxlbnwwfHx8fDE3NzEwODY4MTV8MA&ixlib=rb-4.1.0&q=85&w=1200" alt="Yellow tram 28 passing a pink building in Lisbon" data-place="Lisboa" data-coord="38.7223° N · 9.1393° W">
+            <img src="https://images.unsplash.com/photo-1725344153786-22686793e5a3?auto=format&fit=crop&w=1920&q=80" alt="Rock arches and cliffs on the coast at Lagos" data-place="Lagos" data-coord="37.0814° N · 8.6705° W">
+          </div>
+          <div class="postcard-foot"><span class="pc-place" id="pc-place">Tavira</span><span class="coord mono" id="pc-coord">37.1264° N · 7.6486° W</span></div>
+          <div class="ticks" id="ticks"></div>
+        </figure>
+      </div>
+      <dl class="facts mono">
+        <div><dt data-i18n="facts.office">Office</dt><dd>Faro · Algarve</dd></div>
+        <div><dt data-i18n="facts.lang">Languages</dt><dd>EN · PT</dd></div>
+        <div><dt data-i18n="facts.reply">Reply time</dt><dd data-i18n="facts.replyv">Within 24 hours</dd></div>
+        <div><dt data-i18n="facts.priv">Consultations</dt><dd data-i18n="facts.privv">Legally privileged</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ROUTES -->
+  <section id="routes">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><b>01</b> / <span data-i18n="routes.eyebrow">Routes</span></p>
+          <h2 class="h2" data-i18n-html="routes.title">Wherever you're leaving from.<span class="l2">We handle the <span class="serif">arrival.</span></span></h2>
+        </div>
+        <p class="lede" data-i18n="routes.sub">Clients come to us from the US, Canada, Brazil and beyond. Each route has its own documents, visa and timing. We plan it from the first call to your residence card.</p>
+      </div>
+      <div class="board-shell">
+        <div class="board-scroll">
+          <table class="board" id="board" aria-label="Relocation routes">
+            <thead><tr><th data-i18n="board.from">From</th><th data-i18n="board.to">To</th><th data-i18n="board.via">Pathway</th><th data-i18n="board.status">Status</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="board-legend"><span data-i18n="board.l1">Arrived: routes from the client stories below</span><span data-i18n="board.l2">Boarding: other routes we handle often</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" style="padding-top:0">
+    <div class="wrap">
+      <div class="about-grid">
+        <figure class="about-photo" style="margin:0">
+          <img src="https://images.unsplash.com/photo-1762335358426-72c27db3f5ff?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2ODh8MHwxfHNlYXJjaHwyfHxMaXNib24lMjB5ZWxsb3clMjB0cmFtJTIwaGlzdG9yaWMlMjBzdHJlZXQlMjBQb3J0dWdhbHxlbnwwfHx8fDE3NzEwODY4MTV8MA&ixlib=rb-4.1.0&q=85&w=1200" alt="Yellow tram 28 in a Lisbon street">
+          <figcaption class="postcard-bar mono"><span>Lisboa · Prazeres 28</span><span>38.7223° N · 9.1393° W</span></figcaption>
+        </figure>
+        <div class="about-copy">
+          <div>
+            <p class="eyebrow"><b>02</b> / <span data-i18n="about.eyebrow">Who we are</span></p>
+            <h2 class="h2" data-i18n-html="about.title">Lawyers who<span class="l2"><span class="serif">get it.</span></span></h2>
+          </div>
+          <p class="big" data-i18n="about.p1">nextStep is a boutique legal practice for LGBTQIA+ individuals and families choosing Portugal. We cover immigration, investment and relocation, and we translate the culture as well as the law.</p>
+          <p data-i18n="about.p2">Our attorneys combine deep Portuguese legal expertise with lived international experience. We act as your concierge for big decisions, your cultural interpreter and your advocate. You get legal security, personal attention and a safe harbour. You are never just a case number.</p>
+          <a class="svc-link" style="--c:var(--teal)" href="#contact" data-i18n="about.link">Talk to the team →</a>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat"><span class="num">300+</span><span class="bar" style="background:var(--red)"></span><span class="lbl" data-i18n="stats.1">Families supported</span></div>
+        <div class="stat"><span class="num">20+</span><span class="bar" style="background:var(--orange)"></span><span class="lbl" data-i18n="stats.2">Years of experience</span></div>
+        <div class="stat"><span class="num">99%</span><span class="bar" style="background:var(--green)"></span><span class="lbl" data-i18n="stats.3">Success rate</span></div>
+        <div class="stat"><span class="num">24/7</span><span class="bar" style="background:var(--blue)"></span><span class="lbl" data-i18n="stats.4">Availability by appointment</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHTS -->
+  <section id="rights" class="band">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><b>03</b> / <span data-i18n="rights.eyebrow">Why Portugal</span></p>
+          <h2 class="h2" data-i18n-html="rights.title">Rights written<span class="l2">into <span class="serif">law.</span></span></h2>
+        </div>
+        <p class="lede" data-i18n="rights.sub">Portugal is ranked among the most LGBTQIA+-friendly countries in Europe by ILGA-Europe. These protections are law, and they apply to you once you live here.</p>
+      </div>
+      <div class="timeline" id="timeline"></div>
+      <div class="why"><ul id="why"></ul></div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><b>04</b> / <span data-i18n="svc.eyebrow">Services</span></p>
+          <h2 class="h2" data-i18n-html="svc.title">Six practice areas.<span class="l2">One <span class="serif">point of contact.</span></span></h2>
+        </div>
+        <p class="lede" data-i18n="svc.sub">Most moves touch several areas of law at once. One team covers all of them, so nothing falls between two offices.</p>
+      </div>
+      <div class="svc-grid" id="svc"></div>
+    </div>
+  </section>
+
+  <!-- PLACES -->
+  <section id="places" style="padding-top:0">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><b>05</b> / <span data-i18n="places.eyebrow">Destinations</span></p>
+          <h2 class="h2" data-i18n-html="places.title">Where will<span class="l2">you <span class="serif">land?</span></span></h2>
+        </div>
+        <p class="lede" data-i18n="places.sub">Lisbon, Porto or the Algarve. We know the welcoming communities in each, and we check every property before you sign.</p>
+      </div>
+      <div class="places">
+        <figure class="place tall">
+          <img src="https://images.unsplash.com/photo-1754221715854-157c677101c5?auto=format&fit=crop&w=1100&q=62" alt="Aerial view of the beach and pine forest at Quinta do Lago">
+          <figcaption><span class="t"><span>Algarve</span><span>37.0287° N · 8.0170° W</span></span><span><span class="n">Quinta do Lago</span><span class="d" data-i18n="places.qdl">Pine forest down to the Atlantic, minutes from our Faro office.</span></span></figcaption>
+        </figure>
+        <figure class="place">
+          <img src="https://images.unsplash.com/photo-1770163821178-d1f705ca0952?auto=format&fit=crop&w=1100&q=62" alt="Tavira rooftops">
+          <figcaption><span class="t"><span>Algarve</span><span>37.1264° N</span></span><span><span class="n">Tavira</span><span class="d" data-i18n="places.tav">White houses and terracotta roofs.</span></span></figcaption>
+        </figure>
+        <figure class="place">
+          <img src="https://images.unsplash.com/photo-1725344153786-22686793e5a3?auto=format&fit=crop&w=1920&q=80" alt="Rock formations at Lagos">
+          <figcaption><span class="t"><span>Algarve</span><span>37.0814° N</span></span><span><span class="n">Lagos</span><span class="d" data-i18n="places.lag">Cliffs, coves and clear water.</span></span></figcaption>
+        </figure>
+        <figure class="place wide pending">
+          <img src="https://images.unsplash.com/photo-1757264119016-7e6b568b810d?auto=format&fit=crop&w=1920&q=80" alt="Modern white villa with a pool and palm trees">
+          <figcaption><span class="t"><span data-i18n="places.pt">Your address</span><span data-i18n="places.pc">Pending · due diligence</span></span><span><span class="n" data-i18n-html="places.vn">Your <span class="serif">home.</span></span><span class="d" data-i18n="places.vd">Contracts, title checks and tax planning before you commit.</span></span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section id="stories" class="stories-sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow"><b>06</b> / <span data-i18n="st.eyebrow">Client stories</span></p>
+          <h2 class="h2" data-i18n-html="st.title">Trusted by families<span class="l2"><span class="serif">worldwide.</span></span></h2>
+        </div>
+        <p class="lede" data-i18n="st.sub">Individuals and couples who trusted us with their move to Portugal.</p>
+      </div>
+      <div class="stories" id="stories-list"></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-copy">
+        <div>
+          <p class="eyebrow"><b>07</b> / <span data-i18n="ct.eyebrow">Contact</span></p>
+          <h2 class="h2" data-i18n-html="ct.title">Ready for your<span class="l2"><span class="serif">next step?</span></span></h2>
+        </div>
+        <p class="lede" data-i18n="ct.sub">Book a confidential consultation, protected by attorney-client privilege. We work across time zones, so we can meet when it suits you.</p>
+        <div class="contact-photo"><img src="https://images.unsplash.com/photo-1721120135035-7eb316da0fdc?auto=format&fit=crop&w=1200&q=80" alt="Two people holding hands on a tree-lined path"></div>
+        <dl class="info">
+          <div><dt class="mono" data-i18n="ct.office">Office</dt><dd>Largo de São Luís, nº11 C, 4ºD, 8000-143 Faro</dd><span></span></div>
+          <div><dt class="mono">Email</dt><dd id="em">hello@nextstep.com.pt</dd><button class="copy" type="button" data-copy="em" data-i18n="ct.copy">Copy</button></div>
+          <div><dt class="mono" data-i18n="ct.phone">Phone</dt><dd id="ph">+351 934 229 144</dd><button class="copy" type="button" data-copy="ph" data-i18n="ct.copy">Copy</button></div>
+          <div><dt class="mono" data-i18n="ct.hours">Hours</dt><dd data-i18n="ct.hoursv">24/7 by appointment</dd><span></span></div>
+        </dl>
+        <a class="wa" href="https://wa.me/351934229144" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.2-.4.7-1.3.1-.2 0-.3 0-.4l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.4-.3z"/></svg>
+          <span><strong data-i18n="ct.wa">Chat on WhatsApp</strong><span data-i18n="ct.wad">Quick replies, even outside office hours</span></span>
+          <span class="arr" aria-hidden="true">↗</span>
+        </a>
+      </div>
+
+      <form class="form" id="form" novalidate>
+        <div class="form-top mono"><b data-i18n="f.tag">New consultation</b><span data-i18n="f.ref">Confidential</span></div>
+        <div class="row2">
+          <div class="field"><label for="f-name" data-i18n="f.name">Full name</label><input id="f-name" name="name" autocomplete="name" required></div>
+          <div class="field"><label for="f-email" data-i18n="f.email">Email</label><input id="f-email" name="email" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="f-phone" data-i18n="f.phone">Phone (optional)</label><input id="f-phone" name="phone" type="tel" autocomplete="tel"></div>
+          <div class="field"><label for="f-from" data-i18n="f.from">Moving from</label><input id="f-from" name="from" autocomplete="country-name"></div>
+        </div>
+        <div class="field"><label for="f-service" data-i18n="f.service">Main interest</label><select id="f-service" name="service"></select></div>
+        <div class="field"><label for="f-msg" data-i18n="f.msg">Your situation</label><textarea id="f-msg" name="message" data-i18n-ph="f.msgph" placeholder="Tell us about your situation and what you hope to achieve."></textarea></div>
+        <button class="btn btn-primary" type="submit"><span data-i18n="f.submit">Request consultation</span><span class="arr" aria-hidden="true">→</span></button>
+        <p class="form-note" id="form-note" data-i18n="f.note">We reply within 24 hours to arrange a time.</p>
+        <p class="sent" id="sent" hidden></p>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p class="foot-word" aria-hidden="true">
+      <svg viewBox="0 0 40 40" fill="none">
+        <path d="M8 8 L20 20 L8 32" stroke="#E44D60" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 8 L26 20 L14 32" stroke="#E8893C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M20 8 L32 20 L20 32" stroke="#E8C93C" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M26 11 L35 20 L26 29" stroke="#3BAF6A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M30 14 L37 20 L30 26" stroke="#4A7FBF" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>nextStep
+    </p>
+    <div class="foot-grid">
+      <div>
+        <p data-i18n="ft.desc">A boutique consultancy for LGBTQIA+ individuals and families building new lives in Portugal. Your bridge, your advocate, your safe harbour.</p>
+        <p class="mono" style="margin-top:20px">Faro · 37.0194° N · 7.9304° W</p>
+      </div>
+      <div><h4 data-i18n="ft.svc">Services</h4><ul id="ft-svc"></ul></div>
+      <div><h4 data-i18n="ft.co">Company</h4><ul>
+        <li><a href="#about" data-i18n="nav.about">About</a></li>
+        <li><a href="#stories" data-i18n="nav.stories">Stories</a></li>
+        <li><a href="#contact" data-i18n="ct.eyebrow">Contact</a></li></ul></div>
+      <div><h4 data-i18n="ft.legal">Legal</h4><ul>
+        <li><a href="https://www.nextstep.com.pt/privacy-policy" target="_blank" rel="noopener" data-i18n="ft.l1">Privacy policy</a></li>
+        <li><a href="https://www.nextstep.com.pt/terms-of-service" target="_blank" rel="noopener" data-i18n="ft.l2">Terms of service</a></li>
+        <li><a href="https://www.nextstep.com.pt/legal-disclaimer" target="_blank" rel="noopener" data-i18n="ft.l3">Legal disclaimer</a></li></ul></div>
+    </div>
+    <div class="foot-legal">
+      <p data-i18n="ft.disc">nextStep is a consultancy service owned by a registered legal practice in Portugal. This website gives general information only and is not legal advice. Every case is different and needs an individual consultation.</p>
+      <span class="mono">© 2026 nextStep</span>
+    </div>
+  </div>
+</footer>
+<div class="foot-spectrum" aria-hidden="true"></div>
+
+<script>
+(function () {
+  "use strict";
+  var C = { red: "var(--red)", orange: "var(--orange)", yellow: "var(--yellow)", green: "var(--green)", blue: "var(--blue)", magenta: "var(--magenta)" };
+
+  /* ---------- data ---------- */
+  var routes = [
+    { from: "SAN FRANCISCO", to: "CASCAIS", via: "D7", st: "arrived" },
+    { from: "TORONTO", to: "FARO", via: "RESIDENCY", st: "arrived" },
+    { from: "SAO PAULO", to: "TAVIRA", via: "FAMILY", st: "arrived" },
+    { from: "NEW YORK", to: "LISBOA", via: "NOMAD", st: "boarding" },
+    { from: "RIO", to: "PORTO", via: "GOLDEN", st: "boarding" },
+    { from: "VANCOUVER", to: "LAGOS", via: "D7", st: "boarding" }
+  ];
+  var statusWord = { en: { arrived: "ARRIVED", boarding: "BOARDING" }, pt: { arrived: "CHEGOU", boarding: "EMBARQUE" } };
+
+  var timeline = {
+    en: [
+      ["2004", "Constitution", "Article 13 bans discrimination based on sexual orientation."],
+      ["2010", "Marriage", "Same-sex marriage becomes legal nationwide."],
+      ["2016", "Adoption", "Same-sex couples gain full adoption rights."],
+      ["2018", "Self-determination", "Legal gender recognition without medical requirements."]
+    ],
+    pt: [
+      ["2004", "Constituição", "O artigo 13.º proíbe a discriminação em razão da orientação sexual."],
+      ["2010", "Casamento", "O casamento entre pessoas do mesmo sexo torna-se legal."],
+      ["2016", "Adoção", "Casais do mesmo sexo passam a ter plenos direitos de adoção."],
+      ["2018", "Autodeterminação", "Reconhecimento legal do género sem requisitos médicos."]
+    ]
+  };
+  var tlColors = [C.red, C.yellow, C.green, C.blue];
+
+  var why = {
+    en: [
+      "Same-sex marriage legal since 2010, with adoption rights fully recognised",
+      "Ranked among the world's most LGBTQIA+-friendly nations by ILGA-Europe",
+      "Strong anti-discrimination laws with constitutional protection",
+      "Welcoming expat communities in Lisbon, Porto and the Algarve",
+      "Golden Visa, D7 and Digital Nomad routes to residency and citizenship",
+      "High quality of life, affordable living and excellent healthcare"
+    ],
+    pt: [
+      "Casamento entre pessoas do mesmo sexo legal desde 2010, com direitos de adoção plenamente reconhecidos",
+      "Entre as nações mais amigas LGBTQIA+ do mundo segundo a ILGA-Europe",
+      "Leis antidiscriminação fortes, com proteção constitucional",
+      "Comunidades de expatriados acolhedoras em Lisboa, no Porto e no Algarve",
+      "Golden Visa, D7 e Nómada Digital como caminhos para residência e cidadania",
+      "Alta qualidade de vida, custo acessível e excelentes cuidados de saúde"
+    ]
+  };
+  var whyColors = [C.red, C.orange, C.yellow, C.green, C.blue, C.magenta];
+
+  var fig = {
+    visa: '<svg viewBox="0 0 300 132" aria-hidden="true"><path class="sd" d="M40 82 Q150 -6 258 74"/><circle class="fs" cx="40" cy="82" r="9"/><circle class="s" cx="40" cy="82" r="3" style="fill:var(--ink)"/><circle class="f" cx="258" cy="74" r="7"/><text x="22" y="110">FROM</text><text class="c" x="246" y="102">PT</text><text x="122" y="122">D7 · GOLDEN · NOMAD</text></svg>',
+    property: '<svg viewBox="0 0 300 132" aria-hidden="true"><path class="s" d="M42 104 V60 L84 30 L126 60 V104 Z"/><rect class="fs" x="72" y="74" width="24" height="30"/><path class="s" d="M160 44 h96 M160 66 h96 M160 88 h70"/><circle class="f" cx="150" cy="44" r="4"/><circle class="f" cx="150" cy="66" r="4"/><circle class="fs" cx="150" cy="88" r="4"/><text x="160" y="116">DUE DILIGENCE</text></svg>',
+    concierge: '<svg viewBox="0 0 300 132" aria-hidden="true"><g><rect class="fs" x="18" y="26" width="80" height="30" rx="15"/><text x="38" y="45">✓ NIF</text><rect class="fs" x="108" y="26" width="80" height="30" rx="15"/><text x="124" y="45">✓ NISS</text><rect class="fs" x="198" y="26" width="84" height="30" rx="15"/><text x="216" y="45">✓ BANK</text><rect class="fs" x="18" y="72" width="80" height="30" rx="15"/><text x="38" y="91">✓ SNS</text><rect class="fs" x="108" y="72" width="80" height="30" rx="15"/><text x="122" y="91">✓ SCHOOL</text><rect x="198" y="72" width="84" height="30" rx="15" style="fill:none;stroke:var(--c);stroke-width:1.5"/><text class="c" x="214" y="91">○ KEYS</text></g></svg>',
+    family: '<svg viewBox="0 0 300 132" aria-hidden="true"><circle class="s" cx="122" cy="62" r="34"/><circle class="s" cx="168" cy="62" r="34"/><circle class="f" cx="145" cy="104" r="8"/><path class="sd" d="M145 96 V70"/><text x="20" y="30">RECOGNISED</text><text class="c" x="218" y="122">PROTECTED</text></svg>',
+    business: '<svg viewBox="0 0 300 132" aria-hidden="true"><rect class="fs" x="120" y="16" width="60" height="28" rx="4"/><text x="132" y="34">LDA</text><path class="s" d="M150 44 V62 M70 62 H230 M70 62 V78 M150 62 V78 M230 62 V78"/><rect class="fs" x="40" y="78" width="60" height="26" rx="4"/><rect class="fs" x="120" y="78" width="60" height="26" rx="4"/><rect x="200" y="78" width="60" height="26" rx="4" style="fill:var(--c);opacity:.9"/><text x="44" y="122">PERMIT</text><text x="124" y="122">CONTRACT</text><text class="c" x="214" y="122">TAX</text></svg>',
+    community: '<svg viewBox="0 0 300 132" aria-hidden="true"><path class="sd" d="M150 66 L70 36 M150 66 L60 96 M150 66 L232 30 M150 66 L240 96 M150 66 L150 16 M70 36 L60 96 M232 30 L240 96"/><circle class="fs" cx="70" cy="36" r="7"/><circle class="fs" cx="60" cy="96" r="7"/><circle class="fs" cx="232" cy="30" r="7"/><circle class="fs" cx="240" cy="96" r="7"/><circle class="fs" cx="150" cy="16" r="6"/><circle class="f" cx="150" cy="66" r="12"/><text x="132" y="118">DAY ONE</text></svg>'
+  };
+
+  var services = {
+    en: [
+      { k: "visa", c: C.red, code: "IV", route: "Visa → Residence", t: "Immigration & visas", tag: "Your pathway, secured.", d: "Golden Visa, D7 passive income, Digital Nomad, family reunification, residence permits and citizenship. Every detail handled with precision and care." },
+      { k: "property", c: C.orange, code: "RE", route: "Capital → Property", t: "Real estate & investment", tag: "Smart decisions, safe harbour.", d: "Property due diligence, purchase contracts, investment structuring and tax planning, so you make informed decisions in a foreign market." },
+      { k: "concierge", c: C.yellow, code: "RC", route: "Arrive → Settle", t: "Relocation concierge", tag: "Settling in, sorted.", d: "NIF, social security, bank account, healthcare, driving licence exchange and school enrolment. We deal with the bureaucracy so you can settle in." },
+      { k: "family", c: C.green, code: "FL", route: "Family → Protected", t: "Family & personal law", tag: "Your rights, protected.", d: "Marriage recognition, adoption, parental rights, divorce, custody and estate planning, with specialist knowledge of LGBTQIA+ and cross-border family law." },
+      { k: "business", c: C.blue, code: "EB", route: "Idea → Company", t: "Employment & business", tag: "Build what comes next.", d: "Work permits, employment contracts, company formation, commercial law and business structuring, whether you move for a job or start your own." },
+      { k: "community", c: C.magenta, code: "CC", route: "Newcomer → Neighbour", t: "Community connection", tag: "Belong from day one.", d: "Introductions to LGBTQIA+ organisations, expat networks and local resources. You join a community that welcomes you." }
+    ],
+    pt: [
+      { t: "Imigração & vistos", route: "Visto → Residência", tag: "O seu caminho, garantido.", d: "Golden Visa, D7 rendimento passivo, Nómada Digital, reagrupamento familiar, autorizações de residência e cidadania. Cada detalhe tratado com precisão e cuidado." },
+      { t: "Imobiliário & investimento", route: "Capital → Imóvel", tag: "Decisões inteligentes, porto seguro.", d: "Due diligence imobiliária, contratos de compra, estruturação de investimentos e planeamento fiscal, para decidir com informação num mercado novo." },
+      { t: "Concierge de relocalização", route: "Chegar → Instalar", tag: "Instalação sem complicações.", d: "NIF, segurança social, conta bancária, saúde, troca da carta de condução e inscrição escolar. Tratamos da burocracia por si." },
+      { t: "Direito da família & pessoal", route: "Família → Protegida", tag: "Os seus direitos, protegidos.", d: "Reconhecimento de casamento, adoção, responsabilidades parentais, divórcio, guarda e planeamento sucessório, com especialização em direito da família LGBTQIA+ e transfronteiriço." },
+      { t: "Emprego & negócios", route: "Ideia → Empresa", tag: "Construa o que vem a seguir.", d: "Autorizações de trabalho, contratos, constituição de empresas, direito comercial e estruturação de negócios, quer venha por trabalho ou para começar o seu." },
+      { t: "Ligação à comunidade", route: "Recém-chegado → Vizinho", tag: "Pertença desde o primeiro dia.", d: "Apresentações a organizações LGBTQIA+, redes de expatriados e recursos locais. Junta-se a uma comunidade que o acolhe." }
+    ]
+  };
+
+  var stories = {
+    en: [
+      { c: C.red, code: "SFO → CAS", via: "D7", q: "After the 2024 election, we knew we had to leave the US. nextStep didn't just handle our D7 visa. They gave us hope and a clear path during an uncertain time. Six months later, we're home.", n: "Marcus & David Chen", l: "San Francisco → Cascais", i: "MD" },
+      { c: C.blue, code: "YYZ → FAO", via: "Residency", q: "As a trans woman, I was terrified of the legal complexity and of discrimination. nextStep treated me with dignity and professionalism. They knew exactly what I was going through and made everything feel safe.", n: "Sarah T.", l: "Toronto → Faro", i: "ST" },
+      { c: C.green, code: "GRU → TAV", via: "Family", q: "We needed lawyers who understood Brazilian documents, Portuguese requirements and our situation as a same-sex couple with kids. nextStep's team handled it all flawlessly. They even helped us find schools!", n: "Maria & Ana Ferreira", l: "São Paulo → Tavira", i: "MA" }
+    ],
+    pt: [
+      { via: "D7", q: "Depois das eleições de 2024, sabíamos que tínhamos de deixar os EUA. A nextStep não tratou só do nosso visto D7. Deu-nos esperança e um caminho claro num tempo incerto. Seis meses depois, estamos em casa.", l: "São Francisco → Cascais" },
+      { via: "Residência", q: "Como mulher trans, tinha medo das complexidades legais e da discriminação. A nextStep tratou-me com dignidade e profissionalismo. Sabiam exatamente pelo que eu estava a passar e fizeram tudo parecer seguro.", l: "Toronto → Faro" },
+      { via: "Família", q: "Precisávamos de advogados que entendessem documentação brasileira, requisitos portugueses e a nossa situação como casal do mesmo sexo com filhos. A equipa da nextStep tratou de tudo. Até nos ajudaram a encontrar escolas!", l: "São Paulo → Tavira" }
+    ]
+  };
+
+  var serviceOptions = {
+    en: ["Golden Visa / investment immigration", "D7 visa / passive income", "Digital Nomad visa", "Family reunification", "Real estate purchase", "Business formation", "General consultation"],
+    pt: ["Golden Visa / imigração por investimento", "Visto D7 / rendimento passivo", "Visto Nómada Digital", "Reagrupamento familiar", "Compra de imóvel", "Constituição de empresa", "Consulta geral"]
+  };
+
+  var PT = {
+    "nav.routes": "Rotas", "nav.about": "Sobre", "nav.rights": "Porquê Portugal", "nav.services": "Serviços", "nav.stories": "Histórias", "nav.cta": "Marcar consulta",
+    "hero.eyebrow": "Direito de relocalização LGBTQIA+ · Portugal",
+    "hero.title": 'O seu próximo passo<br>é <span class="serif mark">casa.</span>',
+    "hero.sub": "Orientação jurídica e apoio pessoal para pessoas e famílias LGBTQIA+ que se mudam para Portugal. Tratamos dos vistos, do imóvel e da papelada, e ajudamos a instalar-se.",
+    "hero.cta1": "Marcar consulta confidencial", "hero.cta2": "Ver serviços", "hero.pc": "Destino · PT",
+    "facts.office": "Escritório", "facts.lang": "Idiomas", "facts.reply": "Resposta", "facts.replyv": "Em 24 horas", "facts.priv": "Consultas", "facts.privv": "Sob sigilo profissional",
+    "routes.eyebrow": "Rotas",
+    "routes.title": 'Venha de onde vier.<span class="l2">Nós tratamos da <span class="serif">chegada.</span></span>',
+    "routes.sub": "Os nossos clientes vêm dos EUA, do Canadá, do Brasil e de outros países. Cada rota tem os seus documentos, visto e prazos. Planeamos tudo, da primeira chamada ao cartão de residência.",
+    "board.from": "Partida", "board.to": "Destino", "board.via": "Via", "board.status": "Estado",
+    "board.l1": "Chegou: rotas das histórias de clientes abaixo", "board.l2": "Embarque: outras rotas que tratamos com frequência",
+    "about.eyebrow": "Quem somos",
+    "about.title": 'Advogados que<span class="l2"><span class="serif">entendem.</span></span>',
+    "about.p1": "A nextStep é um escritório boutique para pessoas e famílias LGBTQIA+ que escolhem Portugal. Tratamos de imigração, investimento e relocalização, e traduzimos a cultura além da lei.",
+    "about.p2": "Os nossos advogados juntam profundo conhecimento do direito português e experiência internacional vivida. Somos o seu concierge para grandes decisões, o seu intérprete cultural e o seu defensor. Tem segurança jurídica, atenção pessoal e um porto seguro. Nunca é apenas um número de processo.",
+    "about.link": "Fale com a equipa →",
+    "stats.1": "Famílias apoiadas", "stats.2": "Anos de experiência", "stats.3": "Taxa de sucesso", "stats.4": "Disponibilidade por marcação",
+    "rights.eyebrow": "Porquê Portugal",
+    "rights.title": 'Direitos escritos<span class="l2">na <span class="serif">lei.</span></span>',
+    "rights.sub": "A ILGA-Europe classifica Portugal entre os países mais amigos LGBTQIA+ da Europa. Estas proteções são lei e aplicam-se a si quando viver cá.",
+    "svc.eyebrow": "Serviços",
+    "svc.title": 'Seis áreas de prática.<span class="l2">Um só <span class="serif">contacto.</span></span>',
+    "svc.sub": "Uma mudança toca várias áreas do direito ao mesmo tempo. Uma só equipa trata de todas, para que nada fique entre dois escritórios.",
+    "places.eyebrow": "Destinos",
+    "places.title": 'Onde vai<span class="l2"><span class="serif">aterrar?</span></span>',
+    "places.sub": "Lisboa, Porto ou Algarve. Conhecemos as comunidades acolhedoras de cada um e verificamos cada imóvel antes de assinar.",
+    "places.qdl": "Pinhal até ao Atlântico, a minutos do nosso escritório em Faro.", "places.tav": "Casas brancas e telhados de terracota.", "places.lag": "Falésias, enseadas e água cristalina.",
+    "places.pt": "A sua morada", "places.pc": "Pendente · due diligence", "places.vn": 'A sua <span class="serif">casa.</span>', "places.vd": "Contratos, verificação do registo e planeamento fiscal antes de se comprometer.",
+    "st.eyebrow": "Histórias de clientes",
+    "st.title": 'A confiança de famílias<span class="l2"><span class="serif">no mundo inteiro.</span></span>',
+    "st.sub": "Pessoas e casais que nos confiaram a sua mudança para Portugal.",
+    "ct.eyebrow": "Contacto",
+    "ct.title": 'Pronto para o<span class="l2"><span class="serif">próximo passo?</span></span>',
+    "ct.sub": "Marque uma consulta confidencial, protegida pelo sigilo profissional. Trabalhamos em vários fusos horários, por isso encontramos uma hora que lhe convenha.",
+    "ct.office": "Escritório", "ct.phone": "Telefone", "ct.hours": "Horário", "ct.hoursv": "24/7 por marcação", "ct.copy": "Copiar",
+    "ct.wa": "Conversar no WhatsApp", "ct.wad": "Resposta rápida, mesmo fora de horas",
+    "f.tag": "Nova consulta", "f.ref": "Confidencial", "f.name": "Nome completo", "f.email": "Email", "f.phone": "Telefone (opcional)", "f.from": "País de origem",
+    "f.service": "Interesse principal", "f.msg": "A sua situação", "f.msgph": "Conte-nos a sua situação e o que espera alcançar.",
+    "f.submit": "Pedir consulta", "f.note": "Respondemos em 24 horas para marcar uma hora.",
+    "ft.desc": "Uma consultora boutique para pessoas e famílias LGBTQIA+ a construir uma nova vida em Portugal. A sua ponte, o seu defensor, o seu porto seguro.",
+    "ft.svc": "Serviços", "ft.co": "Empresa", "ft.legal": "Legal", "ft.l1": "Política de privacidade", "ft.l2": "Termos de serviço", "ft.l3": "Aviso legal",
+    "ft.disc": "A nextStep é um serviço de consultoria pertencente a um escritório de advogados registado em Portugal. Este website fornece apenas informação geral e não constitui aconselhamento jurídico. Cada caso é único e requer uma consulta individual."
+  };
+  var MSG = {
+    en: { sent: "Thank you. We'll reply within 24 hours to arrange your consultation. (Preview only: this form isn't connected yet.)", need: "Please add your name and a valid email so we can reply.", copied: "Copied" },
+    pt: { sent: "Obrigado. Respondemos em 24 horas para marcar a sua consulta. (Pré-visualização: este formulário ainda não está ligado.)", need: "Indique o seu nome e um email válido para podermos responder.", copied: "Copiado" }
+  };
+
+  var lang = "en";
+  var EN = {};
+  document.querySelectorAll("[data-i18n]").forEach(function (el) { EN[el.dataset.i18n] = el.textContent; });
+  document.querySelectorAll("[data-i18n-html]").forEach(function (el) { EN[el.dataset.i18nHtml] = el.innerHTML; });
+  document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { EN[el.dataset.i18nPh] = el.placeholder; });
+  function tr(k) { return lang === "pt" ? (PT[k] || EN[k]) : EN[k]; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+
+  /* ---------- split-flap board ---------- */
+  var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var GLYPHS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  var WIDTH = { from: 13, to: 7, via: 9, st: 8 };
+  function flaps(text, w) {
+    var s = text.padEnd(w, " ").slice(0, w), out = "";
+    for (var i = 0; i < w; i++) {
+      var ch = s[i];
+      out += '<span class="flap' + (ch === " " ? " blank" : "") + '" data-ch="' + esc(ch) + '">' + (ch === " " ? "&nbsp;" : esc(ch)) + "</span>";
+    }
+    return '<span class="flaps" aria-hidden="true">' + out + "</span>";
+  }
+  function renderBoard(animate) {
+    var tb = document.querySelector("#board tbody");
+    tb.innerHTML = routes.map(function (r) {
+      var stw = statusWord[lang][r.st];
+      return '<tr class="st-' + r.st + '"><td aria-label="' + r.from + '">' + flaps(r.from, WIDTH.from) + '</td><td aria-label="' + r.to + '">' + flaps(r.to, WIDTH.to) +
+        '</td><td aria-label="' + r.via + '">' + flaps(r.via, WIDTH.via) + '</td><td aria-label="' + stw + '">' + flaps(stw, WIDTH.st) + "</td></tr>";
+    }).join("");
+    if (!animate || reduce) return;
+    tb.querySelectorAll(".flap:not(.blank)").forEach(function (f, idx) {
+      var target = f.dataset.ch, n = 6 + (idx % 9), k = 0;
+      var t = setInterval(function () {
+        if (++k >= n) { f.textContent = target; clearInterval(t); return; }
+        f.textContent = GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      }, 55);
+    });
+  }
+
+  /* ---------- lists ---------- */
+  function renderLists() {
+    document.getElementById("timeline").innerHTML = timeline[lang].map(function (t, i) {
+      return '<div class="tl" style="--c:' + tlColors[i] + '"><span class="yr">' + t[0] + '</span><p><strong>' + esc(t[1]) + "</strong>" + esc(t[2]) + "</p></div>";
+    }).join("");
+    document.getElementById("why").innerHTML = why[lang].map(function (w, i) {
+      return '<li style="--c:' + whyColors[i] + '"><span class="k">' + String(i + 1).padStart(2, "0") + "</span><span>" + esc(w) + "</span></li>";
+    }).join("");
+    document.getElementById("svc").innerHTML = services.en.map(function (s, i) {
+      var l = lang === "pt" ? Object.assign({}, s, services.pt[i]) : s;
+      return '<article class="svc" style="--c:' + s.c + '"><div class="svc-top"><b>' + s.code + "</b><span>" + esc(l.route) + '</span></div><div class="svc-fig">' + fig[s.k] +
+        '</div><div class="svc-body"><h3 class="h3">' + esc(l.t) + '</h3><span class="tag">' + esc(l.tag) + "</span><p>" + esc(l.d) + '</p></div><a class="svc-link" href="#contact">' + (lang === "pt" ? "Fale connosco →" : "Talk to us →") + "</a></article>";
+    }).join("");
+    document.getElementById("ft-svc").innerHTML = services.en.map(function (s, i) {
+      return '<li><a href="#services">' + esc(lang === "pt" ? services.pt[i].t : s.t) + "</a></li>";
+    }).join("");
+    document.getElementById("stories-list").innerHTML = stories.en.map(function (s, i) {
+      var l = lang === "pt" ? Object.assign({}, s, stories.pt[i]) : s;
+      return '<article class="story" style="--c:' + s.c + '"><div class="story-top mono"><b>' + s.code + "</b><span>" + esc(l.via) + "</span></div><blockquote>" + esc(l.q) +
+        '</blockquote><div class="who"><span class="ini">' + s.i + "</span><span><strong>" + esc(s.n) + "</strong><span>" + esc(l.l) + "</span></span></div></article>";
+    }).join("");
+    var sel = document.getElementById("f-service"), cur = sel.selectedIndex;
+    sel.innerHTML = serviceOptions[lang].map(function (o) { return "<option>" + esc(o) + "</option>"; }).join("");
+    sel.selectedIndex = cur > 0 ? cur : 0;
+  }
+
+  function applyLang(animate) {
+    document.documentElement.lang = lang === "pt" ? "pt-PT" : "en";
+    document.querySelectorAll("[data-i18n]").forEach(function (el) { el.textContent = tr(el.dataset.i18n); });
+    document.querySelectorAll("[data-i18n-html]").forEach(function (el) { el.innerHTML = tr(el.dataset.i18nHtml); });
+    document.querySelectorAll("[data-i18n-ph]").forEach(function (el) { el.placeholder = tr(el.dataset.i18nPh); });
+    var lb = document.getElementById("lang");
+    lb.textContent = lang === "pt" ? "EN" : "PT";
+    lb.setAttribute("aria-label", lang === "pt" ? "Switch to English" : "Mudar para Português");
+    renderLists();
+    renderBoard(animate);
+    var sent = document.getElementById("sent");
+    if (!sent.hidden) sent.textContent = MSG[lang].sent;
+  }
+  document.getElementById("lang").addEventListener("click", function () {
+    lang = lang === "en" ? "pt" : "en";
+    try { localStorage.setItem("ns-lang", lang); } catch (e) {}
+    applyLang(true);
+  });
+  try { if (localStorage.getItem("ns-lang") === "pt") lang = "pt"; } catch (e) {}
+  applyLang(true);
+
+  /* ---------- theme ---------- */
+  var root = document.documentElement, themeLabel = document.getElementById("theme-label");
+  function isDark() {
+    var t = root.getAttribute("data-theme");
+    return t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  function syncTheme() { themeLabel.textContent = isDark() ? "Dark" : "Light"; }
+  document.getElementById("theme").addEventListener("click", function () {
+    root.setAttribute("data-theme", isDark() ? "light" : "dark");
+    syncTheme();
+  });
+  window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", syncTheme);
+  syncTheme();
+
+  /* ---------- postcard slideshow ---------- */
+  var imgs = Array.prototype.slice.call(document.querySelectorAll("#frames img"));
+  var ticks = document.getElementById("ticks"), cur = 0, timer = null;
+  ticks.innerHTML = imgs.map(function (im, i) { return '<button type="button" aria-label="Show ' + esc(im.dataset.place) + '"><i></i></button>'; }).join("");
+  var tickBtns = ticks.querySelectorAll("button");
+  function show(i) {
+    imgs[cur].classList.remove("on");
+    cur = i;
+    imgs[cur].classList.add("on");
+    document.getElementById("pc-count").textContent = String(cur + 1).padStart(2, "0") + " / " + String(imgs.length).padStart(2, "0");
+    document.getElementById("pc-place").textContent = imgs[cur].dataset.place;
+    document.getElementById("pc-coord").textContent = imgs[cur].dataset.coord;
+    tickBtns.forEach(function (b, j) {
+      b.classList.remove("on");
+      b.classList.toggle("done", j < cur);
+    });
+    void tickBtns[cur].offsetWidth;
+    if (!reduce) tickBtns[cur].classList.add("on"); else tickBtns[cur].classList.add("done");
+    clearTimeout(timer);
+    if (!reduce) timer = setTimeout(function () { show((cur + 1) % imgs.length); }, 6000);
+  }
+  tickBtns.forEach(function (b, j) { b.addEventListener("click", function () { show(j); }); });
+  show(0);
+
+  /* ---------- copy buttons ---------- */
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var el = document.getElementById(btn.dataset.copy), text = el.textContent.trim();
+      function done() { btn.textContent = MSG[lang].copied; setTimeout(function () { btn.textContent = tr("ct.copy"); }, 1600); }
+      function fallback() { var r = document.createRange(); r.selectNodeContents(el); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+      try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+    });
+  });
+
+  /* ---------- form ---------- */
+  document.getElementById("form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = document.getElementById("f-name"), email = document.getElementById("f-email"), note = document.getElementById("form-note");
+    if (!name.value.trim() || !email.checkValidity() || !email.value.trim()) {
+      note.textContent = MSG[lang].need;
+      (name.value.trim() ? email : name).focus();
+      return;
+    }
+    note.textContent = tr("f.note");
+    var sent = document.getElementById("sent");
+    sent.textContent = MSG[lang].sent;
+    sent.hidden = false;
+  });
+})();
+</script>
+</body>
+</html>
