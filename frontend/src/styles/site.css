@@ -9,11 +9,11 @@
   --muted: #5C5C5C;
   --line: rgba(20, 20, 20, 0.14);
   --dot: rgba(20, 20, 20, 0.09);
-  --accent: #85651F;
-  --accent-soft: rgba(184, 150, 62, 0.22);
+  --accent: #B23149;
+  --accent-soft: rgba(178, 49, 73, 0.18);
   --btn: #141414;
   --btn-ink: #F8F7F4;
-  --btn-hover: #85651F;
+  --btn-hover: #B23149;
   --red: #E44D60;
   --orange: #E8893C;
   --yellow: #E8C93C;
@@ -24,7 +24,7 @@
   --band-ink: #F4F3F0;
   --band-muted: #A9A69F;
   --band-line: rgba(244, 243, 240, 0.16);
-  --band-accent: #D9B867;
+  --band-accent: #F08497;
   --wa: #1F9E50;
 
   --display: "Bricolage Grotesque", "Helvetica Neue", Arial, sans-serif;
@@ -41,7 +41,7 @@
   :root:not([data-theme="light"]) {
     --paper: #0F1010; --surface: #171818; --sunk: #1E1F1F; --ink: #F1EFEA; --ink-2: #D2CFC8; --muted: #A09D96;
     --line: rgba(241, 239, 234, 0.15); --dot: rgba(241, 239, 234, 0.07);
-    --accent: #D9B867; --accent-soft: rgba(217, 184, 103, 0.22); --btn: #F1EFEA; --btn-ink: #0F1010; --btn-hover: #D9B867;
+    --accent: #F08497; --accent-soft: rgba(240, 132, 151, 0.22); --btn: #F1EFEA; --btn-ink: #0F1010; --btn-hover: #F08497;
     --band: #1A1B1B; --band-ink: #F1EFEA; --band-muted: #A09D96; --band-line: rgba(241, 239, 234, 0.14);
     --wa: #2BC163;
     color-scheme: dark;
@@ -50,7 +50,7 @@
 :root[data-theme="dark"] {
   --paper: #0F1010; --surface: #171818; --sunk: #1E1F1F; --ink: #F1EFEA; --ink-2: #D2CFC8; --muted: #A09D96;
   --line: rgba(241, 239, 234, 0.15); --dot: rgba(241, 239, 234, 0.07);
-  --accent: #D9B867; --accent-soft: rgba(217, 184, 103, 0.22); --btn: #F1EFEA; --btn-ink: #0F1010; --btn-hover: #D9B867;
+  --accent: #F08497; --accent-soft: rgba(240, 132, 151, 0.22); --btn: #F1EFEA; --btn-ink: #0F1010; --btn-hover: #F08497;
   --band: #1A1B1B; --band-ink: #F1EFEA; --band-muted: #A09D96; --band-line: rgba(241, 239, 234, 0.14);
   --wa: #2BC163;
   color-scheme: dark;
