@@ -86,19 +86,16 @@ export const TermsOfService = () => {
   const t = content[language];
 
   return (
-    <div className="bg-[#F8F7F4] min-h-screen py-20">
-      <div className="max-w-4xl mx-auto px-6">
-        <h1 className="font-heading text-4xl sm:text-5xl text-[#1A1A1A] italic mb-4">{t.title}</h1>
-        <p className="text-[#666] mb-12">{t.lastUpdated}</p>
-        
-        <div className="space-y-8">
-          {t.sections.map((section, index) => (
-            <div key={index}>
-              <h2 className="font-heading text-xl text-[#1A1A1A] mb-3">{section.title}</h2>
-              <p className="text-[#444] leading-relaxed">{section.content}</p>
-            </div>
-          ))}
-        </div>
+    <div className="legal">
+      <div className="wrap">
+        <h1>{t.title}</h1>
+        <p className="updated mono">{t.lastUpdated}</p>
+        {t.sections.map((section, index) => (
+          <section key={index}>
+            <h2>{section.title}</h2>
+            <p>{section.content}</p>
+          </section>
+        ))}
       </div>
     </div>
   );
