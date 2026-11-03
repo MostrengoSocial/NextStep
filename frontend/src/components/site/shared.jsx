@@ -38,3 +38,19 @@ export const SectionHead = ({ n, eyebrow, a, b, word, sub }) => (
     {sub && <p className="lede">{sub}</p>}
   </div>
 );
+
+/* Adds the "is-in" class once an element scrolls into view, so draw-in
+   animations start when seen. Without IntersectionObserver it shows at once. */
+export const useReveal = (threshold = 0.25) => {
+  const ref = React.useRef(null);
+  const [shown, setShown] = React.useState(() => typeof window === 'undefined' || !('IntersectionObserver' in window));
+  React.useEffect(() => {
+    if (shown || !ref.current) return undefined;
+    const io = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) { setShown(true); io.disconnect(); }
+    }, { threshold });
+    io.observe(ref.current);
+    return () => io.disconnect();
+  }, [shown, threshold]);
+  return [ref, shown];
+};

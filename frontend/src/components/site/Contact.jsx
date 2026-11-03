@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { contact, images } from '../../data/site';
+import { contact } from '../../data/site';
 import { Headline, useContent } from './shared';
+import { OfficeMap } from './OfficeMap';
 
 const EMPTY = { name: '', email: '', phone: '', from: '', service: '', message: '' };
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -69,7 +70,7 @@ export const Contact = () => {
             <Headline a={t.titleA} word={t.titleWord} />
           </div>
           <p className="lede">{t.sub}</p>
-          <div className="contact-photo"><img src={images.couple} alt={t.photoAlt} loading="lazy" /></div>
+          <OfficeMap />
           <dl className="info">
             <div><dt className="mono">{t.office}</dt><dd>{contact.address}</dd><span /></div>
             <div><dt className="mono">{t.email}</dt><dd>{contact.email}</dd><CopyButton value={contact.email} label={t.copy} done={t.copied} /></div>

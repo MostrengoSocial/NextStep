@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from "react-route
 import { LanguageProvider } from "./context/LanguageContext";
 import { SiteHeader } from "./components/site/SiteHeader";
 import { Hero } from "./components/site/Hero";
-import { RoutesBoard } from "./components/site/RoutesBoard";
+import { RoutesMap } from "./components/site/RoutesMap";
 import { About } from "./components/site/About";
 import { Rights } from "./components/site/Rights";
 import { Services } from "./components/site/Services";
@@ -38,7 +38,7 @@ function HomePage() {
   return (
     <>
       <Hero />
-      <RoutesBoard />
+      <RoutesMap />
       <About />
       <Rights />
       <Services />

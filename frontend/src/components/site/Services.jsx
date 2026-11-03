@@ -1,6 +1,7 @@
 import React from 'react';
 import { serviceMeta } from '../../data/site';
 import { SectionHead, useContent } from './shared';
+import { Swimlane } from './Swimlane';
 
 /* Small line diagrams, one per practice area. Stroke and text colours come
    from the theme tokens; `--c` (the card's pride colour) marks the goal. */
@@ -80,6 +81,7 @@ export const Services = () => {
     <section id="services">
       <div className="wrap">
         <SectionHead n="04" eyebrow={t.eyebrow} a={t.titleA} b={t.titleB} word={t.titleWord} sub={t.sub} />
+        <Swimlane />
         <div className="svc-grid">
           {serviceMeta.map((meta, i) => {
             const s = t.items[i];

@@ -12,10 +12,10 @@ export const images = {
 };
 
 export const slides = [
-  { src: images.tavira, place: 'Tavira', coord: '37.1264° N · 7.6486° W', alt: { en: 'Tavira, white houses with terracotta roofs below a church', pt: 'Tavira, casas brancas com telhados de terracota' } },
-  { src: images.quintaDoLago, place: 'Quinta do Lago', coord: '37.0287° N · 8.0170° W', alt: { en: 'Aerial view of the beach and pine forest at Quinta do Lago', pt: 'Vista aérea da praia e do pinhal da Quinta do Lago' } },
-  { src: images.lisbon, place: 'Lisboa', coord: '38.7223° N · 9.1393° W', alt: { en: 'Yellow tram 28 passing a pink building in Lisbon', pt: 'Elétrico 28 amarelo junto a um prédio cor-de-rosa em Lisboa' } },
-  { src: images.lagos, place: 'Lagos', coord: '37.0814° N · 8.6705° W', alt: { en: 'Rock arches and cliffs on the coast at Lagos', pt: 'Arcos de rocha e falésias na costa de Lagos' } },
+  { src: images.tavira, from: 'GRU', fromCity: 'São Paulo', to: 'FAO', place: 'Tavira', coord: '37.1264° N · 7.6486° W', alt: { en: 'Tavira, white houses with terracotta roofs below a church', pt: 'Tavira, casas brancas com telhados de terracota' } },
+  { src: images.quintaDoLago, from: 'YYZ', fromCity: 'Toronto', to: 'FAO', place: 'Quinta do Lago', coord: '37.0287° N · 8.0170° W', alt: { en: 'Aerial view of the beach and pine forest at Quinta do Lago', pt: 'Vista aérea da praia e do pinhal da Quinta do Lago' } },
+  { src: images.lisbon, from: 'JFK', fromCity: 'New York', to: 'LIS', place: 'Lisboa', coord: '38.7223° N · 9.1393° W', alt: { en: 'Yellow tram 28 passing a pink building in Lisbon', pt: 'Elétrico 28 amarelo junto a um prédio cor-de-rosa em Lisboa' } },
+  { src: images.lagos, from: 'SFO', fromCity: 'San Francisco', to: 'FAO', place: 'Lagos', coord: '37.0814° N · 8.6705° W', alt: { en: 'Rock arches and cliffs on the coast at Lagos', pt: 'Arcos de rocha e falésias na costa de Lagos' } },
 ];
 
 export const contact = {
@@ -25,13 +25,52 @@ export const contact = {
   whatsapp: 'https://wa.me/351934229144',
 };
 
+// Relocation routes. lat/lon are real city coordinates; `to` is the
+// destination key in `destinations`. The first three come from client stories.
 export const routes = [
-  { from: 'SAN FRANCISCO', to: 'CASCAIS', via: 'D7', status: 'arrived' },
-  { from: 'TORONTO', to: 'FARO', via: 'RESIDENCY', status: 'arrived' },
-  { from: 'SAO PAULO', to: 'TAVIRA', via: 'FAMILY', status: 'arrived' },
-  { from: 'NEW YORK', to: 'LISBOA', via: 'NOMAD', status: 'boarding' },
-  { from: 'RIO', to: 'PORTO', via: 'GOLDEN', status: 'boarding' },
-  { from: 'VANCOUVER', to: 'LAGOS', via: 'D7', status: 'boarding' },
+  { from: 'San Francisco', code: 'SFO', lat: 37.77, lon: -122.42, to: 'cascais', via: 'D7', status: 'arrived', color: 'var(--red)' },
+  { from: 'Toronto', code: 'YYZ', lat: 43.65, lon: -79.38, to: 'faro', via: 'Residency', status: 'arrived', color: 'var(--blue)' },
+  { from: 'São Paulo', code: 'GRU', lat: -23.55, lon: -46.63, to: 'tavira', via: 'Family', status: 'arrived', color: 'var(--green)' },
+  { from: 'New York', code: 'JFK', lat: 40.71, lon: -74.01, to: 'lisboa', via: 'Nomad', status: 'boarding', color: 'var(--magenta)' },
+  { from: 'Rio de Janeiro', code: 'GIG', lat: -22.91, lon: -43.17, to: 'porto', via: 'Golden', status: 'boarding', color: 'var(--orange)' },
+  { from: 'Vancouver', code: 'YVR', lat: 49.28, lon: -123.12, to: 'lagos', via: 'D7', status: 'boarding', color: 'var(--yellow)' },
+];
+
+export const destinations = {
+  porto: { name: 'Porto', lat: 41.15, lon: -8.61 },
+  lisboa: { name: 'Lisboa', lat: 38.72, lon: -9.14 },
+  cascais: { name: 'Cascais', lat: 38.70, lon: -9.42 },
+  lagos: { name: 'Lagos', lat: 37.10, lon: -8.67 },
+  faro: { name: 'Faro', lat: 37.02, lon: -7.93 },
+  tavira: { name: 'Tavira', lat: 37.13, lon: -7.65 },
+};
+
+// Simplified outline of mainland Portugal as [lon, lat] points (approximate).
+export const portugalOutline = [
+  [-8.87, 41.87], [-8.6, 42.05], [-8.2, 42.14], [-7.9, 41.9], [-7.2, 41.98], [-6.6, 41.95], [-6.19, 41.58],
+  [-6.5, 41.3], [-6.93, 41.02], [-6.8, 40.6], [-6.86, 40.27], [-7.03, 39.67], [-7.5, 39.6], [-7.3, 39.45],
+  [-7.0, 39.0], [-7.2, 38.75], [-7.3, 38.43], [-6.95, 38.2], [-7.25, 37.95], [-7.5, 37.55], [-7.42, 37.19],
+  [-7.65, 37.1], [-7.87, 36.96], [-8.07, 37.05], [-8.25, 37.08], [-8.54, 37.11], [-8.67, 37.08], [-8.95, 37.0],
+  [-8.99, 37.03], [-8.79, 37.5], [-8.8, 37.95], [-8.87, 38.2], [-8.78, 38.5], [-9.18, 38.42], [-9.0, 38.62],
+  [-9.42, 38.69], [-9.5, 38.78], [-9.42, 39.0], [-9.38, 39.36], [-9.1, 39.6], [-8.9, 40.0], [-8.67, 40.64],
+  [-8.69, 41.15], [-8.78, 41.5],
+];
+
+// Approximate Algarve coastline, west to east, as [lon, lat] points.
+export const algarveCoast = [
+  [-8.997, 37.12], [-8.997, 37.023], [-8.95, 37.0], [-8.87, 37.03], [-8.83, 37.065], [-8.73, 37.085], [-8.67, 37.08],
+  [-8.66, 37.1], [-8.6, 37.12], [-8.54, 37.115], [-8.47, 37.09], [-8.37, 37.1], [-8.25, 37.085], [-8.19, 37.09],
+  [-8.12, 37.07], [-8.07, 37.05], [-8.02, 37.03], [-7.93, 36.99], [-7.87, 36.96], [-7.83, 36.99], [-7.74, 37.05],
+  [-7.62, 37.1], [-7.6, 37.13], [-7.45, 37.18], [-7.4, 37.2],
+];
+
+export const coastTowns = [
+  { key: 'lagos', name: 'Lagos', lat: 37.10, lon: -8.67, anchor: 'place-lagos' },
+  { key: 'portimao', name: 'Portimão', lat: 37.14, lon: -8.54, minor: true },
+  { key: 'albufeira', name: 'Albufeira', lat: 37.09, lon: -8.25, minor: true },
+  { key: 'qdl', name: 'Quinta do Lago', lat: 37.04, lon: -8.02, anchor: 'place-qdl' },
+  { key: 'faro', name: 'Faro', lat: 37.02, lon: -7.93, office: true },
+  { key: 'tavira', name: 'Tavira', lat: 37.13, lon: -7.65, anchor: 'place-tavira' },
 ];
 
 export const pride = {
@@ -66,6 +105,7 @@ export const content = {
       titleA: 'Your next step', titleB: 'is', titleWord: 'home.',
       sub: 'Legal guidance and personal support for LGBTQIA+ people and families moving to Portugal. We handle the visas, the property and the paperwork, and we help you settle in.',
       cta1: 'Book a confidential consultation', cta2: 'See our services', card: 'Destination · PT', show: 'Show',
+      pass: { title: 'Boarding pass', from: 'From', to: 'To', passenger: 'Passenger', you: 'You', gate: 'Gate', seat: 'Seat', home: 'Home', boarding: 'Boarding', now: 'When ready', stub: 'Admit one · Portugal' },
     },
     facts: [['Office', 'Faro · Algarve'], ['Languages', 'EN · PT'], ['Reply time', 'Within 24 hours'], ['Consultations', 'Legally privileged']],
     routes: {
@@ -73,6 +113,8 @@ export const content = {
       sub: 'Clients come to us from the US, Canada, Brazil and beyond. Each route has its own documents, visa and timing. We plan it from the first call to your residence card.',
       cols: ['From', 'To', 'Pathway', 'Status'], status: { arrived: 'ARRIVED', boarding: 'BOARDING' },
       legend: ['Arrived: routes from the client stories below', 'Boarding: other routes we handle often'],
+      inset: 'Portugal · enlarged', note: 'City positions are real coordinates. Portugal is enlarged so each destination is visible.',
+      arrow: 'to',
       label: 'Relocation routes',
     },
     about: {
@@ -80,6 +122,12 @@ export const content = {
       p1: 'nextStep is a boutique legal practice for LGBTQIA+ individuals and families choosing Portugal. We cover immigration, investment and relocation, and we translate the culture as well as the law.',
       p2: 'Our attorneys combine deep Portuguese legal expertise with lived international experience. We act as your concierge for big decisions, your cultural interpreter and your advocate. You get legal security, personal attention and a safe harbour. You are never just a case number.',
       link: 'Talk to the team →', photoAlt: 'Yellow tram 28 in a Lisbon street',
+      bridge: {
+        title: 'We build bridges to your new life.', there: 'Where you are', here: 'Your new life',
+        towers: [['Legal', 'Visas, contracts, rights'], ['Cultural', 'Language, customs, community'], ['Personal', 'Schools, healthcare, home']],
+        label: 'A bridge from where you are to your new life, held up by legal, cultural and personal support',
+      },
+      houses: { title: 'Families supported', caption: 'Each filled house is one family we have helped settle in Portugal. The outlined ones are for the families still to come.', next: 'Yours could be next', label: '300 filled houses and 20 outlined houses' },
       stats: [['300+', 'Families supported'], ['20+', 'Years of experience'], ['99%', 'Success rate'], ['24/7', 'Availability by appointment']],
     },
     rights: {
@@ -103,6 +151,18 @@ export const content = {
     services: {
       eyebrow: 'Services', titleA: 'Six practice areas.', titleB: 'One', titleWord: 'point of contact.',
       sub: 'Most moves touch several areas of law at once. One team covers all of them, so nothing falls between two offices.',
+      plan: {
+        title: 'How a typical move fits together', note: 'Illustrative. Every case has its own timeline.', month: 'Month',
+        milestones: [[0, 'First consultation'], [4, 'Arrival'], [6, 'Settled']],
+        lanes: [
+          { short: 'Immigration', start: 0, end: 4.5, text: 'Visa application and residence permit' },
+          { short: 'Real estate', start: 1, end: 4, text: 'Due diligence and purchase' },
+          { short: 'Concierge', start: 3.5, end: 6, text: 'NIF, bank, healthcare, schools' },
+          { short: 'Family law', start: 0, end: 6, text: 'Recognition and documents, as needed', light: true },
+          { short: 'Business', start: 2, end: 5, text: 'Contracts or company set-up' },
+          { short: 'Community', start: 4, end: 6, text: 'Introductions, then ongoing', open: true },
+        ],
+      },
       link: 'Talk to us →',
       items: [
         { route: 'Visa → Residence', title: 'Immigration & visas', tag: 'Your pathway, secured.', text: 'Golden Visa, D7 passive income, Digital Nomad, family reunification, residence permits and citizenship. Every detail handled with precision and care.' },
@@ -119,10 +179,12 @@ export const content = {
       qdl: 'Pine forest down to the Atlantic, minutes from our Faro office.', tavira: 'White houses and terracotta roofs.', lagos: 'Cliffs, coves and clear water.',
       pendingTag: 'Your address', pendingState: 'Pending · due diligence', pendingTitle: 'Your', pendingWord: 'home.',
       pendingText: 'Contracts, title checks and tax planning before you commit.', villaAlt: 'Modern white villa with a pool and palm trees',
+      coast: { title: 'The Algarve, west to east', office: 'nextStep office', ocean: 'Atlantic Ocean', note: 'Approximate coastline. Towns placed by real coordinates.', km: '10 km', label: 'Map of the Algarve coast with Lagos, Quinta do Lago, Faro and Tavira' },
     },
     stories: {
       eyebrow: 'Client stories', titleA: 'Trusted by families', titleWord: 'worldwide.',
       sub: 'Individuals and couples who trusted us with their move to Portugal.',
+      dear: 'Dear nextStep,', photoAlt: 'Two people holding hands on a tree-lined path', postmark: 'Faro',
       items: [
         { via: 'D7', quote: "After the 2024 election, we knew we had to leave the US. nextStep didn't just handle our D7 visa. They gave us hope and a clear path during an uncertain time. Six months later, we're home.", route: 'San Francisco → Cascais' },
         { via: 'Residency', quote: 'As a trans woman, I was terrified of the legal complexity and of discrimination. nextStep treated me with dignity and professionalism. They knew exactly what I was going through and made everything feel safe.', route: 'Toronto → Faro' },
@@ -135,6 +197,7 @@ export const content = {
       photoAlt: 'Two people holding hands on a tree-lined path',
       office: 'Office', email: 'Email', phone: 'Phone', hours: 'Hours', hoursValue: '24/7 by appointment', copy: 'Copy', copied: 'Copied',
       whatsapp: 'Chat on WhatsApp', whatsappDesc: 'Quick replies, even outside office hours',
+      map: { title: 'Find the office', floor: '4th floor, D', directions: 'Get directions', note: 'Schematic map, not to scale', centre: 'Faro · Centre', label: 'Schematic map of central Faro with a pin on Largo de São Luís' },
       form: {
         tag: 'New consultation', ref: 'Confidential', name: 'Full name', email: 'Email', phone: 'Phone (optional)', from: 'Moving from',
         service: 'Main interest', message: 'Your situation', placeholder: 'Tell us about your situation and what you hope to achieve.',
@@ -160,6 +223,7 @@ export const content = {
       titleA: 'O seu próximo passo', titleB: 'é', titleWord: 'casa.',
       sub: 'Orientação jurídica e apoio pessoal para pessoas e famílias LGBTQIA+ que se mudam para Portugal. Tratamos dos vistos, do imóvel e da papelada, e ajudamos a instalar-se.',
       cta1: 'Marcar consulta confidencial', cta2: 'Ver serviços', card: 'Destino · PT', show: 'Mostrar',
+      pass: { title: 'Cartão de embarque', from: 'Partida', to: 'Destino', passenger: 'Passageiro', you: 'Você', gate: 'Porta', seat: 'Lugar', home: 'Casa', boarding: 'Embarque', now: 'Quando quiser', stub: 'Entrada · Portugal' },
     },
     facts: [['Escritório', 'Faro · Algarve'], ['Idiomas', 'EN · PT'], ['Resposta', 'Em 24 horas'], ['Consultas', 'Sob sigilo profissional']],
     routes: {
@@ -167,6 +231,8 @@ export const content = {
       sub: 'Os nossos clientes vêm dos EUA, do Canadá, do Brasil e de outros países. Cada rota tem os seus documentos, visto e prazos. Planeamos tudo, da primeira chamada ao cartão de residência.',
       cols: ['Partida', 'Destino', 'Via', 'Estado'], status: { arrived: 'CHEGOU', boarding: 'EMBARQUE' },
       legend: ['Chegou: rotas das histórias de clientes abaixo', 'Embarque: outras rotas que tratamos com frequência'],
+      inset: 'Portugal · ampliado', note: 'As cidades estão nas coordenadas reais. Portugal está ampliado para se ver cada destino.',
+      arrow: 'para',
       label: 'Rotas de relocalização',
     },
     about: {
@@ -174,6 +240,12 @@ export const content = {
       p1: 'A nextStep é um escritório boutique para pessoas e famílias LGBTQIA+ que escolhem Portugal. Tratamos de imigração, investimento e relocalização, e traduzimos a cultura além da lei.',
       p2: 'Os nossos advogados juntam profundo conhecimento do direito português e experiência internacional vivida. Somos o seu concierge para grandes decisões, o seu intérprete cultural e o seu defensor. Tem segurança jurídica, atenção pessoal e um porto seguro. Nunca é apenas um número de processo.',
       link: 'Fale com a equipa →', photoAlt: 'Elétrico 28 amarelo numa rua de Lisboa',
+      bridge: {
+        title: 'Construímos pontes para a sua nova vida.', there: 'Onde está', here: 'A sua nova vida',
+        towers: [['Jurídico', 'Vistos, contratos, direitos'], ['Cultural', 'Língua, costumes, comunidade'], ['Pessoal', 'Escolas, saúde, casa']],
+        label: 'Uma ponte de onde está até à sua nova vida, sustentada por apoio jurídico, cultural e pessoal',
+      },
+      houses: { title: 'Famílias apoiadas', caption: 'Cada casa preenchida é uma família que ajudámos a instalar-se em Portugal. As casas por preencher são para as famílias que ainda vêm.', next: 'A próxima pode ser a sua', label: '300 casas preenchidas e 20 por preencher' },
       stats: [['300+', 'Famílias apoiadas'], ['20+', 'Anos de experiência'], ['99%', 'Taxa de sucesso'], ['24/7', 'Disponibilidade por marcação']],
     },
     rights: {
@@ -197,6 +269,18 @@ export const content = {
     services: {
       eyebrow: 'Serviços', titleA: 'Seis áreas de prática.', titleB: 'Um só', titleWord: 'contacto.',
       sub: 'Uma mudança toca várias áreas do direito ao mesmo tempo. Uma só equipa trata de todas, para que nada fique entre dois escritórios.',
+      plan: {
+        title: 'Como se organiza uma mudança típica', note: 'Ilustrativo. Cada caso tem o seu próprio calendário.', month: 'Mês',
+        milestones: [[0, 'Primeira consulta'], [4, 'Chegada'], [6, 'Instalado']],
+        lanes: [
+          { short: 'Imigração', start: 0, end: 4.5, text: 'Pedido de visto e autorização de residência' },
+          { short: 'Imobiliário', start: 1, end: 4, text: 'Due diligence e compra' },
+          { short: 'Concierge', start: 3.5, end: 6, text: 'NIF, banco, saúde, escolas' },
+          { short: 'Família', start: 0, end: 6, text: 'Reconhecimento e documentos, se necessário', light: true },
+          { short: 'Negócios', start: 2, end: 5, text: 'Contratos ou constituição de empresa' },
+          { short: 'Comunidade', start: 4, end: 6, text: 'Apresentações e depois sempre', open: true },
+        ],
+      },
       link: 'Fale connosco →',
       items: [
         { route: 'Visto → Residência', title: 'Imigração & vistos', tag: 'O seu caminho, garantido.', text: 'Golden Visa, D7 rendimento passivo, Nómada Digital, reagrupamento familiar, autorizações de residência e cidadania. Cada detalhe tratado com precisão e cuidado.' },
@@ -213,10 +297,12 @@ export const content = {
       qdl: 'Pinhal até ao Atlântico, a minutos do nosso escritório em Faro.', tavira: 'Casas brancas e telhados de terracota.', lagos: 'Falésias, enseadas e água cristalina.',
       pendingTag: 'A sua morada', pendingState: 'Pendente · due diligence', pendingTitle: 'A sua', pendingWord: 'casa.',
       pendingText: 'Contratos, verificação do registo e planeamento fiscal antes de se comprometer.', villaAlt: 'Moradia branca moderna com piscina e palmeiras',
+      coast: { title: 'O Algarve, de oeste para este', office: 'Escritório nextStep', ocean: 'Oceano Atlântico', note: 'Linha de costa aproximada. Localidades nas coordenadas reais.', km: '10 km', label: 'Mapa da costa algarvia com Lagos, Quinta do Lago, Faro e Tavira' },
     },
     stories: {
       eyebrow: 'Histórias de clientes', titleA: 'A confiança de famílias', titleWord: 'no mundo inteiro.',
       sub: 'Pessoas e casais que nos confiaram a sua mudança para Portugal.',
+      dear: 'Querida nextStep,', photoAlt: 'Duas pessoas de mãos dadas num caminho arborizado', postmark: 'Faro',
       items: [
         { via: 'D7', quote: 'Depois das eleições de 2024, sabíamos que tínhamos de deixar os EUA. A nextStep não tratou só do nosso visto D7. Deu-nos esperança e um caminho claro num tempo incerto. Seis meses depois, estamos em casa.', route: 'São Francisco → Cascais' },
         { via: 'Residência', quote: 'Como mulher trans, tinha medo das complexidades legais e da discriminação. A nextStep tratou-me com dignidade e profissionalismo. Sabiam exatamente pelo que eu estava a passar e fizeram tudo parecer seguro.', route: 'Toronto → Faro' },
@@ -229,6 +315,7 @@ export const content = {
       photoAlt: 'Duas pessoas de mãos dadas num caminho arborizado',
       office: 'Escritório', email: 'Email', phone: 'Telefone', hours: 'Horário', hoursValue: '24/7 por marcação', copy: 'Copiar', copied: 'Copiado',
       whatsapp: 'Conversar no WhatsApp', whatsappDesc: 'Resposta rápida, mesmo fora de horas',
+      map: { title: 'Encontre o escritório', floor: '4.º andar, D', directions: 'Obter direções', note: 'Mapa esquemático, sem escala', centre: 'Faro · Centro', label: 'Mapa esquemático do centro de Faro com marcador no Largo de São Luís' },
       form: {
         tag: 'Nova consulta', ref: 'Confidencial', name: 'Nome completo', email: 'Email', phone: 'Telefone (opcional)', from: 'País de origem',
         service: 'Interesse principal', message: 'A sua situação', placeholder: 'Conte-nos a sua situação e o que espera alcançar.',
