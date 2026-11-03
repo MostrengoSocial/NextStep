@@ -1,105 +1,96 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { serviceMeta } from '../../data/site';
-import { SectionHead, useContent } from './shared';
-import { Swimlane } from './Swimlane';
+import { SectionHead, useContent, useReveal } from './shared';
 
-/* Small line diagrams, one per practice area. Stroke and text colours come
-   from the theme tokens; `--c` (the card's pride colour) marks the goal. */
-const figures = {
-  visa: (
-    <>
-      <path className="sd" d="M40 82 Q150 -6 258 74" />
-      <circle className="fs" cx="40" cy="82" r="9" />
-      <circle cx="40" cy="82" r="3" style={{ fill: 'var(--ink)' }} />
-      <circle className="f" cx="258" cy="74" r="7" />
-      <text x="22" y="110">FROM</text>
-      <text className="c" x="246" y="102">PT</text>
-      <text x="122" y="122">D7 · GOLDEN · NOMAD</text>
-    </>
-  ),
-  property: (
-    <>
-      <path className="s" d="M42 104 V60 L84 30 L126 60 V104 Z" />
-      <rect className="fs" x="72" y="74" width="24" height="30" />
-      <path className="s" d="M160 44 h96 M160 66 h96 M160 88 h70" />
-      <circle className="f" cx="150" cy="44" r="4" />
-      <circle className="f" cx="150" cy="66" r="4" />
-      <circle className="fs" cx="150" cy="88" r="4" />
-      <text x="160" y="116">DUE DILIGENCE</text>
-    </>
-  ),
-  concierge: (
-    <>
-      {[['✓ NIF', 18, 26, 38], ['✓ NISS', 108, 26, 124], ['✓ BANK', 198, 26, 216], ['✓ SNS', 18, 72, 38], ['✓ SCHOOL', 108, 72, 122]].map(([label, x, y, tx]) => (
-        <g key={label}>
-          <rect className="fs" x={x} y={y} width={x === 198 ? 84 : 80} height="30" rx="15" />
-          <text x={tx} y={y + 19}>{label}</text>
-        </g>
-      ))}
-      <rect x="198" y="72" width="84" height="30" rx="15" style={{ fill: 'none', stroke: 'var(--c)', strokeWidth: 1.5 }} />
-      <text className="c" x="214" y="91">○ KEYS</text>
-    </>
-  ),
-  family: (
-    <>
-      <circle className="s" cx="122" cy="62" r="34" />
-      <circle className="s" cx="168" cy="62" r="34" />
-      <circle className="f" cx="145" cy="104" r="8" />
-      <path className="sd" d="M145 96 V70" />
-      <text x="20" y="30">RECOGNISED</text>
-      <text className="c" x="218" y="122">PROTECTED</text>
-    </>
-  ),
-  business: (
-    <>
-      <rect className="fs" x="120" y="16" width="60" height="28" rx="4" />
-      <text x="132" y="34">LDA</text>
-      <path className="s" d="M150 44 V62 M70 62 H230 M70 62 V78 M150 62 V78 M230 62 V78" />
-      <rect className="fs" x="40" y="78" width="60" height="26" rx="4" />
-      <rect className="fs" x="120" y="78" width="60" height="26" rx="4" />
-      <rect x="200" y="78" width="60" height="26" rx="4" style={{ fill: 'var(--c)', opacity: 0.9 }} />
-      <text x="44" y="122">PERMIT</text>
-      <text x="124" y="122">CONTRACT</text>
-      <text className="c" x="214" y="122">TAX</text>
-    </>
-  ),
-  community: (
-    <>
-      <path className="sd" d="M150 66 L70 36 M150 66 L60 96 M150 66 L232 30 M150 66 L240 96 M150 66 L150 16 M70 36 L60 96 M232 30 L240 96" />
-      {[[70, 36, 7], [60, 96, 7], [232, 30, 7], [240, 96, 7], [150, 16, 6]].map(([cx, cy, r]) => (
-        <circle key={`${cx}-${cy}`} className="fs" cx={cx} cy={cy} r={r} />
-      ))}
-      <circle className="f" cx="150" cy="66" r="12" />
-      <text x="132" y="118">DAY ONE</text>
-    </>
-  ),
-};
+/* Services explorer. The six-month swimlane is the menu: each lane is a
+   button, and the panel underneath shows what the chosen service covers.
+   Lane positions are percentages of the 0–6 month axis (illustrative). */
+const MONTHS = 6;
+const pct = (m) => `${(m / MONTHS) * 100}%`;
+const fmt = (m) => (Number.isInteger(m) ? String(m) : m.toFixed(1));
 
 export const Services = () => {
   const t = useContent().services;
+  const plan = t.plan;
+  const [active, setActive] = useState(0);
+  const [ref, shown] = useReveal(0.2);
+  const lane = plan.lanes[active];
+  const item = t.items[active];
+  const meta = serviceMeta[active];
+
   return (
     <section id="services">
       <div className="wrap">
         <SectionHead n="04" eyebrow={t.eyebrow} a={t.titleA} b={t.titleB} word={t.titleWord} sub={t.sub} />
-        <Swimlane />
-        <div className="svc-grid">
-          {serviceMeta.map((meta, i) => {
-            const s = t.items[i];
-            return (
-              <article className="svc" key={meta.key} style={{ '--c': meta.color }}>
-                <div className="svc-top"><b>{meta.code}</b><span>{s.route}</span></div>
-                <div className="svc-fig">
-                  <svg viewBox="0 0 300 132" aria-hidden="true">{figures[meta.key]}</svg>
+
+        <div className={`explorer${shown ? ' is-in' : ''}`} ref={ref} style={{ '--c': meta.color }}>
+          <div className="plan-head">
+            <span className="plan-title">{plan.title}</span>
+            <span className="plan-note">{plan.note} {plan.hint}</span>
+          </div>
+
+          <div className="plan-scroll">
+            <div className="plan-chart">
+              <div className="plan-axis">
+                <span className="plan-label" />
+                <div className="plan-track">
+                  {Array.from({ length: MONTHS + 1 }, (_, m) => (
+                    <span key={m} className="plan-tick mono" style={{ left: pct(m) }}>{plan.month} {m}</span>
+                  ))}
                 </div>
-                <div className="svc-body">
-                  <h3 className="h3">{s.title}</h3>
-                  <span className="tag">{s.tag}</span>
-                  <p>{s.text}</p>
+              </div>
+              <div className="plan-lanes" role="tablist" aria-label={t.eyebrow}>
+                <div className="plan-grid" aria-hidden="true">
+                  {Array.from({ length: MONTHS + 1 }, (_, m) => <span key={m} style={{ left: pct(m) }} />)}
+                  {plan.milestones.map(([m, label]) => (
+                    <span key={label} className="plan-milestone" style={{ left: pct(m) }}><em className="mono">{label}</em></span>
+                  ))}
                 </div>
-                <a className="svc-link" href="#contact">{t.link}</a>
-              </article>
-            );
-          })}
+                {plan.lanes.map((l, i) => (
+                  <button
+                    type="button"
+                    role="tab"
+                    id={`svc-tab-${i}`}
+                    aria-selected={i === active}
+                    aria-controls="svc-panel"
+                    className={`plan-lane${i === active ? ' active' : ''}`}
+                    key={l.short}
+                    onClick={() => setActive(i)}
+                    style={{ '--c': serviceMeta[i].color }}
+                  >
+                    <span className="plan-label"><i />{t.items[i].title}</span>
+                    <span className="plan-track">
+                      <span
+                        className={`plan-bar${l.light ? ' light' : ''}${l.open ? ' open' : ''}`}
+                        style={{ left: pct(l.start), width: pct(l.end - l.start), transitionDelay: `${i * 90}ms` }}
+                      >
+                        <span>{l.text}</span>
+                      </span>
+                    </span>
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="svc-panel" id="svc-panel" role="tabpanel" aria-labelledby={`svc-tab-${active}`} key={active}>
+            <div className="svc-panel-main">
+              <p className="svc-panel-meta mono"><b>{meta.code}</b><span>{item.route}</span></p>
+              <h3 className="svc-panel-title">{item.title}</h3>
+              <p className="svc-panel-tag">{item.tag}</p>
+              <p className="svc-panel-text">{item.text}</p>
+              <p className="svc-panel-when mono">
+                {plan.timing}: {plan.months} {fmt(lane.start)}–{fmt(lane.end)}{lane.open ? ` ${plan.ongoing}` : ''}
+              </p>
+              <a className="btn btn-primary" href="#contact"><span>{t.link.replace(' →', '')}</span><span className="arr" aria-hidden="true">→</span></a>
+            </div>
+            <div className="svc-panel-list">
+              <p className="mono svc-panel-k">{plan.included}</p>
+              <ul>
+                {item.includes.map((inc) => <li key={inc}><span className="tick" aria-hidden="true">✓</span>{inc}</li>)}
+              </ul>
+            </div>
+          </div>
         </div>
       </div>
     </section>

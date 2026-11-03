@@ -45,7 +45,7 @@ const BoardingPass = () => {
     <figure className="pass rise d2">
       <div className="pass-photo frames">
         {slides.map((s, i) => (
-          <img key={s.place} className={i === current ? 'on' : ''} src={s.src} alt={s.alt[language]} aria-hidden={i !== current} />
+          <img key={s.place} className={`${i === current ? 'on' : ''}${s.lift ? ' lift' : ''}`} src={s.src} alt={s.alt[language]} aria-hidden={i !== current} />
         ))}
         <span className="pass-count mono">{pad(current + 1)} / {pad(slides.length)}</span>
       </div>

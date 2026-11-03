@@ -101,7 +101,7 @@ export const Contact = () => {
               {f.options.map((o) => <option key={o} value={o}>{o}</option>)}
             </select>
           </div>
-          <div className="field">
+          <div className="field grow">
             <label htmlFor="f-msg">{f.message}</label>
             <textarea id="f-msg" name="message" required placeholder={f.placeholder} value={data.message} onChange={set('message')} />
           </div>
