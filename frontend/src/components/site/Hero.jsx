@@ -88,7 +88,7 @@ const BoardingPass = () => {
           <span className="mono pass-k">{p.seat}</span>
           <span className="pass-code pass-home">{p.home}</span>
           <Barcode />
-          <span className="mono pass-k">{slide.coord}</span>
+          <span className="mono pass-k pass-coord">{slide.coord.split(' · ').map((c) => <span key={c}>{c}</span>)}</span>
           <span className="mono pass-k">{p.stub}</span>
         </div>
       </div>
