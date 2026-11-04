@@ -61,9 +61,10 @@ const BoardingPass = () => {
               <span className="pass-code">{slide.from}</span>
               <span className="pass-city">{slide.fromCity}</span>
             </div>
-            <svg className="pass-plane" viewBox="0 0 80 24" aria-hidden="true">
-              <path d="M2 18 Q40 -6 70 12" className="pass-arc" />
-              <path d="M64 6 L76 12 L64 16 Z" className="pass-tip" />
+            <svg className="pass-plane" viewBox="0 0 96 30" aria-hidden="true">
+              <circle cx="5" cy="24" r="3" className="pass-tip" />
+              <path d="M5 24 Q47 4 86 24" className="pass-arc" />
+              <path d="M78 19 L89 25.5 L78 30" className="pass-head" transform="rotate(25.5 89 25.5) translate(-1 -1.5)" />
             </svg>
             <div>
               <span className="mono pass-k">{p.to}</span>

@@ -119,7 +119,7 @@ export const content = {
       titleA: 'Your next step', titleB: 'is', titleWord: 'home.',
       sub: 'Legal guidance and personal support for LGBTQIA+ people and families moving to Portugal. We handle the visas, the property and the paperwork, and we help you settle in.',
       cta1: 'Book a confidential consultation', cta2: 'See our services', card: 'Destination · PT', show: 'Show',
-      pass: { title: 'Boarding pass', from: 'From', to: 'To', passenger: 'Passenger', you: 'You', gate: 'Gate', seat: 'Seat', home: 'Home', boarding: 'Boarding', now: 'When ready', stub: 'Admit one · Portugal' },
+      pass: { title: 'Boarding pass', from: 'From', to: 'To', passenger: 'Passenger', you: 'You', gate: 'Gate', seat: 'Seat', home: 'Home', boarding: 'Boarding', now: 'When ready', stub: 'Admits you and your loved ones' },
     },
     facts: [['Office', 'Faro · Algarve'], ['Languages', 'EN · PT'], ['Reply time', 'Within 24 hours'], ['Consultations', 'Legally privileged']],
     routes: {
@@ -238,7 +238,7 @@ export const content = {
       titleA: 'O seu próximo passo', titleB: 'é', titleWord: 'casa.',
       sub: 'Orientação jurídica e apoio pessoal para pessoas e famílias LGBTQIA+ que se mudam para Portugal. Tratamos dos vistos, do imóvel e da papelada, e ajudamos a instalar-se.',
       cta1: 'Marcar consulta confidencial', cta2: 'Ver serviços', card: 'Destino · PT', show: 'Mostrar',
-      pass: { title: 'Cartão de embarque', from: 'Partida', to: 'Destino', passenger: 'Passageiro', you: 'Você', gate: 'Porta', seat: 'Lugar', home: 'Casa', boarding: 'Embarque', now: 'Quando quiser', stub: 'Entrada · Portugal' },
+      pass: { title: 'Cartão de embarque', from: 'Partida', to: 'Destino', passenger: 'Passageiro', you: 'Você', gate: 'Porta', seat: 'Lugar', home: 'Casa', boarding: 'Embarque', now: 'Quando quiser', stub: 'Para si e para quem ama' },
     },
     facts: [['Escritório', 'Faro · Algarve'], ['Idiomas', 'EN · PT'], ['Resposta', 'Em 24 horas'], ['Consultas', 'Sob sigilo profissional']],
     routes: {

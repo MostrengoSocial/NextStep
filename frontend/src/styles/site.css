@@ -377,9 +377,10 @@ section { padding-block: clamp(72px, 10vw, 136px); }
 .pass-k { display: block; color: var(--muted); font-size: 10.5px; }
 .pass-code { display: block; font: 800 clamp(2.2rem, 3.6vw, 3rem)/1 var(--display); letter-spacing: -0.035em; margin-top: 4px; font-variant-numeric: tabular-nums; }
 .pass-city { display: block; font-size: 14px; font-weight: 500; color: var(--ink-2); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.pass-plane { width: 76px; height: 24px; margin-bottom: 26px; }
+.pass-plane { width: 92px; height: 29px; align-self: center; margin-top: 10px; overflow: visible; }
 .pass-arc { fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-dasharray: 3 4; }
 .pass-tip { fill: var(--accent); }
+.pass-head { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 .pass-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0; padding-top: 12px; border-top: 1px dashed var(--line); }
 .pass-grid dt { color: var(--muted); font-size: 10px; }
 .pass-grid dd { margin: 4px 0 0; color: var(--ink); font-size: 12.5px; font-weight: 500; }
@@ -397,7 +398,7 @@ section { padding-block: clamp(72px, 10vw, 136px); }
   .pass-stub::before, .pass-stub::after { display: none; }
   .pass-barcode { grid-row: span 2; width: 96px; }
   .pass-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .pass-plane { width: 48px; }
+  .pass-plane { width: 60px; }
 }
 
 /* ---------- R1 Atlantic arc map ---------- */
@@ -627,3 +628,4 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
 .form .field.grow textarea { flex: 1; min-height: 160px; }
 
 @media (max-width: 860px) { .ghost-num { display: none; } }
+.pass-stub .pass-k { text-wrap: balance; }
