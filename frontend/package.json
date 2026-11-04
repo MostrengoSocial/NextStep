@@ -60,8 +60,8 @@
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",
-    "deploy": "npm run build && npx wrangler@4 deploy",
-    "worker:dev": "npm run build && npx wrangler@4 dev"
+    "deploy": "cd .. && npx wrangler@4 deploy",
+    "worker:dev": "cd .. && npx wrangler@4 dev"
   },
   "browserslist": {
     "production": [
