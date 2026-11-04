@@ -2,8 +2,9 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="theme-color" content="#1A8A84" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+        <meta name="theme-color" content="#F8F7F4" media="(prefers-color-scheme: light)" />
+        <meta name="theme-color" content="#0F1010" media="(prefers-color-scheme: dark)" />
         
         <!-- Primary Meta Tags -->
         <title>nextStep</title>
@@ -34,7 +35,15 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@1&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
+
+        <!-- Apply a saved light/dark choice before first paint -->
+        <script>
+            try {
+                var savedTheme = localStorage.getItem('ns-theme');
+                if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.setAttribute('data-theme', savedTheme);
+            } catch (e) {}
+        </script>
         
         <!-- Emergent Scripts (keep for development environment only) -->
         <script>
