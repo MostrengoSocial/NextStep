@@ -1,0 +1,27 @@
+{
+  // nextStep: Cloudflare Worker serving the React site plus the contact API.
+  // Lives at the repo root so Cloudflare's default "npx wrangler deploy" finds it.
+  "$schema": "./frontend/node_modules/wrangler/config-schema.json",
+  // Must match the Worker's name in the Cloudflare dashboard exactly.
+  "name": "nextstep",
+  "main": "frontend/worker/index.js",
+  "compatibility_date": "2025-09-01",
+  // wrangler runs this before every deploy, so the site is always rebuilt.
+  "build": {
+    "command": "npm --prefix frontend ci && npm --prefix frontend run build"
+  },
+  "assets": {
+    "directory": "./frontend/build",
+    "binding": "ASSETS",
+    // Unknown paths (e.g. /privacy-policy) serve index.html so the React router handles them.
+    "not_found_handling": "single-page-application",
+    // Only the API runs the Worker first; everything else is served straight from the assets.
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "SENDER_EMAIL": "onboarding@resend.dev",
+    "NOTIFICATION_EMAIL": "hello@nextstep.com.pt"
+  },
+  "observability": { "enabled": true }
+  // Secret, not stored here: RESEND_API_KEY  ->  npx wrangler secret put RESEND_API_KEY
+}
