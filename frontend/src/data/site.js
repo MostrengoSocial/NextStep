@@ -113,7 +113,7 @@ export const whyColors = [pride.red, pride.orange, pride.yellow, pride.green, pr
 
 export const content = {
   en: {
-    nav: { routes: 'Routes', about: 'About', rights: 'Why Portugal', services: 'Services', stories: 'Stories', contact: 'Contact', cta: 'Book a consultation', switchLang: 'Mudar para Português', light: 'Light', dark: 'Dark', theme: 'Switch colour theme' },
+    nav: { routes: 'Routes', about: 'About', rights: 'Why Portugal', services: 'Services', stories: 'Stories', contact: 'Contact', cta: 'Book a consultation', switchLang: 'Mudar para Português', light: 'Light', dark: 'Dark', theme: 'Switch colour theme', you: 'You' },
     hero: {
       eyebrow: 'LGBTQIA+ relocation law · Portugal',
       titleA: 'Your next step', titleB: 'is', titleWord: 'home.',
@@ -199,15 +199,15 @@ export const content = {
     stories: {
       eyebrow: 'Client stories', titleA: 'Trusted by families', titleWord: 'worldwide.',
       sub: 'Individuals and couples who trusted us with their move to Portugal.',
-      dear: 'Dear nextStep,', photoAlt: 'Two people holding hands on a tree-lined path', postmark: 'Faro',
+      photoAlt: 'Two people holding hands on a tree-lined path', journey: 'From first call to home', note: 'Milestones come from each client’s own story. Timing is shown only where the client gave it.', home: 'Home',
       items: [
-        { via: 'D7', quote: "After the 2024 election, we knew we had to leave the US. nextStep didn't just handle our D7 visa. They gave us hope and a clear path during an uncertain time. Six months later, we're home.", route: 'San Francisco → Cascais' },
-        { via: 'Residency', quote: 'As a trans woman, I was terrified of the legal complexity and of discrimination. nextStep treated me with dignity and professionalism. They knew exactly what I was going through and made everything feel safe.', route: 'Toronto → Faro' },
-        { via: 'Family', quote: "We needed lawyers who understood Brazilian documents, Portuguese requirements and our situation as a same-sex couple with kids. nextStep's team handled it all flawlessly. They even helped us find schools!", route: 'São Paulo → Tavira' },
+        { via: 'D7', quote: "After the 2024 election, we knew we had to leave the US. nextStep didn't just handle our D7 visa. They gave us hope and a clear path during an uncertain time. Six months later, we're home.", route: 'San Francisco → Cascais', steps: ['First call', 'D7 visa', 'The move', 'Home'], when: 'Six months' },
+        { via: 'Residency', quote: 'As a trans woman, I was terrified of the legal complexity and of discrimination. nextStep treated me with dignity and professionalism. They knew exactly what I was going through and made everything feel safe.', route: 'Toronto → Faro', steps: ['First call', 'Residency', 'Moving to Faro', 'Home'] },
+        { via: 'Family', quote: "We needed lawyers who understood Brazilian documents, Portuguese requirements and our situation as a same-sex couple with kids. nextStep's team handled it all flawlessly. They even helped us find schools!", route: 'São Paulo → Tavira', steps: ['First call', 'Documents', 'Schools', 'Home'] },
       ],
     },
     contact: {
-      eyebrow: 'Contact', titleA: 'Ready for your', titleWord: 'next step?',
+      eyebrow: 'Contact', titleA: 'Let’s start', titleWord: 'your journey.',
       sub: 'Book a confidential consultation, protected by attorney-client privilege. We work across time zones, so we can meet when it suits you.',
       photoAlt: 'Two people holding hands on a tree-lined path',
       office: 'Office', email: 'Email', phone: 'Phone', hours: 'Hours', hoursValue: '24/7 by appointment', copy: 'Copy', copied: 'Copied',
@@ -225,14 +225,14 @@ export const content = {
     },
     footer: {
       desc: 'A boutique consultancy for LGBTQIA+ individuals and families building new lives in Portugal. Your bridge, your advocate, your safe harbour.',
-      services: 'Services', company: 'Company', legal: 'Legal',
+      services: 'Services', company: 'Company', legal: 'Legal', askA: 'Ready for your', askWord: 'next step?', step: 'Step', of: 'of',
       legalLinks: ['Privacy policy', 'Terms of service', 'Legal disclaimer'],
       disclaimer: 'nextStep is a consultancy service owned by a registered legal practice in Portugal. This website gives general information only and is not legal advice. Every case is different and needs an individual consultation.',
     },
   },
 
   pt: {
-    nav: { routes: 'Rotas', about: 'Sobre', rights: 'Porquê Portugal', services: 'Serviços', stories: 'Histórias', contact: 'Contacto', cta: 'Marcar consulta', switchLang: 'Switch to English', light: 'Claro', dark: 'Escuro', theme: 'Mudar o tema de cores' },
+    nav: { routes: 'Rotas', about: 'Sobre', rights: 'Porquê Portugal', services: 'Serviços', stories: 'Histórias', contact: 'Contacto', cta: 'Marcar consulta', switchLang: 'Switch to English', light: 'Claro', dark: 'Escuro', theme: 'Mudar o tema de cores', you: 'Você' },
     hero: {
       eyebrow: 'Direito de relocalização LGBTQIA+ · Portugal',
       titleA: 'O seu próximo passo', titleB: 'é', titleWord: 'casa.',
@@ -318,15 +318,15 @@ export const content = {
     stories: {
       eyebrow: 'Histórias de clientes', titleA: 'A confiança de famílias', titleWord: 'no mundo inteiro.',
       sub: 'Pessoas e casais que nos confiaram a sua mudança para Portugal.',
-      dear: 'Querida nextStep,', photoAlt: 'Duas pessoas de mãos dadas num caminho arborizado', postmark: 'Faro',
+      photoAlt: 'Duas pessoas de mãos dadas num caminho arborizado', journey: 'Da primeira chamada até casa', note: 'Os marcos vêm da história de cada cliente. O tempo só aparece quando o cliente o indicou.', home: 'Casa',
       items: [
-        { via: 'D7', quote: 'Depois das eleições de 2024, sabíamos que tínhamos de deixar os EUA. A nextStep não tratou só do nosso visto D7. Deu-nos esperança e um caminho claro num tempo incerto. Seis meses depois, estamos em casa.', route: 'São Francisco → Cascais' },
-        { via: 'Residência', quote: 'Como mulher trans, tinha medo das complexidades legais e da discriminação. A nextStep tratou-me com dignidade e profissionalismo. Sabiam exatamente pelo que eu estava a passar e fizeram tudo parecer seguro.', route: 'Toronto → Faro' },
-        { via: 'Família', quote: 'Precisávamos de advogados que entendessem documentação brasileira, requisitos portugueses e a nossa situação como casal do mesmo sexo com filhos. A equipa da nextStep tratou de tudo. Até nos ajudaram a encontrar escolas!', route: 'São Paulo → Tavira' },
+        { via: 'D7', quote: 'Depois das eleições de 2024, sabíamos que tínhamos de deixar os EUA. A nextStep não tratou só do nosso visto D7. Deu-nos esperança e um caminho claro num tempo incerto. Seis meses depois, estamos em casa.', route: 'São Francisco → Cascais', steps: ['Primeira chamada', 'Visto D7', 'A mudança', 'Casa'], when: 'Seis meses' },
+        { via: 'Residência', quote: 'Como mulher trans, tinha medo das complexidades legais e da discriminação. A nextStep tratou-me com dignidade e profissionalismo. Sabiam exatamente pelo que eu estava a passar e fizeram tudo parecer seguro.', route: 'Toronto → Faro', steps: ['Primeira chamada', 'Residência', 'Mudança para Faro', 'Casa'] },
+        { via: 'Família', quote: 'Precisávamos de advogados que entendessem documentação brasileira, requisitos portugueses e a nossa situação como casal do mesmo sexo com filhos. A equipa da nextStep tratou de tudo. Até nos ajudaram a encontrar escolas!', route: 'São Paulo → Tavira', steps: ['Primeira chamada', 'Documentos', 'Escolas', 'Casa'] },
       ],
     },
     contact: {
-      eyebrow: 'Contacto', titleA: 'Pronto para o', titleWord: 'próximo passo?',
+      eyebrow: 'Contacto', titleA: 'Vamos começar', titleWord: 'a sua jornada.',
       sub: 'Marque uma consulta confidencial, protegida pelo sigilo profissional. Trabalhamos em vários fusos horários, por isso encontramos uma hora que lhe convenha.',
       photoAlt: 'Duas pessoas de mãos dadas num caminho arborizado',
       office: 'Escritório', email: 'Email', phone: 'Telefone', hours: 'Horário', hoursValue: '24/7 por marcação', copy: 'Copiar', copied: 'Copiado',
@@ -344,7 +344,7 @@ export const content = {
     },
     footer: {
       desc: 'Uma consultora boutique para pessoas e famílias LGBTQIA+ a construir uma nova vida em Portugal. A sua ponte, o seu defensor, o seu porto seguro.',
-      services: 'Serviços', company: 'Empresa', legal: 'Legal',
+      services: 'Serviços', company: 'Empresa', legal: 'Legal', askA: 'Pronto para o', askWord: 'próximo passo?', step: 'Passo', of: 'de',
       legalLinks: ['Política de privacidade', 'Termos de serviço', 'Aviso legal'],
       disclaimer: 'A nextStep é um serviço de consultoria pertencente a um escritório de advogados registado em Portugal. Este website fornece apenas informação geral e não constitui aconselhamento jurídico. Cada caso é único e requer uma consulta individual.',
     },

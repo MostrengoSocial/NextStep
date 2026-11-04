@@ -1,6 +1,6 @@
 import React from 'react';
 import { timelineColors, whyColors } from '../../data/site';
-import { SectionHead, useContent } from './shared';
+import { Chev, SectionHead, useContent } from './shared';
 
 export const Rights = () => {
   const t = useContent().rights;
@@ -20,7 +20,7 @@ export const Rights = () => {
           <ul>
             {t.why.map((point, i) => (
               <li key={i} style={{ '--c': whyColors[i] }}>
-                <span className="k">{String(i + 1).padStart(2, '0')}</span>
+                <span className="k"><Chev color={whyColors[i]} size={12} /></span>
                 <span>{point}</span>
               </li>
             ))}

@@ -5,30 +5,16 @@ import { ChevronLogo, useContent } from './shared';
 
 const THEME_KEY = 'ns-theme';
 
-const prefersDark = () =>
-  typeof window !== 'undefined' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
 const useTheme = () => {
   const [explicit, setExplicit] = useState(() => {
     try { return localStorage.getItem(THEME_KEY); } catch (e) { return null; }
   });
-  const [systemDark, setSystemDark] = useState(prefersDark);
 
   useEffect(() => {
-    if (!window.matchMedia) return undefined;
-    const mq = window.matchMedia('(prefers-color-scheme: dark)');
-    const onChange = (e) => setSystemDark(e.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
-
-  useEffect(() => {
-    const root = document.documentElement;
-    if (explicit) root.setAttribute('data-theme', explicit);
-    else root.removeAttribute('data-theme');
+    document.documentElement.setAttribute('data-theme', explicit === 'dark' ? 'dark' : 'light');
   }, [explicit]);
 
-  const isDark = explicit ? explicit === 'dark' : systemDark;
+  const isDark = explicit === 'dark';
   const toggle = () => {
     const next = isDark ? 'light' : 'dark';
     setExplicit(next);
@@ -37,11 +23,44 @@ const useTheme = () => {
   return [isDark, toggle];
 };
 
+/* Live time in Faro and in the visitor's own time zone. */
+const fmt = (tz) => {
+  try { return new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: tz }).format(new Date()); }
+  catch (e) { return '--:--'; }
+};
+const useClocks = () => {
+  const [t, setT] = useState(() => ({ faro: fmt('Europe/Lisbon'), you: fmt(undefined) }));
+  useEffect(() => {
+    const id = setInterval(() => setT({ faro: fmt('Europe/Lisbon'), you: fmt(undefined) }), 20000);
+    return () => clearInterval(id);
+  }, []);
+  return t;
+};
+
+/* How far down the page the visitor has scrolled, 0 to 1. */
+const useScrollProgress = () => {
+  const [p, setP] = useState(0);
+  useEffect(() => {
+    const on = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      setP(max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0);
+    };
+    on();
+    window.addEventListener('scroll', on, { passive: true });
+    window.addEventListener('resize', on);
+    return () => { window.removeEventListener('scroll', on); window.removeEventListener('resize', on); };
+  }, []);
+  return p;
+};
+
 export const SiteHeader = () => {
   const t = useContent().nav;
   const { language, toggleLanguage } = useLanguage();
   const { pathname } = useLocation();
   const [isDark, toggleTheme] = useTheme();
+  const clocks = useClocks();
+  const progress = useScrollProgress();
+  const [menu, setMenu] = useState(false);
   const base = pathname === '/' ? '' : '/';
 
   const links = [
@@ -53,11 +72,16 @@ export const SiteHeader = () => {
       <div className="wrap head-row">
         <Link className="logo" to="/" aria-label="nextStep home">
           <ChevronLogo />
-          nextStep<small>Faro · PT</small>
+          nextStep
         </Link>
         <nav className="nav" aria-label="Main">
           {links.map(([id, label]) => <a key={id} href={`${base}#${id}`}>{label}</a>)}
         </nav>
+        <div className="clocks mono" aria-label={`Faro ${clocks.faro}, ${t.you} ${clocks.you}`}>
+          <span>Faro <b>{clocks.faro}</b></span>
+          <i className="clocks-sep" aria-hidden="true" />
+          <span className="clocks-you">{t.you} <b>{clocks.you}</b></span>
+        </div>
         <div className="head-tools">
           <button className="pill" type="button" onClick={toggleLanguage} aria-label={t.switchLang}>
             {language === 'en' ? 'PT' : 'EN'}
@@ -69,8 +93,18 @@ export const SiteHeader = () => {
           <a className="btn btn-primary head-cta" href={`${base}#contact`}>
             <span>{t.cta}</span><span className="arr" aria-hidden="true">↗</span>
           </a>
+          <button type="button" className={`burger${menu ? ' open' : ''}`} onClick={() => setMenu((m) => !m)} aria-expanded={menu} aria-controls="mobile-menu" aria-label="Menu"><i /><i /></button>
         </div>
       </div>
+      <div className="progress" aria-hidden="true"><i style={{ width: `${(progress * 100).toFixed(1)}%` }} /></div>
+      <nav id="mobile-menu" className={`mobile-menu${menu ? ' open' : ''}`} aria-label="Main" hidden={!menu}>
+        <div className="wrap">
+          {links.map(([id, label], i) => (
+            <a key={id} href={`${base}#${id}`} onClick={() => setMenu(false)}><span className="mono">0{i + 1}</span>{label}</a>
+          ))}
+          <a className="btn btn-primary" href={`${base}#contact`} onClick={() => setMenu(false)}><span>{t.cta}</span><span className="arr" aria-hidden="true">↗</span></a>
+        </div>
+      </nav>
     </header>
   );
 };

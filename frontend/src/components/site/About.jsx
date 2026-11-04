@@ -1,6 +1,6 @@
 import React from 'react';
 import { images, pride } from '../../data/site';
-import { Headline, useContent, useReveal } from './shared';
+import { Headline, useContent, useReveal, Eyebrow, Ghost } from './shared';
 
 /* A6 · Bridge. A three-tower suspension bridge from "where you are" to
    "your new life". Cable curves are quadratic Béziers with the control point
@@ -126,7 +126,8 @@ export const About = () => {
           </figure>
           <div className="about-copy">
             <div>
-              <p className="eyebrow"><b>02</b> / <span>{t.eyebrow}</span></p>
+              <Ghost n="02" />
+              <Eyebrow n="02" label={t.eyebrow} />
               <Headline a={t.titleA} word={t.titleWord} />
             </div>
             <p className="big">{t.p1}</p>

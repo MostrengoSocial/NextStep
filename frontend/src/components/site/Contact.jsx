@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { contact } from '../../data/site';
-import { Headline, useContent } from './shared';
+import { Headline, useContent, Eyebrow, Ghost } from './shared';
 import { OfficeMap } from './OfficeMap';
 
 const EMPTY = { name: '', email: '', phone: '', from: '', service: '', message: '' };
@@ -66,7 +66,8 @@ export const Contact = () => {
       <div className="wrap contact-grid">
         <div className="contact-copy">
           <div>
-            <p className="eyebrow"><b>07</b> / <span>{t.eyebrow}</span></p>
+            <Ghost n="07" />
+              <Eyebrow n="07" label={t.eyebrow} />
             <Headline a={t.titleA} word={t.titleWord} />
           </div>
           <p className="lede">{t.sub}</p>
