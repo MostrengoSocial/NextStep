@@ -1,0 +1,4 @@
+# Files in build/ that the Worker should not serve
+*.map
+*.LICENSE.txt
+.assetsignore

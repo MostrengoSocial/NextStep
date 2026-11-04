@@ -1,0 +1,23 @@
+{
+  // nextStep: Cloudflare Worker serving the React build plus the contact API.
+  // Deploy from this folder: npm run deploy
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "nextstep",
+  "main": "worker/index.js",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./build",
+    "binding": "ASSETS",
+    // Unknown paths (e.g. /privacy-policy) serve index.html so the React router handles them.
+    "not_found_handling": "single-page-application",
+    // Only the API runs the Worker first; everything else is served straight from the assets.
+    "run_worker_first": ["/api/*"]
+  },
+  "vars": {
+    "SENDER_EMAIL": "onboarding@resend.dev",
+    "NOTIFICATION_EMAIL": "hello@nextstep.com.pt"
+  },
+  "observability": { "enabled": true }
+  // Secret, not stored here: RESEND_API_KEY  →  npx wrangler secret put RESEND_API_KEY
+  // To use nextstep.com.pt, add it under Workers → nextstep → Settings → Domains & Routes.
+}
