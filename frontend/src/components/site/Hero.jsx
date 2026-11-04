@@ -61,10 +61,15 @@ const BoardingPass = () => {
               <span className="pass-code">{slide.from}</span>
               <span className="pass-city">{slide.fromCity}</span>
             </div>
-            <svg className="pass-plane" viewBox="0 0 96 30" aria-hidden="true">
-              <circle cx="5" cy="24" r="3" className="pass-tip" />
-              <path d="M5 24 Q47 4 86 24" className="pass-arc" />
-              <path d="M78 19 L89 25.5 L78 30" className="pass-head" transform="rotate(25.5 89 25.5) translate(-1 -1.5)" />
+            <svg className="pass-plane" viewBox="0 0 100 32" aria-hidden="true">
+              <defs>
+                {/* The head is a marker, so the browser places and rotates it to the end of the line. */}
+                <marker id="pass-arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="11" markerHeight="11" orient="auto-start-reverse" markerUnits="userSpaceOnUse">
+                  <path d="M1 1 L8 5 L1 9" className="pass-arrowhead" />
+                </marker>
+              </defs>
+              <circle cx="6" cy="22" r="3.5" className="pass-tip" />
+              <path d="M11 20 Q50 5 90 20" className="pass-arc" markerEnd="url(#pass-arrow)" />
             </svg>
             <div>
               <span className="mono pass-k">{p.to}</span>
