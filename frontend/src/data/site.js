@@ -1,5 +1,6 @@
 // Content for the nextStep site, in English and Portuguese.
 
+const local = (f) => `${process.env.PUBLIC_URL || ''}/img/${f}`;
 const u = (id, w = 1400) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
 
 export const images = {
@@ -9,11 +10,17 @@ export const images = {
   lagos: u('1725344153786-22686793e5a3', 1600),
   lisbon: u('1762335358426-72c27db3f5ff'),
   couple: u('1721120135035-7eb316da0fdc', 1200),
+  // Arco da Vila, the gate into Faro's old town. Hosted in public/img because it is
+  // from Wikimedia Commons (CC BY-SA 4.0), so it needs the credit below.
+  faro: local('faro-arco-da-vila.jpg'),
 };
 
+export const faroCredit = { text: 'Photo: Hugo Ferreira, CC BY-SA 4.0', href: 'https://commons.wikimedia.org/wiki/File:Arco_da_Vila_(1).jpg' };
+
 export const slides = [
+  { src: images.faro, credit: true, from: 'YYZ', fromCity: 'Toronto', to: 'FAO', place: 'Faro', coord: '37.0151° N · 7.9351° W', alt: { en: 'Arco da Vila, the 19th-century gate into Faro’s old town', pt: 'Arco da Vila, a porta do século XIX para a Cidade Velha de Faro' } },
   { src: images.tavira, from: 'GRU', fromCity: 'São Paulo', to: 'FAO', place: 'Tavira', coord: '37.1264° N · 7.6486° W', alt: { en: 'Tavira, white houses with terracotta roofs below a church', pt: 'Tavira, casas brancas com telhados de terracota' } },
-  { src: images.quintaDoLago, from: 'YYZ', fromCity: 'Toronto', to: 'FAO', place: 'Quinta do Lago', coord: '37.0287° N · 8.0170° W', alt: { en: 'Aerial view of the beach and pine forest at Quinta do Lago', pt: 'Vista aérea da praia e do pinhal da Quinta do Lago' } },
+  { src: images.quintaDoLago, from: 'YVR', fromCity: 'Vancouver', to: 'FAO', place: 'Quinta do Lago', coord: '37.0287° N · 8.0170° W', alt: { en: 'Aerial view of the beach and pine forest at Quinta do Lago', pt: 'Vista aérea da praia e do pinhal da Quinta do Lago' } },
   { src: images.lisbon, from: 'JFK', fromCity: 'New York', to: 'LIS', place: 'Lisboa', coord: '38.7223° N · 9.1393° W', alt: { en: 'Yellow tram 28 passing a pink building in Lisbon', pt: 'Elétrico 28 amarelo junto a um prédio cor-de-rosa em Lisboa' } },
   { src: images.lagos, lift: true, from: 'SFO', fromCity: 'San Francisco', to: 'FAO', place: 'Lagos', coord: '37.0814° N · 8.6705° W', alt: { en: 'Rock arches and cliffs on the coast at Lagos', pt: 'Arcos de rocha e falésias na costa de Lagos' } },
 ];
@@ -83,7 +90,7 @@ export const coastTowns = [
   { key: 'monchique', name: 'Monchique', lat: 37.32, lon: -8.56, minor: true },
   { key: 'vrsa', name: 'V. R. S. António', lat: 37.19, lon: -7.42, minor: true },
   { key: 'qdl', name: 'Quinta do Lago', lat: 37.04, lon: -8.02, anchor: 'place-qdl' },
-  { key: 'faro', name: 'Faro', lat: 37.02, lon: -7.93, office: true },
+  { key: 'faro', name: 'Faro', lat: 37.02, lon: -7.93, office: true, anchor: 'place-faro' },
   { key: 'tavira', name: 'Tavira', lat: 37.13, lon: -7.65, anchor: 'place-tavira' },
 ];
 
@@ -191,10 +198,18 @@ export const content = {
     places: {
       eyebrow: 'Destinations', titleA: 'Where will', titleB: 'you', titleWord: 'land?',
       sub: 'Lisbon, Porto or the Algarve. We know the welcoming communities in each, and we check every property before you sign.',
-      qdl: 'Pine forest down to the Atlantic, minutes from our Faro office.', tavira: 'White houses and terracotta roofs.', lagos: 'Cliffs, coves and clear water.',
+      qdl: 'Pine forest down to the Atlantic, minutes from our Faro office.', faro: 'The walled old town, a short walk from our office.', faroTag: 'Cidade Velha', tavira: 'White houses and terracotta roofs.', lagos: 'Cliffs, coves and clear water.',
       pendingTag: 'Your address', pendingState: 'Pending · due diligence', pendingTitle: 'Your', pendingWord: 'home.',
       pendingText: 'Contracts, title checks and tax planning before you commit.', villaAlt: 'Modern white villa with a pool and palm trees',
-      coast: { title: 'The Algarve, west to east', office: 'nextStep office', ocean: 'Atlantic Ocean', region: 'Algarve', north: 'Alentejo', spain: 'Spain', river: 'Guadiana', note: 'Approximate outline of the whole region. Towns placed by real coordinates.', km: '10 km', label: 'Map of the Algarve coast with Lagos, Quinta do Lago, Faro and Tavira' },
+      coast: {
+        office: 'nextStep office', airport: 'Airport', ocean: 'Atlantic Ocean', region: 'Algarve', north: 'Alentejo', spain: 'Spain',
+        note: 'Approximate outlines. Places at their real coordinates.', tabsLabel: 'Choose a region',
+        regions: {
+          algarve: { tab: 'Algarve', title: 'The Algarve, west to east', label: 'Map of the Algarve with Lagos, Portimão, Quinta do Lago, Faro, Tavira and Vila Real de Santo António' },
+          lisboa: { tab: 'Lisbon', title: 'Lisbon and the Tagus', label: 'Map of the Lisbon area with Lisbon, Sintra, Cascais, Setúbal and Lisbon airport' },
+          porto: { tab: 'Porto', title: 'Porto and the Douro', label: 'Map of the Porto area with Porto, Vila Nova de Gaia, Matosinhos, Vila do Conde, Espinho and Porto airport' },
+        },
+      },
     },
     stories: {
       eyebrow: 'Client stories', titleA: 'Trusted by families', titleWord: 'worldwide.',
@@ -310,10 +325,18 @@ export const content = {
     places: {
       eyebrow: 'Destinos', titleA: 'Onde vai', titleB: '', titleWord: 'aterrar?',
       sub: 'Lisboa, Porto ou Algarve. Conhecemos as comunidades acolhedoras de cada um e verificamos cada imóvel antes de assinar.',
-      qdl: 'Pinhal até ao Atlântico, a minutos do nosso escritório em Faro.', tavira: 'Casas brancas e telhados de terracota.', lagos: 'Falésias, enseadas e água cristalina.',
+      qdl: 'Pinhal até ao Atlântico, a minutos do nosso escritório em Faro.', faro: 'A Cidade Velha amuralhada, a poucos passos do nosso escritório.', faroTag: 'Cidade Velha', tavira: 'Casas brancas e telhados de terracota.', lagos: 'Falésias, enseadas e água cristalina.',
       pendingTag: 'A sua morada', pendingState: 'Pendente · due diligence', pendingTitle: 'A sua', pendingWord: 'casa.',
       pendingText: 'Contratos, verificação do registo e planeamento fiscal antes de se comprometer.', villaAlt: 'Moradia branca moderna com piscina e palmeiras',
-      coast: { title: 'O Algarve, de oeste para este', office: 'Escritório nextStep', ocean: 'Oceano Atlântico', region: 'Algarve', north: 'Alentejo', spain: 'Espanha', river: 'Guadiana', note: 'Contorno aproximado de toda a região. Localidades nas coordenadas reais.', km: '10 km', label: 'Mapa da costa algarvia com Lagos, Quinta do Lago, Faro e Tavira' },
+      coast: {
+        office: 'Escritório nextStep', airport: 'Aeroporto', ocean: 'Oceano Atlântico', region: 'Algarve', north: 'Alentejo', spain: 'Espanha',
+        note: 'Contornos aproximados. Localidades nas coordenadas reais.', tabsLabel: 'Escolha uma região',
+        regions: {
+          algarve: { tab: 'Algarve', title: 'O Algarve, de oeste para este', label: 'Mapa do Algarve com Lagos, Portimão, Quinta do Lago, Faro, Tavira e Vila Real de Santo António' },
+          lisboa: { tab: 'Lisboa', title: 'Lisboa e o Tejo', label: 'Mapa da região de Lisboa com Lisboa, Sintra, Cascais, Setúbal e o aeroporto' },
+          porto: { tab: 'Porto', title: 'O Porto e o Douro', label: 'Mapa da região do Porto com Porto, Vila Nova de Gaia, Matosinhos, Vila do Conde, Espinho e o aeroporto' },
+        },
+      },
     },
     stories: {
       eyebrow: 'Histórias de clientes', titleA: 'A confiança de famílias', titleWord: 'no mundo inteiro.',

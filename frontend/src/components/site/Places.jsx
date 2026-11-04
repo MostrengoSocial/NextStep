@@ -1,9 +1,9 @@
 import React from 'react';
-import { images } from '../../data/site';
+import { images, faroCredit } from '../../data/site';
 import { SectionHead, useContent } from './shared';
 import { Coastline } from './Coastline';
 
-const Place = ({ id, className = '', src, alt, region, coord, name, text }) => (
+const Place = ({ id, className = '', src, alt, region, coord, name, text, credit }) => (
   <figure id={id} className={`place ${className}`}>
     <img src={src} alt={alt} loading="lazy" />
     <figcaption>
@@ -13,6 +13,7 @@ const Place = ({ id, className = '', src, alt, region, coord, name, text }) => (
         <span className="d">{text}</span>
       </span>
     </figcaption>
+    {credit && <a className="place-credit" href={credit.href} target="_blank" rel="noopener noreferrer">{credit.text}</a>}
   </figure>
 );
 
@@ -25,10 +26,11 @@ export const Places = () => {
         <Coastline />
         <div className="places">
           <Place id="place-qdl" className="tall" src={images.quintaDoLago} alt="Quinta do Lago" region="Algarve" coord="37.0287° N · 8.0170° W" name="Quinta do Lago" text={t.qdl} />
+          <Place id="place-faro" src={images.faro} alt="Arco da Vila, Faro" region={t.faroTag} coord="37.0151° N" name="Faro" text={t.faro} credit={faroCredit} />
           <Place id="place-tavira" src={images.tavira} alt="Tavira" region="Algarve" coord="37.1264° N" name="Tavira" text={t.tavira} />
           <Place id="place-lagos" className="lift" src={images.lagos} alt="Lagos" region="Algarve" coord="37.0814° N" name="Lagos" text={t.lagos} />
           <Place
-            className="wide pending"
+            className="pending"
             src={images.villa}
             alt={t.villaAlt}
             region={t.pendingTag}

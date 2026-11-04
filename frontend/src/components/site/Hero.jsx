@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useLanguage } from '../../context/LanguageContext';
-import { slides } from '../../data/site';
+import { slides, faroCredit } from '../../data/site';
 import { ChevronLogo, useContent } from './shared';
 
 const SLIDE_MS = 6000;
@@ -47,6 +47,7 @@ const BoardingPass = () => {
         {slides.map((s, i) => (
           <img key={s.place} className={`${i === current ? 'on' : ''}${s.lift ? ' lift' : ''}`} src={s.src} alt={s.alt[language]} aria-hidden={i !== current} />
         ))}
+        {slide.credit && <a className="pass-credit" href={faroCredit.href} target="_blank" rel="noopener noreferrer">{faroCredit.text}</a>}
         <span className="pass-count mono">{pad(current + 1)} / {pad(slides.length)}</span>
       </div>
       <div className="pass-body">

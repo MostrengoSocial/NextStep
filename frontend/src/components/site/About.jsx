@@ -77,7 +77,9 @@ const Bridge = () => {
    for families still to come. Houses pop in when the grid scrolls into view. */
 const FILLED = 300;
 const OPEN = 20;
-const houseColors = [pride.red, pride.orange, pride.yellow, pride.green, pride.blue, pride.magenta];
+const COLS = 25; // 300 houses = 12 rows of 25, two rows per stripe of the pride flag
+const FLAG = ['#E40303', '#FF8C00', '#FFED00', '#008026', '#24408E', '#732982'];
+const houseColor = (i) => FLAG[Math.floor(Math.floor(i / COLS) / 2)];
 
 const Houses = () => {
   const t = useContent().about.houses;
@@ -96,7 +98,7 @@ const Houses = () => {
           <svg
             key={i}
             className={i < FILLED ? 'h' : 'h open'}
-            style={i < FILLED ? { color: houseColors[Math.floor(i / 2) % 6], animationDelay: `${i * 3}ms` } : { animationDelay: `${i * 3}ms` }}
+            style={i < FILLED ? { color: houseColor(i), animationDelay: `${i * 3}ms` } : { animationDelay: `${i * 3}ms` }}
             viewBox="0 0 12 12"
             aria-hidden="true"
           >

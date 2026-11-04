@@ -277,6 +277,8 @@ section { padding-block: clamp(72px, 10vw, 136px); }
 .place .n { display: block; font: 700 clamp(1.6rem, 2.6vw, 2.2rem)/1 var(--display); letter-spacing: -0.04em; color: #fff; }
 .place .d { display: block; font-size: 14.5px; color: rgba(255,255,255,.86); margin-top: 6px; max-width: 26rem; }
 .place.tall { grid-row: span 2; min-height: 620px; }
+.place-credit { position: absolute; z-index: 2; right: 10px; bottom: 8px; font: 400 9.5px/1 var(--mono); letter-spacing: .04em; color: rgba(255,255,255,.75); text-decoration: none; }
+.place-credit:hover { color: #fff; text-decoration: underline; }
 .place.wide { grid-column: span 2; }
 .place.pending .n .serif { color: #fff; }
 @media (max-width: 900px) {
@@ -460,7 +462,7 @@ section { padding-block: clamp(72px, 10vw, 136px); }
 .houses-head { display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
 .houses-head .num, .stat .num { font: 700 clamp(2.6rem, 5vw, 4.2rem)/1 var(--display); letter-spacing: -0.05em; font-variant-numeric: tabular-nums; }
 .houses-head .lbl, .stat .lbl { color: var(--muted); }
-.houses-grid { display: grid; grid-template-columns: repeat(32, minmax(0, 1fr)); gap: 4px; }
+.houses-grid { display: grid; grid-template-columns: repeat(25, minmax(0, 1fr)); gap: 4px 5px; }
 .houses-grid .h { width: 100%; height: auto; display: block; fill: currentColor; }
 .houses-grid .h.open { fill: none; stroke: var(--muted); stroke-width: 1; }
 .houses:not(.is-in) .h { opacity: 0; }
@@ -475,7 +477,7 @@ section { padding-block: clamp(72px, 10vw, 136px); }
   .stats-split { grid-template-columns: minmax(0, 1fr); }
   .stats-col { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 16px; }
 }
-@media (max-width: 640px) { .houses-grid { grid-template-columns: repeat(16, minmax(0, 1fr)); } }
+@media (max-width: 640px) { .houses-grid { gap: 3px; } }
 @media (max-width: 480px) { .stats-col { grid-template-columns: minmax(0, 1fr); } }
 
 /* ---------- S2 swimlane plan ---------- */
@@ -630,3 +632,17 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
 @media (max-width: 860px) { .ghost-num { display: none; } }
 .pass-stub .pass-k { text-wrap: balance; }
 .pass-coord span { display: block; white-space: nowrap; }
+
+/* Destinations map: tabs, airports, label spacing */
+.coast-tabs { display: inline-flex; gap: 4px; margin: 14px 22px 0; padding: 4px; border-radius: 999px; background: var(--sunk); }
+.coast-tabs button { border: 0; background: transparent; color: var(--ink-2); font: 600 14px/1 var(--body); padding: 9px 16px; border-radius: 999px; cursor: pointer; }
+.coast-tabs button.on { background: var(--ink); color: var(--paper); }
+.coast-sea { fill: color-mix(in srgb, var(--blue) 7%, var(--surface)); }
+.coast-land.outlined { stroke: var(--ink); stroke-width: 1.8; stroke-linejoin: round; }
+.coast-town .leader { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+.coast-town .coord { font: 400 10.5px var(--mono); letter-spacing: .08em; fill: var(--muted); }
+.coast-airport rect { fill: var(--surface); stroke: var(--ink); stroke-width: 1.4; }
+.coast-airport path { stroke: var(--ink); stroke-width: 1.4; fill: none; stroke-linecap: round; }
+.coast-airport text { font: 400 10.5px var(--mono); letter-spacing: .08em; fill: var(--muted); text-transform: uppercase; }
+.coast-airport .code { fill: var(--ink); font-weight: 500; }
+.pass-credit { position: absolute; z-index: 2; right: 10px; bottom: 8px; font: 400 9.5px/1 var(--mono); letter-spacing: .04em; color: rgba(255,255,255,.8); text-decoration: none; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
