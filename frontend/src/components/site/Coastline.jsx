@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { REGIONS, REGION_KEYS } from '../../data/maps';
-import { useContent, useReveal } from './shared';
+import { useContent, useReveal, useStartScroll } from './shared';
 
 /* Destinations map with three tabs: the Algarve, Lisbon and Porto.
    Each region is drawn with a true-proportion equirectangular projection
@@ -62,7 +62,7 @@ function Town({ t, x, y, label }) {
       <text className="coord" x={lx} y={ly + 18} textAnchor={t.side}>{office ? `${fmtCoord(t)} · ${label}` : fmtCoord(t)}</text>
     </g>
   );
-  return t.link ? <a href={`#${t.link}`} className="coast-link">{body}</a> : body;
+  return t.link ? <a href={`#${t.link}`} className="coast-link" aria-label={`${t.name}: ${label}`}>{body}</a> : body;
 }
 
 function RegionMap({ id, t }) {
@@ -86,7 +86,7 @@ function RegionMap({ id, t }) {
       {(r.riverLabels || []).map((rl) => <text key={rl.name} className="coast-river-name" x={x(rl.at[0])} y={y(rl.at[1])} textAnchor="middle">{rl.name}</text>)}
       <text className="coast-ocean" x={x(r.ocean[0])} y={y(r.ocean[1])} textAnchor="middle">{t.ocean}</text>
 
-      {r.towns.map((town) => <Town key={town.key} t={town} x={x} y={y} label={town.kind === 'office' ? t.office : t.airport} />)}
+      {r.towns.map((town) => <Town key={town.key} t={town} x={x} y={y} label={town.kind === 'office' ? t.office : town.kind === 'airport' ? t.airport : t.seePhoto} />)}
 
       <g className="coast-scale" transform={`translate(${W - 50 - km} ${H - 26})`}>
         <line x1="0" y1="0" x2={km} y2="0" />
@@ -107,6 +107,8 @@ export const Coastline = () => {
   const [region, setRegion] = useState('algarve');
   const [ref, shown] = useReveal(0.3);
   const copy = t.regions[region];
+  // On phones, open each map on its main town: Faro, Lisbon or Porto.
+  const scrollRef = useStartScroll({ algarve: 0.62, lisboa: 0.5, porto: 0.42 }[region], [region]);
   return (
     <figure className={`coast${shown ? ' is-in' : ''}`} ref={ref}>
       <figcaption className="coast-head">
@@ -129,7 +131,8 @@ export const Coastline = () => {
           </button>
         ))}
       </div>
-      <div className="coast-scroll" id="coast-panel" role="tabpanel" aria-labelledby={`coast-tab-${region}`}>
+      <p className="swipe-hint mono coast-hint" aria-hidden="true">{t.swipe}</p>
+      <div className="coast-scroll" ref={scrollRef} id="coast-panel" role="tabpanel" aria-labelledby={`coast-tab-${region}`}>
         <RegionMap key={region} id={region} t={t} />
       </div>
     </figure>

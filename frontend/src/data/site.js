@@ -1,15 +1,16 @@
 // Content for the nextStep site, in English and Portuguese.
 
 const local = (f) => `${process.env.PUBLIC_URL || ''}/img/${f}`;
-const u = (id, w = 1400) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+// auto=format serves WebP/AVIF to browsers that accept them; 1100px wide at q=60 keeps photos light.
+const u = (id, w = 1100) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=60`;
 
 export const images = {
-  villa: u('1757264119016-7e6b568b810d', 1600),
+  villa: u('1757264119016-7e6b568b810d', 1200),
   tavira: u('1770163821178-d1f705ca0952'),
-  quintaDoLago: u('1754221715854-157c677101c5'),
-  lagos: u('1725344153786-22686793e5a3', 1600),
+  quintaDoLago: u('1754221715854-157c677101c5', 900),
+  lagos: u('1725344153786-22686793e5a3', 1200),
   lisbon: u('1762335358426-72c27db3f5ff'),
-  couple: u('1721120135035-7eb316da0fdc', 1200),
+  couple: u('1721120135035-7eb316da0fdc', 1400),
   // Arco da Vila, the gate into Faro's old town. Hosted in public/img because it is
   // from Wikimedia Commons (CC BY-SA 4.0), so it needs the credit below.
   faro: local('faro-arco-da-vila.jpg'),
@@ -134,7 +135,7 @@ export const content = {
       sub: 'Clients come to us from the US, Canada, Brazil and beyond. Each route has its own documents, visa and timing. We plan it from the first call to your residence card.',
       cols: ['From', 'To', 'Pathway', 'Status'], status: { arrived: 'ARRIVED', boarding: 'BOARDING' },
       legend: ['Arrived: routes from the client stories below', 'Boarding: other routes we handle often'],
-      inset: 'Portugal · enlarged', note: 'City positions are real coordinates. Portugal is enlarged so each destination is visible.',
+      inset: 'Portugal · enlarged', swipe: 'Swipe to explore the map ↔', note: 'City positions are real coordinates. Portugal is enlarged so each destination is visible.',
       arrow: 'to',
       label: 'Relocation routes',
     },
@@ -202,7 +203,7 @@ export const content = {
       pendingTag: 'Your address', pendingState: 'Pending · due diligence', pendingTitle: 'Your', pendingWord: 'home.',
       pendingText: 'Contracts, title checks and tax planning before you commit.', villaAlt: 'Modern white villa with a pool and palm trees',
       coast: {
-        office: 'nextStep office', airport: 'Airport', ocean: 'Atlantic Ocean', region: 'Algarve', north: 'Alentejo', spain: 'Spain',
+        office: 'nextStep office', airport: 'Airport', seePhoto: 'see the photo', swipe: 'Swipe to explore the map ↔', ocean: 'Atlantic Ocean', region: 'Algarve', north: 'Alentejo', spain: 'Spain',
         note: 'Approximate outlines. Places at their real coordinates.', tabsLabel: 'Choose a region',
         regions: {
           algarve: { tab: 'Algarve', title: 'The Algarve, west to east', label: 'Map of the Algarve with Lagos, Portimão, Quinta do Lago, Faro, Tavira and Vila Real de Santo António' },
@@ -261,7 +262,7 @@ export const content = {
       sub: 'Os nossos clientes vêm dos EUA, do Canadá, do Brasil e de outros países. Cada rota tem os seus documentos, visto e prazos. Planeamos tudo, da primeira chamada ao cartão de residência.',
       cols: ['Partida', 'Destino', 'Via', 'Estado'], status: { arrived: 'CHEGOU', boarding: 'EMBARQUE' },
       legend: ['Chegou: rotas das histórias de clientes abaixo', 'Embarque: outras rotas que tratamos com frequência'],
-      inset: 'Portugal · ampliado', note: 'As cidades estão nas coordenadas reais. Portugal está ampliado para se ver cada destino.',
+      inset: 'Portugal · ampliado', swipe: 'Deslize para explorar o mapa ↔', note: 'As cidades estão nas coordenadas reais. Portugal está ampliado para se ver cada destino.',
       arrow: 'para',
       label: 'Rotas de relocalização',
     },
@@ -329,7 +330,7 @@ export const content = {
       pendingTag: 'A sua morada', pendingState: 'Pendente · due diligence', pendingTitle: 'A sua', pendingWord: 'casa.',
       pendingText: 'Contratos, verificação do registo e planeamento fiscal antes de se comprometer.', villaAlt: 'Moradia branca moderna com piscina e palmeiras',
       coast: {
-        office: 'Escritório nextStep', airport: 'Aeroporto', ocean: 'Oceano Atlântico', region: 'Algarve', north: 'Alentejo', spain: 'Espanha',
+        office: 'Escritório nextStep', airport: 'Aeroporto', seePhoto: 'ver a fotografia', swipe: 'Deslize para explorar o mapa ↔', ocean: 'Oceano Atlântico', region: 'Algarve', north: 'Alentejo', spain: 'Espanha',
         note: 'Contornos aproximados. Localidades nas coordenadas reais.', tabsLabel: 'Escolha uma região',
         regions: {
           algarve: { tab: 'Algarve', title: 'O Algarve, de oeste para este', label: 'Mapa do Algarve com Lagos, Portimão, Quinta do Lago, Faro, Tavira e Vila Real de Santo António' },

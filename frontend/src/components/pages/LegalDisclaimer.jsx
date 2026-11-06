@@ -1,5 +1,7 @@
 import React from 'react';
 import { useLanguage } from '../../context/LanguageContext';
+import { usePageMeta } from '../../hooks/usePageMeta';
+import { PAGE_META } from '../../data/pageMeta';
 
 export const LegalDisclaimer = () => {
   const { language } = useLanguage();
@@ -76,6 +78,7 @@ export const LegalDisclaimer = () => {
   };
 
   const t = content[language];
+    usePageMeta({ ...PAGE_META['/legal-disclaimer'][language], path: '/legal-disclaimer' });
 
   return (
     <div className="legal">

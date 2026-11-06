@@ -1,0 +1,13 @@
+{
+  "name": "nextStep",
+  "short_name": "nextStep",
+  "description": "LGBTQIA+ relocation law in Portugal",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#F8F7F4",
+  "theme_color": "#F8F7F4",
+  "icons": [
+    { "src": "/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
