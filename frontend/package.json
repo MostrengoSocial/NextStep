@@ -58,7 +58,7 @@
   },
   "scripts": {
     "start": "craco start",
-    "build": "craco build",
+    "build": "craco build && node scripts/prerender.mjs",
     "test": "craco test",
     "deploy": "cd .. && npx wrangler@4 deploy",
     "worker:dev": "cd .. && npx wrangler@4 dev"
@@ -81,6 +81,7 @@
     "@eslint/js": "9.23.0",
     "ajv": "^8.20.0",
     "autoprefixer": "^10.4.20",
+    "esbuild": "^0.25.10",
     "eslint": "9.23.0",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",

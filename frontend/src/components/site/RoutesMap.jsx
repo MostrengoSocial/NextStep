@@ -1,6 +1,6 @@
 import React from 'react';
 import { destinations, portugalOutline, routes } from '../../data/site';
-import { SectionHead, useContent, useReveal } from './shared';
+import { SectionHead, useContent, useReveal, useStartScroll } from './shared';
 
 /* R1 · Atlantic arc map. Origins are plotted by real latitude/longitude on a
    simple equirectangular grid. Portugal is drawn as an enlarged inset on the
@@ -39,12 +39,13 @@ const fmtLat = (v) => (v === 0 ? '0°' : `${Math.abs(v)}°${v > 0 ? 'N' : 'S'}`)
 export const RoutesMap = () => {
   const t = useContent().routes;
   const [ref, shown] = useReveal(0.2);
+  const scrollRef = useStartScroll(1);
 
   return (
     <section id="routes">
       <div className="wrap">
         <SectionHead n="01" eyebrow={t.eyebrow} a={t.titleA} b={t.titleB} word={t.titleWord} sub={t.sub} />
-        <div className={`atlas${shown ? ' is-in' : ''}`} ref={ref}>
+        <div className={`atlas${shown ? ' is-in' : ''}`} ref={(el) => { ref.current = el; scrollRef.current = el; }}>
           <svg className="atlas-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t.label}>
             {/* graticule */}
             <g className="atlas-grid">
@@ -118,6 +119,7 @@ export const RoutesMap = () => {
           </svg>
         </div>
 
+        <p className="swipe-hint mono" aria-hidden="true">{t.swipe}</p>
         <ul className="route-list">
           {routes.map((r) => (
             <li key={r.code} className={r.status}>

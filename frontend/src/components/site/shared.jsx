@@ -86,3 +86,16 @@ export const useReveal = (threshold = 0.25) => {
   }, [shown, threshold]);
   return [ref, shown];
 };
+
+/* On small screens a wide map scrolls sideways inside its frame. Start it at
+   `ratio` of the way across (e.g. on Portugal) instead of the far left. */
+export const useStartScroll = (ratio, deps = []) => {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    const el = ref.current;
+    if (!el || el.scrollWidth <= el.clientWidth + 4) return;
+    el.scrollLeft = (el.scrollWidth - el.clientWidth) * ratio;
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, deps);
+  return ref;
+};

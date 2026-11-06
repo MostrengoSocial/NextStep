@@ -646,3 +646,40 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
 .coast-airport text { font: 400 10.5px var(--mono); letter-spacing: .08em; fill: var(--muted); text-transform: uppercase; }
 .coast-airport .code { fill: var(--ink); font-weight: 500; }
 .pass-credit { position: absolute; z-index: 2; right: 10px; bottom: 8px; font: 400 9.5px/1 var(--mono); letter-spacing: .04em; color: rgba(255,255,255,.8); text-decoration: none; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+
+/* ================================================================
+   Phone layout fixes (launch check)
+   ================================================================ */
+.swipe-hint { display: none; margin: 8px 0 0; color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
+.coast-hint { margin: 10px 22px 0; }
+/* Slideshow markers: the bar stays 4px, the tap area is 28px. */
+.ticks button { height: 28px; background: transparent; overflow: visible; }
+.ticks button::before { content: ""; position: absolute; left: 0; right: 0; top: 12px; height: 4px; border-radius: 2px; background: var(--line); }
+.ticks button i { inset: 12px 0 auto; height: 4px; border-radius: 2px; overflow: hidden; }
+.not-found-links { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px !important; }
+@media (max-width: 640px) {
+  /* Step label: chevrons on their own line, then "Step n of 7 · Section" on one line. */
+  .eyebrow.steps .steps-chev { flex-basis: 100%; }
+  .swipe-hint { display: block; }
+  /* Maps scroll sideways inside their frame; keep labels readable. */
+  .atlas-svg { min-width: 720px; }
+  .coast-svg { min-width: 820px; }
+  /* Services timeline: the service name sits above its bar, which gets the full width. */
+  .plan-chart { min-width: 0; }
+  .plan-axis, .plan-lane { grid-template-columns: minmax(0, 1fr); }
+  .plan-axis .plan-label { display: none; }
+  .plan-lane { height: auto; padding: 6px 0 2px; }
+  .plan-lane .plan-label { padding-left: 0; margin-bottom: 4px; }
+  .plan-lane .plan-track { height: 28px; }
+  .plan-lane .plan-bar { top: 0; }
+  .plan-grid { left: 0; }
+  .plan-tick { font-size: 9.5px; }
+  .plan-tick:nth-child(even) { display: none; } /* show months 0, 2, 4 and 6 */
+  .plan-grid > .plan-milestone:nth-last-child(2) em { left: auto; right: 6px; } /* "Arrival" sits left of its line */
+  .plan-milestone em { font-size: 9.5px; }
+  /* Contact details: label above value, so the email address stays on one line. */
+  .info div { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; }
+  .info dt { grid-column: 1 / -1; }
+  .info dd { overflow-wrap: normal; word-break: normal; }
+}
+.place-credit, .pass-credit { font-size: 10.5px; padding: 6px 2px; right: 8px; bottom: 2px; }

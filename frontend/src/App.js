@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import "./styles/site.css";
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { LanguageProvider } from "./context/LanguageContext";
 import { SiteHeader } from "./components/site/SiteHeader";
 import { Hero } from "./components/site/Hero";
@@ -15,6 +15,10 @@ import { SiteFooter } from "./components/site/SiteFooter";
 import { PrivacyPolicy } from "./components/pages/PrivacyPolicy";
 import { TermsOfService } from "./components/pages/TermsOfService";
 import { LegalDisclaimer } from "./components/pages/LegalDisclaimer";
+import { NotFound } from "./components/pages/NotFound";
+import { usePageMeta } from "./hooks/usePageMeta";
+import { PAGE_META } from "./data/pageMeta";
+import { useLanguage } from "./context/LanguageContext";
 
 // Scroll to the top on page changes, or to the #section in the URL.
 function ScrollManager() {
@@ -35,6 +39,8 @@ function ScrollManager() {
 }
 
 function HomePage() {
+  const { language } = useLanguage();
+  usePageMeta({ ...PAGE_META['/'][language], path: '/' });
   return (
     <>
       <Hero />
@@ -49,25 +55,34 @@ function HomePage() {
   );
 }
 
-function App() {
+/* The site without a router, so the build can render it with a StaticRouter
+   (scripts/prerender.mjs) and the browser with a BrowserRouter. */
+export function Site() {
   return (
     <LanguageProvider>
-      <Router>
-        <ScrollManager />
-        <div className="App">
-          <SiteHeader />
-          <main id="top">
-            <Routes>
-              <Route path="/" element={<HomePage />} />
-              <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-              <Route path="/terms-of-service" element={<TermsOfService />} />
-              <Route path="/legal-disclaimer" element={<LegalDisclaimer />} />
-            </Routes>
-          </main>
-          <SiteFooter />
-        </div>
-      </Router>
+      <ScrollManager />
+      <div className="App">
+        <SiteHeader />
+        <main id="top">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-of-service" element={<TermsOfService />} />
+            <Route path="/legal-disclaimer" element={<LegalDisclaimer />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        <SiteFooter />
+      </div>
     </LanguageProvider>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Site />
+    </BrowserRouter>
   );
 }
 

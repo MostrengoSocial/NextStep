@@ -82,15 +82,68 @@ async function handleContact(request, env) {
   return json({ success: true });
 }
 
+// One canonical address: https://nextstep.com.pt (no www).
+const CANONICAL_HOST = 'nextstep.com.pt';
+const REDIRECT_HOSTS = new Set(['www.nextstep.com.pt']);
+
+// Security headers for every response. The CSP allows only this site, Google Fonts
+// and the Unsplash photos; inline scripts are not allowed (structured data is not executed).
+const SECURITY_HEADERS = {
+  'Strict-Transport-Security': 'max-age=31536000',
+  'X-Content-Type-Options': 'nosniff',
+  'Referrer-Policy': 'strict-origin-when-cross-origin',
+  'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=(), usb=(), interest-cohort=()',
+  'X-Frame-Options': 'DENY',
+  'Content-Security-Policy': [
+    "default-src 'self'",
+    "script-src 'self'",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com",
+    "img-src 'self' data: https://images.unsplash.com",
+    "connect-src 'self'",
+    "frame-ancestors 'none'",
+    "base-uri 'self'",
+    "form-action 'self'",
+    "object-src 'none'",
+    'upgrade-insecure-requests',
+  ].join('; '),
+};
+
+function withHeaders(response, extra = {}) {
+  const res = new Response(response.body, response);
+  for (const [k, v] of Object.entries({ ...SECURITY_HEADERS, ...extra })) res.headers.set(k, v);
+  return res;
+}
+
+// Long cache for fingerprinted build files; short cache for HTML and the crawler files.
+function cacheHeaders(pathname, contentType) {
+  if (pathname.startsWith('/static/')) return { 'Cache-Control': 'public, max-age=31536000, immutable' };
+  if (/text\/html/.test(contentType || '')) return { 'Cache-Control': 'public, max-age=0, must-revalidate' };
+  return { 'Cache-Control': 'public, max-age=3600' };
+}
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
-    if (url.pathname === '/api/contact') {
-      if (request.method !== 'POST') return json({ error: 'Method not allowed.' }, 405);
-      return handleContact(request, env);
+
+    // http -> https and www -> apex, keeping the path and query.
+    if (url.protocol === 'http:' || REDIRECT_HOSTS.has(url.hostname)) {
+      if (url.hostname === CANONICAL_HOST || REDIRECT_HOSTS.has(url.hostname)) {
+        url.protocol = 'https:';
+        url.hostname = CANONICAL_HOST;
+        url.port = '';
+        return Response.redirect(url.toString(), 301);
+      }
     }
-    // Everything else is the static site; unknown paths fall back to index.html
-    // (see "not_found_handling" in wrangler.jsonc) so React routes still work.
-    return env.ASSETS.fetch(request);
+
+    if (url.pathname === '/api/contact') {
+      if (request.method !== 'POST') return withHeaders(json({ error: 'Method not allowed.' }, 405), { Allow: 'POST' });
+      return withHeaders(await handleContact(request, env), { 'Cache-Control': 'no-store' });
+    }
+
+    // Static site. Pages are prerendered files (/privacy-policy -> privacy-policy.html);
+    // unknown addresses get build/404.html with status 404 (see wrangler.jsonc).
+    const res = await env.ASSETS.fetch(request);
+    return withHeaders(res, cacheHeaders(url.pathname, res.headers.get('content-type')));
   },
 };

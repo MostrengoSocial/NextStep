@@ -5,147 +5,91 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
         <meta name="theme-color" content="#F8F7F4" media="(prefers-color-scheme: light)" />
         <meta name="theme-color" content="#0F1010" media="(prefers-color-scheme: dark)" />
-        
-        <!-- Primary Meta Tags -->
-        <title>nextStep</title>
-        <meta name="title" content="nextStep" />
-        <meta name="description" content="Expert legal guidance for LGBTQIA+ individuals and families relocating to Portugal. Specialized in Golden Visa, D7 Visa, family law, and full relocation support. Boutique legal practice with personal attention." />
-        <meta name="keywords" content="LGBTQIA+ lawyer Portugal, LGBT immigration lawyer, Golden Visa Portugal, D7 Visa, Portugal relocation, same-sex immigration, trans-friendly lawyer Lisbon, Portugal family law, expat lawyer Portugal" />
-        
-        <!-- Open Graph / Facebook -->
+
+        <!-- Defaults for the home page. Each route sets its own title, description and
+             canonical (src/hooks/usePageMeta.js), and the build prerenders them. -->
+        <title>LGBTQIA+ Immigration Lawyers in Portugal | nextStep</title>
+        <meta name="description" content="Legal guidance and personal support for LGBTQIA+ people and families moving to Portugal: visas, property, family law and settling in. Based in Faro." />
+        <link rel="canonical" href="https://nextstep.com.pt/" />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://www.nextstep.com.pt/" />
-        <meta property="og:title" content="LGBTQIA+ Immigration Lawyer Portugal | nextStep" />
-        <meta property="og:description" content="Expert legal guidance for LGBTQIA+ individuals and families relocating to Portugal. Your trusted partner for moving to Portugal." />
-        <meta property="og:image" content="https://www.nextstep.com.pt/og-image.jpg" />
-        
-        <!-- Twitter -->
-        <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:url" content="https://www.nextstep.com.pt/" />
-        <meta property="twitter:title" content="LGBTQIA+ Immigration Lawyer Portugal | nextStep" />
-        <meta property="twitter:description" content="Expert legal guidance for LGBTQIA+ individuals and families relocating to Portugal." />
-        <meta property="twitter:image" content="https://www.nextstep.com.pt/og-image.jpg" />
-        
-        <!-- Additional SEO -->
-        <link rel="canonical" href="https://www.nextstep.com.pt/" />
+        <meta property="og:site_name" content="nextStep" />
+        <meta property="og:locale" content="en_GB" />
+        <meta property="og:locale:alternate" content="pt_PT" />
+        <meta property="og:url" content="https://nextstep.com.pt/" />
+        <meta property="og:title" content="LGBTQIA+ Immigration Lawyers in Portugal | nextStep" />
+        <meta property="og:description" content="Legal guidance and personal support for LGBTQIA+ people and families moving to Portugal: visas, property, family law and settling in." />
+        <meta property="og:image" content="https://nextstep.com.pt/og-image.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="nextStep: your next step is home. LGBTQIA+ relocation law in Portugal." />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="LGBTQIA+ Immigration Lawyers in Portugal | nextStep" />
+        <meta name="twitter:description" content="Legal guidance and personal support for LGBTQIA+ people and families moving to Portugal." />
+        <meta name="twitter:image" content="https://nextstep.com.pt/og-image.jpg" />
+
+        <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="32x32" />
         <link rel="icon" type="image/svg+xml" href="%PUBLIC_URL%/favicon.svg" />
-        <meta name="robots" content="index, follow" />
-        <meta name="googlebot" content="index, follow" />
-        
-        <!-- Fonts -->
+        <link rel="apple-touch-icon" href="%PUBLIC_URL%/apple-touch-icon.png" />
+        <link rel="manifest" href="%PUBLIC_URL%/site.webmanifest" />
+        <link rel="alternate" type="text/plain" href="%PUBLIC_URL%/llms.txt" title="LLM-readable summary" />
+
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Instrument+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&family=DM+Serif+Display:ital@1&family=Caveat:wght@500;600&display=swap" rel="stylesheet" />
 
-        <!-- Apply a saved light/dark choice before first paint -->
-        <script>
-            try {
-                var savedTheme = localStorage.getItem('ns-theme');
-                if (savedTheme === 'light' || savedTheme === 'dark') document.documentElement.setAttribute('data-theme', savedTheme);
-            } catch (e) {}
-        </script>
-        
-        <!-- Emergent Scripts (keep for development environment only) -->
-        <script>
-            // Only load visual edit scripts when inside an iframe (Emergent development environment)
-            if (window.self !== window.top) {
-                var emergentScript = document.createElement('script');
-                emergentScript.src = 'https://assets.emergent.sh/scripts/emergent-main.js';
-                document.head.appendChild(emergentScript);
-                
-                // Load debug monitor script
-                var debugMonitorScript = document.createElement('script');
-                debugMonitorScript.src = 'https://assets.emergent.sh/scripts/debug-monitor.js';
-                document.head.appendChild(debugMonitorScript);
+        <!-- Apply a saved light/dark choice before first paint (external file so the CSP needs no inline script). -->
+        <script src="%PUBLIC_URL%/theme-init.js"></script>
 
-                // Configure Tailwind
-                window.tailwind = window.tailwind || {};
-                tailwind.config = {
-                    corePlugins: { preflight: false },
-                };
-
-                // Load Tailwind CDN
-                var tailwindScript = document.createElement('script');
-                tailwindScript.src = 'https://cdn.tailwindcss.com';
-                document.head.appendChild(tailwindScript);
+        <!-- Structured data: who nextStep is, for search engines and AI assistants. -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@graph": [
+            {
+              "@type": "LegalService",
+              "@id": "https://nextstep.com.pt/#organization",
+              "name": "nextStep",
+              "url": "https://nextstep.com.pt/",
+              "logo": "https://nextstep.com.pt/apple-touch-icon.png",
+              "image": "https://nextstep.com.pt/og-image.jpg",
+              "description": "Boutique legal and relocation practice for LGBTQIA+ individuals and families moving to Portugal: immigration and visas (Golden Visa, D7, Digital Nomad), real estate and investment, relocation concierge, family and personal law, employment and business, and community connection.",
+              "email": "hello@nextstep.com.pt",
+              "telephone": "+351934229144",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Largo de São Luís, nº11 C, 4ºD",
+                "postalCode": "8000-143",
+                "addressLocality": "Faro",
+                "addressCountry": "PT"
+              },
+              "geo": { "@type": "GeoCoordinates", "latitude": 37.0194, "longitude": -7.9304 },
+              "areaServed": { "@type": "Country", "name": "Portugal" },
+              "availableLanguage": ["en", "pt"],
+              "knowsAbout": ["Portugal Golden Visa", "Portugal D7 visa", "Portugal Digital Nomad visa", "Family reunification", "Residence permits", "Portuguese citizenship", "Real estate due diligence", "LGBTQIA+ family law", "Relocation to Portugal"],
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer service",
+                "email": "hello@nextstep.com.pt",
+                "telephone": "+351934229144",
+                "availableLanguage": ["English", "Portuguese"]
+              }
+            },
+            {
+              "@type": "WebSite",
+              "@id": "https://nextstep.com.pt/#website",
+              "url": "https://nextstep.com.pt/",
+              "name": "nextStep",
+              "inLanguage": ["en", "pt-PT"],
+              "publisher": { "@id": "https://nextstep.com.pt/#organization" }
             }
+          ]
+        }
         </script>
     </head>
     <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <noscript>This site works best with JavaScript turned on. You can also email hello@nextstep.com.pt or call +351 934 229 144.</noscript>
         <div id="root"></div>
-        
-        <!-- PostHog Analytics -->
-        <script>
-            !(function (t, e) {
-                var o, n, p, r;
-                e.__SV ||
-                    ((window.posthog = e),
-                    (e._i = []),
-                    (e.init = function (i, s, a) {
-                        function g(t, e) {
-                            var o = e.split(".");
-                            2 == o.length && ((t = t[o[0]]), (e = o[1])),
-                                (t[e] = function () {
-                                    t.push(
-                                        [e].concat(
-                                            Array.prototype.slice.call(
-                                                arguments,
-                                                0,
-                                            ),
-                                        ),
-                                    );
-                                });
-                        }
-                        ((p = t.createElement("script")).type =
-                            "text/javascript"),
-                            (p.crossOrigin = "anonymous"),
-                            (p.async = !0),
-                            (p.src =
-                                s.api_host.replace(
-                                    ".i.posthog.com",
-                                    "-assets.i.posthog.com",
-                                ) + "/static/array.js"),
-                            (r =
-                                t.getElementsByTagName(
-                                    "script",
-                                )[0]).parentNode.insertBefore(p, r);
-                        var u = e;
-                        for (
-                            void 0 !== a ? (u = e[a] = []) : (a = "posthog"),
-                                u.people = u.people || [],
-                                u.toString = function (t) {
-                                    var e = "posthog";
-                                    return (
-                                        "posthog" !== a && (e += "." + a),
-                                        t || (e += " (stub)"),
-                                        e
-                                    );
-                                },
-                                u.people.toString = function () {
-                                    return u.toString(1) + ".people (stub)";
-                                },
-                                o =
-                                    "init me ws ys ps bs capture je Di ks register register_once register_for_session unregister unregister_for_session Ps getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSurveysLoaded onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey canRenderSurveyAsync identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty Es $s createPersonProfile Is opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing Ss debug xs getPageViewId captureTraceFeedback captureTraceMetric".split(
-                                        " ",
-                                    ),
-                                n = 0;
-                            n < o.length;
-                            n++
-                        )
-                            g(u, o[n]);
-                        e._i.push([i, s, a]);
-                    }),
-                    (e.__SV = 1));
-            })(document, window.posthog || []);
-            posthog.init("phc_xAvL2Iq4tFmANRE7kzbKwaSqp1HJjN7x48s3vr0CMjs", {
-                api_host: "https://us.i.posthog.com",
-                person_profiles: "identified_only",
-                session_recording: {
-                    recordCrossOriginIframes: true,
-                    capturePerformance: false,
-                },
-            });
-        </script>
     </body>
 </html>
