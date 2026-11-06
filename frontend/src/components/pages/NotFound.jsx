@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage, homeFor } from '../../context/LanguageContext';
 import { usePageMeta } from '../../hooks/usePageMeta';
 
 const copy = {
@@ -11,7 +11,7 @@ const copy = {
 export const NotFound = () => {
   const { language } = useLanguage();
   const t = copy[language];
-  usePageMeta({ title: t.title, description: t.p, path: '/404', noindex: true });
+  usePageMeta({ title: t.title, description: t.p, path: '/404', lang: language, noindex: true });
   return (
     <div className="legal not-found">
       <div className="wrap">
@@ -19,8 +19,8 @@ export const NotFound = () => {
         <h1>{t.h1}</h1>
         <p>{t.p}</p>
         <p className="not-found-links">
-          <Link className="btn btn-primary" to="/"><span>{t.home}</span><span className="arr" aria-hidden="true">→</span></Link>
-          <Link className="btn btn-ghost" to="/#contact"><span>{t.contact}</span></Link>
+          <Link className="btn btn-primary" to={homeFor(language)}><span>{t.home}</span><span className="arr" aria-hidden="true">→</span></Link>
+          <Link className="btn btn-ghost" to={`${homeFor(language)}#contact`}><span>{t.contact}</span></Link>
         </p>
       </div>
     </div>

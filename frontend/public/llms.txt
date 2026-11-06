@@ -25,8 +25,8 @@ Lisbon (including Cascais and Sintra), Porto, and the Algarve (Faro, Tavira, Lag
 - Same-sex marriage has been legal since 2010; same-sex couples have had full adoption rights since 2016.
 - Legal gender recognition without medical requirements since 2018.
 
-## Pages
-- Home: https://nextstep.com.pt/
+## Pages (English; Portuguese versions under /pt/)
+- Home: https://nextstep.com.pt/ (Portuguese: https://nextstep.com.pt/pt/)
 - Privacy policy: https://nextstep.com.pt/privacy-policy
 - Terms of service: https://nextstep.com.pt/terms-of-service
 - Legal disclaimer: https://nextstep.com.pt/legal-disclaimer

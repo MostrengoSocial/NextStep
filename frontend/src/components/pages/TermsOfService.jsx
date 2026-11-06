@@ -86,7 +86,7 @@ export const TermsOfService = () => {
   };
 
   const t = content[language];
-    usePageMeta({ ...PAGE_META['/terms-of-service'][language], path: '/terms-of-service' });
+    usePageMeta({ ...PAGE_META['/terms-of-service'][language], path: '/terms-of-service', lang: language });
 
   return (
     <div className="legal">
