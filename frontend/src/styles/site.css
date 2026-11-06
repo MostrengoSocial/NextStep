@@ -650,8 +650,6 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
 /* ================================================================
    Phone layout fixes (launch check)
    ================================================================ */
-.swipe-hint { display: none; margin: 8px 0 0; color: var(--muted); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; }
-.coast-hint { margin: 10px 22px 0; }
 /* Slideshow markers: the bar stays 4px, the tap area is 28px. */
 .ticks button { height: 28px; background: transparent; overflow: visible; }
 .ticks button::before { content: ""; position: absolute; left: 0; right: 0; top: 12px; height: 4px; border-radius: 2px; background: var(--line); }
@@ -660,10 +658,6 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
 @media (max-width: 640px) {
   /* Step label: chevrons on their own line, then "Step n of 7 · Section" on one line. */
   .eyebrow.steps .steps-chev { flex-basis: 100%; }
-  .swipe-hint { display: block; }
-  /* Maps scroll sideways inside their frame; keep labels readable. */
-  .atlas-svg { min-width: 720px; }
-  .coast-svg { min-width: 820px; }
   /* Services timeline: the service name sits above its bar, which gets the full width. */
   .plan-chart { min-width: 0; }
   .plan-axis, .plan-lane { grid-template-columns: minmax(0, 1fr); }
@@ -683,3 +677,48 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
   .info dd { overflow-wrap: normal; word-break: normal; }
 }
 .place-credit, .pass-credit { font-size: 10.5px; padding: 6px 2px; right: 8px; bottom: 2px; }
+
+/* ================================================================
+   Phone versions of the wide graphics: each has its own drawing that
+   fits the screen; the wide drawing is hidden below 640px.
+   ================================================================ */
+.atlas-svg.compact, .bridge-svg.compact, .coast-compact { display: none; }
+.atlas-equator { stroke: var(--line); stroke-width: 1; stroke-dasharray: 4 4; }
+.atlas-equator-label { font: 400 10px var(--mono); letter-spacing: .1em; text-transform: uppercase; fill: var(--muted); }
+.coast-minor-dot { fill: var(--muted); }
+.coast-pin circle { stroke: var(--surface); stroke-width: 2; }
+.coast-pin text { font: 700 10px var(--mono); fill: #141414; }
+.coast-pin.office circle { fill: var(--accent); }
+.coast-pin.office text { fill: #fff; }
+.coast-pin.airport circle { fill: var(--surface); stroke: var(--ink); stroke-width: 1.5; }
+.coast-pin.airport text { fill: var(--ink); }
+.coast-legend { list-style: none; margin: 0; padding: 6px 16px 14px; display: grid; }
+.coast-legend li { border-bottom: 1px solid var(--line); }
+.coast-legend li:last-child { border-bottom: 0; }
+.coast-legend li > a, .coast-legend li { color: inherit; text-decoration: none; }
+.coast-legend li > a, .coast-legend li:not(:has(> a)) { display: grid; grid-template-columns: 26px minmax(0, 1fr); column-gap: 10px; align-items: center; padding: 9px 0; }
+.coast-legend-n { grid-row: span 2; width: 22px; height: 22px; border-radius: 50%; display: grid; place-items: center; font: 700 11px/1 var(--mono); color: #141414; }
+.coast-legend-n.office { background: var(--accent); color: #fff; }
+.coast-legend-n.airport { background: var(--surface); border: 1.5px solid var(--ink); color: var(--ink); }
+.coast-legend-name { font-weight: 600; font-size: 15px; }
+.coast-legend-name em { font-style: normal; font-weight: 500; color: var(--accent); }
+.coast-legend-coord { font-size: 10.5px; color: var(--muted); letter-spacing: .06em; }
+@media (max-width: 640px) {
+  .atlas-svg.wide, .bridge-svg.wide, .coast-svg.wide { display: none; }
+  .atlas-svg.compact, .bridge-svg.compact { display: block; min-width: 0; width: 100%; }
+  .coast-compact { display: block; }
+  .coast-svg.compact { min-width: 0; width: 100%; margin-top: 12px; }
+  .atlas { overflow: visible; }
+  .bridge-scroll, .coast-scroll { overflow: visible; }
+  .atlas-svg.compact .atlas-origin .code { font-size: 15px; }
+  .atlas-svg.compact .atlas-origin .city { font-size: 10px; }
+  .atlas-svg.compact .atlas-dest text { font-size: 11.5px; }
+  .atlas-svg.compact .atlas-inset-label { font-size: 9px; }
+  .bridge-svg.compact .bridge-tower-name { font-size: 28px; }
+  .bridge-svg.compact .bridge-end { font-size: 18px; }
+  .bridge.is-in .bridge-svg.compact .bridge-traveller { animation-name: cross-narrow; }
+  .coast-svg.compact .coast-area.region { font-size: 22px; }
+  .coast-svg.compact .coast-ocean { font-size: 9px; letter-spacing: .3em; }
+  .coast-svg.compact .coast-scale text { font-size: 10px; }
+}
+@keyframes cross-narrow { from { transform: translateX(6px); } to { transform: translateX(560px); } }

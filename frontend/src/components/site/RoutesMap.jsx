@@ -1,6 +1,6 @@
 import React from 'react';
 import { destinations, portugalOutline, routes } from '../../data/site';
-import { SectionHead, useContent, useReveal, useStartScroll } from './shared';
+import { SectionHead, useContent, useReveal } from './shared';
 
 /* R1 · Atlantic arc map. Origins are plotted by real latitude/longitude on a
    simple equirectangular grid. Portugal is drawn as an enlarged inset on the
@@ -36,17 +36,86 @@ const LAT_LINES = [60, 45, 30, 15, 0, -15, -30];
 const fmtLon = (v) => `${Math.abs(v)}°W`;
 const fmtLat = (v) => (v === 0 ? '0°' : `${Math.abs(v)}°${v > 0 ? 'N' : 'S'}`);
 
+/* Phone version (360 wide, fits the screen): the departure cities are listed north to
+   south on the left, the northern ones above the equator line and the southern ones
+   below it; Portugal is enlarged on the right, at real coordinates. */
+const CW = 360;
+const CH = 520;
+const C_ROWS = { YVR: 54, YYZ: 112, JFK: 170, SFO: 228, GIG: 392, GRU: 450 };
+const C_EQUATOR = 310;
+const C_ARC_X = 138; // arcs start just after the city labels
+const CP = { x: 212, w: 136, top: 138, lon0: -9.7, lat0: 42.3, lat1: 36.8 };
+const cScale = Math.min(270 / (CP.lat0 - CP.lat1), (CP.w - 6) / (3.6 * PT.k));
+const cpx = (lon) => CP.x + 4 + (lon - CP.lon0) * PT.k * cScale;
+const cpy = (lat) => CP.top + 8 + (CP.lat0 - lat) * cScale;
+const cOutline = `M${portugalOutline.map(([lon, lat]) => `${cpx(lon).toFixed(1)} ${cpy(lat).toFixed(1)}`).join(' L')} Z`;
+const C_DEST_LABEL = { porto: 'right', lisboa: 'right', cascais: 'left', lagos: 'left', faro: 'below', tavira: 'right' };
+
+const AtlasCompact = ({ t }) => (
+  <svg className="atlas-svg compact" viewBox={`0 0 ${CW} ${CH}`} role="img" aria-label={t.label}>
+    <rect className="atlas-inset" x={CP.x - 6} y={CP.top - 34} width={CP.w + 12} height={cScale * (CP.lat0 - CP.lat1) + 56} rx="10" />
+    <text className="atlas-inset-label" x={CP.x + CP.w} y={CP.top - 14} textAnchor="end">{t.inset}</text>
+    <path className="atlas-pt" d={cOutline} />
+
+    <line className="atlas-equator" x1="10" y1={C_EQUATOR} x2={CP.x - 16} y2={C_EQUATOR} />
+    <text className="atlas-equator-label" x="12" y={C_EQUATOR - 7}>0° · {t.equator}</text>
+
+    {routes.map((r, i) => {
+      const d = destinations[r.to];
+      const y = C_ROWS[r.code];
+      const x2 = cpx(d.lon);
+      const y2 = cpy(d.lat);
+      const cy = Math.min(y, y2) - 46;
+      return (
+        <path
+          key={r.code}
+          d={`M${C_ARC_X} ${y} Q${((C_ARC_X + x2) / 2).toFixed(1)} ${cy.toFixed(1)} ${x2.toFixed(1)} ${y2.toFixed(1)}`}
+          pathLength="1"
+          className={`atlas-arc ${r.status}`}
+          style={{ stroke: r.color, transitionDelay: `${i * 0.18}s` }}
+        />
+      );
+    })}
+
+    {routes.map((r) => {
+      const y = C_ROWS[r.code];
+      return (
+        <g key={`c-${r.code}`} className="atlas-origin">
+          <circle cx="18" cy={y} r="6" style={{ fill: r.color }} />
+          <circle cx="18" cy={y} r="11" style={{ stroke: r.color }} className="halo" />
+          <text x="36" y={y + 2} className="code">{r.code}</text>
+          <text x="36" y={y + 18} className="city">{r.from}</text>
+        </g>
+      );
+    })}
+
+    {Object.entries(destinations).map(([key, d]) => {
+      const x = cpx(d.lon);
+      const y = cpy(d.lat);
+      const side = C_DEST_LABEL[key];
+      return (
+        <g key={key} className="atlas-dest">
+          <circle cx={x} cy={y} r="4.5" />
+          {side === 'below'
+            ? <text x={x} y={y + 20} textAnchor="middle">{d.name}</text>
+            : <text x={side === 'right' ? x + 9 : x - 9} y={y + 4} textAnchor={side === 'right' ? 'start' : 'end'}>{d.name}</text>}
+        </g>
+      );
+    })}
+  </svg>
+);
+
 export const RoutesMap = () => {
   const t = useContent().routes;
   const [ref, shown] = useReveal(0.2);
-  const scrollRef = useStartScroll(1);
 
   return (
     <section id="routes">
       <div className="wrap">
         <SectionHead n="01" eyebrow={t.eyebrow} a={t.titleA} b={t.titleB} word={t.titleWord} sub={t.sub} />
-        <div className={`atlas${shown ? ' is-in' : ''}`} ref={(el) => { ref.current = el; scrollRef.current = el; }}>
-          <svg className="atlas-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t.label}>
+        <div className={`atlas${shown ? ' is-in' : ''}`} ref={ref}>
+          <AtlasCompact t={t} />
+          <svg className="atlas-svg wide" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t.label}>
             {/* graticule */}
             <g className="atlas-grid">
               {LON_LINES.map((lon) => (
@@ -119,7 +188,6 @@ export const RoutesMap = () => {
           </svg>
         </div>
 
-        <p className="swipe-hint mono" aria-hidden="true">{t.swipe}</p>
         <ul className="route-list">
           {routes.map((r) => (
             <li key={r.code} className={r.status}>
