@@ -14,16 +14,15 @@ Automated checks: `.claude/website-check.json` (website-check skill).
 - [x] Build manifest and source maps no longer public
 - [x] Phone layout: step labels, services timeline, maps open on Portugal/Faro, contact details, tap targets
 
-## The accounts (Cloudflare, Hostinger, Resend, Google/Bing)
-- [ ] Resend: add secret RESEND_API_KEY to the Worker; set SENDER_EMAIL to a verified address on nextstep.com.pt; send one real test from the contact form
-- [ ] Resend: add its SPF include and DKIM records for nextstep.com.pt in Cloudflare DNS (Resend shows them when you verify the domain)
+## The accounts (Cloudflare, Hostinger, Google/Bing)
+- [ ] Contact form: upgrade the Cloudflare account to Workers Paid ($5/month), then onboard nextstep.com.pt under Compute > Email Service > Email Sending (adds cf-bounce records only; Hostinger mail is not touched); send one real test from the contact form
 - [ ] Cloudflare DNS: Hostinger DKIM records (hostingermail-a/b/c._domainkey) are proxied, so receivers find no key and mail goes out unsigned: switch the three to DNS only
 - [ ] Cloudflare DNS: autoconfig and autodiscover are Hostinger's mail set-up records: keep them, but switch to DNS only
 - [ ] Cloudflare DNS: ftp points to 187.77.31.227 (old VPS?): delete if that server is no longer used
 - [ ] Cloudflare: SSL/TLS > Edge Certificates > Minimum TLS Version 1.2 (SSL Labs grade is B with 1.0 allowed)
 - [ ] Cloudflare: SSL/TLS > Edge Certificates > "Always Use HTTPS" on (belt and braces with the Worker redirect)
 - [ ] Email (Hostinger): DMARC is p=none with no reports: add rua=mailto:... now, move to p=quarantine after 2-4 weeks of clean reports
-- [ ] Email: SPF ends in ~all: switch to -all once Resend is included
+- [ ] Email: SPF ends in ~all: switch to -all once every sender is listed
 - [ ] Google Search Console and Bing Webmaster Tools: verify nextstep.com.pt, submit https://nextstep.com.pt/sitemap.xml
 - [x] Domain (.pt registrar): renewal taken care of (confirmed by the client)
 

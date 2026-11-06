@@ -1,12 +1,13 @@
 // nextStep · Cloudflare Worker
 //
 // Serves the built React site (frontend/build) as static assets and handles
-// the contact form at POST /api/contact, sending two emails through Resend:
-// a notification to the nextStep team and a confirmation to the visitor.
+// the contact form at POST /api/contact, sending two emails through Cloudflare
+// Email Service (the `EMAIL` send_email binding in wrangler.jsonc): a
+// notification to the nextStep team and a confirmation to the visitor.
 //
-// Secrets and variables (set in the Cloudflare dashboard or with wrangler):
-//   RESEND_API_KEY      secret, required   (wrangler secret put RESEND_API_KEY)
-//   SENDER_EMAIL        optional, default 'onboarding@resend.dev'
+// Requires nextstep.com.pt to be onboarded in Email Service > Email Sending
+// (Workers Paid plan). Variables (wrangler.jsonc):
+//   SENDER_EMAIL        optional, default 'website@nextstep.com.pt'
 //   NOTIFICATION_EMAIL  optional, default 'hello@nextstep.com.pt'
 
 const JSON_HEADERS = { 'Content-Type': 'application/json' };
@@ -19,23 +20,17 @@ const json = (body, status = 200) => new Response(JSON.stringify(body), { status
 const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 const clean = (v, max) => (typeof v === 'string' ? v.trim().slice(0, max) : '');
 
-async function sendEmail(env, to, subject, html, replyTo) {
-  const res = await fetch('https://api.resend.com/emails', {
-    method: 'POST',
-    headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      from: env.SENDER_EMAIL || 'onboarding@resend.dev',
-      to,
-      subject,
-      html,
-      ...(replyTo ? { reply_to: replyTo } : {}),
-    }),
-  });
-  if (!res.ok) throw new Error(`Resend responded ${res.status}`);
-}
+const sendEmail = (env, { to, subject, html, text, replyTo }) => env.EMAIL.send({
+  from: { email: env.SENDER_EMAIL || 'website@nextstep.com.pt', name: 'nextStep' },
+  to,
+  subject,
+  html,
+  text,
+  ...(replyTo ? { replyTo } : {}),
+});
 
 async function handleContact(request, env) {
-  if (!env.RESEND_API_KEY) return json({ error: 'Email service is not configured.' }, 500);
+  if (!env.EMAIL) return json({ error: 'Email service is not configured.' }, 500);
 
   let body;
   try { body = await request.json(); } catch { return json({ error: 'Invalid request.' }, 400); }
@@ -70,14 +65,22 @@ async function handleContact(request, env) {
       <p>Reach us directly via WhatsApp for a faster response: <a href="https://wa.me/351934229144">Chat on WhatsApp</a></p>
     </div>`;
 
+  const team = env.NOTIFICATION_EMAIL || 'hello@nextstep.com.pt';
+  const notificationText = `New contact form submission\n\nName: ${name}\nEmail: ${email}\nPhone: ${phone || 'Not provided'}\nService: ${service || 'Not specified'}\n\n${message}`;
+  const confirmationText = `Thank you for reaching out, ${name.split(' ')[0]}!\n\nWe've received your inquiry and will get back to you within 24 hours to schedule your consultation.\n\nYour message:\n${message}\n\nWhatsApp: https://wa.me/351934229144`;
+
+  // The team must get the enquiry; the visitor's confirmation is a courtesy, so a
+  // failure there is logged but does not fail the request.
   try {
-    await Promise.all([
-      sendEmail(env, [env.NOTIFICATION_EMAIL || 'hello@nextstep.com.pt'], `nextStep - New Inquiry from ${name}`, notificationHtml, email),
-      sendEmail(env, [email], "Thank you for contacting nextStep - We'll be in touch soon!", confirmationHtml),
-    ]);
+    await sendEmail(env, { to: team, subject: `nextStep - New Inquiry from ${name}`, html: notificationHtml, text: notificationText, replyTo: email });
   } catch (err) {
-    console.error('Contact form email failed:', err);
+    console.error('Contact notification failed:', err.code, err.message);
     return json({ error: 'Your request could not be sent. Please try again.' }, 502);
+  }
+  try {
+    await sendEmail(env, { to: email, subject: "Thank you for contacting nextStep - We'll be in touch soon!", html: confirmationHtml, text: confirmationText, replyTo: team });
+  } catch (err) {
+    console.error('Contact confirmation failed:', err.code, err.message);
   }
   return json({ success: true });
 }

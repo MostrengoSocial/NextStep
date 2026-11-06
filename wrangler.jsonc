@@ -19,9 +19,11 @@
     "run_worker_first": true
   },
   "vars": {
-    "SENDER_EMAIL": "onboarding@resend.dev",
+    "SENDER_EMAIL": "website@nextstep.com.pt",
     "NOTIFICATION_EMAIL": "hello@nextstep.com.pt"
   },
+  // Contact form email: Cloudflare Email Service. nextstep.com.pt must be onboarded
+  // under Email Service > Email Sending (Workers Paid plan).
+  "send_email": [{ "name": "EMAIL" }],
   "observability": { "enabled": true }
-  // Secret, not stored here: RESEND_API_KEY  ->  npx wrangler secret put RESEND_API_KEY
 }
