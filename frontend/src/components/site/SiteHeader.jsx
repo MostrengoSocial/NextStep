@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useLanguage } from '../../context/LanguageContext';
+import { useLanguage, pathFor, homeFor } from '../../context/LanguageContext';
 import { ChevronLogo, useContent } from './shared';
 
 const THEME_KEY = 'ns-theme';
@@ -55,13 +55,15 @@ const useScrollProgress = () => {
 
 export const SiteHeader = () => {
   const t = useContent().nav;
-  const { language, toggleLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const { pathname } = useLocation();
   const [isDark, toggleTheme] = useTheme();
   const clocks = useClocks();
   const progress = useScrollProgress();
   const [menu, setMenu] = useState(false);
-  const base = pathname === '/' ? '' : '/';
+  const home = homeFor(language);
+  const base = pathname === home ? '' : home;
+  const other = language === 'en' ? 'pt' : 'en';
 
   const links = [
     ['routes', t.routes], ['about', t.about], ['rights', t.rights], ['services', t.services], ['stories', t.stories],
@@ -70,7 +72,7 @@ export const SiteHeader = () => {
   return (
     <header className="site-head">
       <div className="wrap head-row">
-        <Link className="logo" to="/" aria-label="nextStep home">
+        <Link className="logo" to={home} aria-label="nextStep home">
           <ChevronLogo />
           nextStep
         </Link>
@@ -83,9 +85,16 @@ export const SiteHeader = () => {
           <span className="clocks-you">{t.you} <b>{clocks.you}</b></span>
         </div>
         <div className="head-tools">
-          <button className="pill" type="button" onClick={toggleLanguage} aria-label={t.switchLang}>
-            {language === 'en' ? 'PT' : 'EN'}
-          </button>
+          <Link
+            className="pill"
+            to={pathFor(pathname, other)}
+            hrefLang={other === 'pt' ? 'pt-PT' : 'en'}
+            lang={other === 'pt' ? 'pt-PT' : 'en'}
+            aria-label={t.switchLang}
+            onClick={(e) => { e.preventDefault(); setLanguage(other); }}
+          >
+            {other.toUpperCase()}
+          </Link>
           <button className="pill" type="button" onClick={toggleTheme} aria-label={t.theme}>
             <span className="dot" aria-hidden="true" />
             <span>{isDark ? t.dark : t.light}</span>

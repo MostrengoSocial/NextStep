@@ -78,7 +78,7 @@ export const LegalDisclaimer = () => {
   };
 
   const t = content[language];
-    usePageMeta({ ...PAGE_META['/legal-disclaimer'][language], path: '/legal-disclaimer' });
+    usePageMeta({ ...PAGE_META['/legal-disclaimer'][language], path: '/legal-disclaimer', lang: language });
 
   return (
     <div className="legal">

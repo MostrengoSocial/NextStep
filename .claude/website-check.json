@@ -1,21 +1,72 @@
 {
   "site": "https://nextstep.com.pt",
   "domain": "nextstep.com.pt",
-  "pages": ["/", "/privacy-policy", "/terms-of-service", "/legal-disclaimer"],
+  "pages": [
+    "/",
+    "/privacy-policy",
+    "/terms-of-service",
+    "/legal-disclaimer",
+    "/pt/",
+    "/pt/privacy-policy"
+  ],
   "publish_dir": "frontend/build",
-  "hidden": ["/static/js/main.js.map", "/asset-manifest.json", "/.assetsignore", "/wrangler.jsonc", "/README.md"],
-  "deployed": [{"local": "frontend/build/index.html", "path": "/"}],
-  "visual": {"pages": ["/", "/privacy-policy"]},
+  "hidden": [
+    "/static/js/main.js.map",
+    "/asset-manifest.json",
+    "/.assetsignore",
+    "/wrangler.jsonc",
+    "/README.md"
+  ],
+  "deployed": [
+    {
+      "local": "frontend/build/index.html",
+      "path": "/"
+    }
+  ],
+  "visual": {
+    "pages": [
+      "/",
+      "/pt/",
+      "/privacy-policy"
+    ]
+  },
   "repo": {
     "todo_file": "LAUNCH.md",
-    "staging_hosts": ["nextstep.workers.dev", "emergent.sh", "emergentagent.com", "preview.emergentagent"]
+    "staging_hosts": [
+      "nextstep.workers.dev",
+      "emergent.sh",
+      "emergentagent.com",
+      "preview.emergentagent"
+    ]
   },
   "files": {
-    "images": [{"file": "frontend/public/og-image.jpg", "width": 1200, "height": 630, "max_kb": 1000}]
+    "images": [
+      {
+        "file": "frontend/public/og-image.jpg",
+        "width": 1200,
+        "height": 630,
+        "max_kb": 1000
+      }
+    ]
   },
   "rules": [
     "Site copy is English and Portuguese; both must change together.",
     "The Faro photo (Arco da Vila, Wikimedia Commons, Hugo Ferreira, CC BY-SA 4.0) must keep its visible credit.",
-    "Facts still to be confirmed by nextStep: law timeline, journey milestones, swimlane timings, example routes, 300+/20+/99%/24-7 figures."
+    "Facts on the site (law timeline, 300+/20+/99%/24-7, milestones, timings, routes) were confirmed correct by nextStep in November 2026.",
+    "Privacy policy text is confirmed by nextStep; only the date was changed (November 2026).",
+    "Analytics: Cloudflare Web Analytics only (cookieless, for nextStep's own research); keep it allowed in the CSP."
+  ],
+  "email": {
+    "provider": "hostinger",
+    "dkim_selectors": [
+      "hostingermail-a",
+      "hostingermail-b",
+      "hostingermail-c",
+      "resend"
+    ]
+  },
+  "keep_hosts": [
+    "autoconfig",
+    "autodiscover"
   ]
 }

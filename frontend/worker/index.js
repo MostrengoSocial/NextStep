@@ -86,8 +86,9 @@ async function handleContact(request, env) {
 const CANONICAL_HOST = 'nextstep.com.pt';
 const REDIRECT_HOSTS = new Set(['www.nextstep.com.pt']);
 
-// Security headers for every response. The CSP allows only this site, Google Fonts
-// and the Unsplash photos; inline scripts are not allowed (structured data is not executed).
+// Security headers for every response. The CSP allows only this site, Google Fonts,
+// the Unsplash photos and Cloudflare Web Analytics; inline scripts are not allowed
+// (structured data is not executed).
 const SECURITY_HEADERS = {
   'Strict-Transport-Security': 'max-age=31536000',
   'X-Content-Type-Options': 'nosniff',
@@ -96,11 +97,12 @@ const SECURITY_HEADERS = {
   'X-Frame-Options': 'DENY',
   'Content-Security-Policy': [
     "default-src 'self'",
-    "script-src 'self'",
+    // Cloudflare Web Analytics (cookieless) is injected by Cloudflare and reports to cloudflareinsights.com.
+    "script-src 'self' https://static.cloudflareinsights.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com",
     "img-src 'self' data: https://images.unsplash.com",
-    "connect-src 'self'",
+    "connect-src 'self' https://cloudflareinsights.com",
     "frame-ancestors 'none'",
     "base-uri 'self'",
     "form-action 'self'",

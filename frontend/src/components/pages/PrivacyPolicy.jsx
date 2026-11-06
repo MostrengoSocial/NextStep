@@ -9,7 +9,7 @@ export const PrivacyPolicy = () => {
   const content = {
     en: {
       title: "Privacy Policy",
-      lastUpdated: "Last updated: February 2025",
+      lastUpdated: "Last updated: November 2026",
       sections: [
         {
           title: "1. Information We Collect",
@@ -39,7 +39,7 @@ export const PrivacyPolicy = () => {
     },
     pt: {
       title: "Política de Privacidade",
-      lastUpdated: "Última atualização: Fevereiro 2025",
+      lastUpdated: "Última atualização: Novembro 2026",
       sections: [
         {
           title: "1. Informações que Recolhemos",
@@ -70,7 +70,7 @@ export const PrivacyPolicy = () => {
   };
 
   const t = content[language];
-    usePageMeta({ ...PAGE_META['/privacy-policy'][language], path: '/privacy-policy' });
+    usePageMeta({ ...PAGE_META['/privacy-policy'][language], path: '/privacy-policy', lang: language });
 
   return (
     <div className="legal">
