@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { REGIONS, REGION_KEYS } from '../../data/maps';
-import { useContent, useReveal, useStartScroll } from './shared';
+import { useContent, useReveal } from './shared';
 
 /* Destinations map with three tabs: the Algarve, Lisbon and Porto.
    Each region is drawn with a true-proportion equirectangular projection
@@ -11,11 +11,11 @@ const H = 600;
 const PAD = 20;
 const KM_PER_DEG = 111.32;
 
-function projection({ lon0, lon1, top, bottom }) {
+function projection({ lon0, lon1, top, bottom }, w = W, h = H) {
   const k = Math.cos((((top + bottom) / 2) * Math.PI) / 180);
-  const s = Math.min((W - PAD * 2) / ((lon1 - lon0) * k), (H - PAD * 2) / (top - bottom));
-  const ox = (W - (lon1 - lon0) * k * s) / 2;
-  const oy = (H - (top - bottom) * s) / 2;
+  const s = Math.min((w - PAD * 2) / ((lon1 - lon0) * k), (h - PAD * 2) / (top - bottom));
+  const ox = (w - (lon1 - lon0) * k * s) / 2;
+  const oy = (h - (top - bottom) * s) / 2;
   const x = (lon) => ox + (lon - lon0) * k * s;
   const y = (lat) => oy + (top - lat) * s;
   return { x, y, s };
@@ -65,6 +65,67 @@ function Town({ t, x, y, label }) {
   return t.link ? <a href={`#${t.link}`} className="coast-link" aria-label={`${t.name}: ${label}`}>{body}</a> : body;
 }
 
+/* Phone version: the region fitted to a 400-wide frame (height follows the region's
+   shape), towns as numbered markers, and the names and coordinates in a list below,
+   so nothing overlaps and nothing needs sideways scrolling. */
+const CW = 400;
+const compactHeight = ({ lon0, lon1, top, bottom }) => {
+  const k = Math.cos((((top + bottom) / 2) * Math.PI) / 180);
+  return Math.round(((CW - PAD * 2) / ((lon1 - lon0) * k)) * (top - bottom) + PAD * 2);
+};
+export const numberedTowns = (towns) => towns.filter((tw) => tw.kind !== 'minor');
+
+function RegionMapCompact({ id, t }) {
+  const r = REGIONS[id];
+  const ch = compactHeight(r.bounds);
+  const { x, y, s } = projection(r.bounds, CW, ch);
+  const pts = (list) => list.map(([lon, lat]) => `${x(lon).toFixed(1)} ${y(lat).toFixed(1)}`);
+  const km = (r.scaleKm / KM_PER_DEG) * s;
+  const copy = t.regions[id];
+  const numbered = numberedTowns(r.towns);
+  return (
+    <div className="coast-compact">
+      <svg className="coast-svg compact" viewBox={`0 0 ${CW} ${ch}`} role="img" aria-label={copy.label}>
+        <rect className="coast-sea" width={CW} height={ch} />
+        {r.land.map((poly, i) => <path key={i} className={`coast-land${r.shore ? '' : ' outlined'}`} d={`M${pts(poly).join(' L')} Z`} />)}
+        {r.region && <path className="coast-region" d={`M${pts(r.region).join(' L')} Z`} />}
+        {r.rivers.map((rv) => <path key={rv.name} className="coast-river" d={`M${pts(rv.points).join(' L')}`} />)}
+        {r.shore && <path className="coast-line" d={`M${pts(r.shore).join(' L')}`} pathLength="1" />}
+        {r.areas.filter((a) => a.big).map((a) => (
+          <text key={a.key} className="coast-area region" x={x(a.at[0])} y={y(a.at[1])} textAnchor="middle">{t[a.key]}</text>
+        ))}
+        <text className="coast-ocean" x={CW / 2} y={ch - 12} textAnchor="middle">{t.ocean}</text>
+        {r.towns.filter((tw) => tw.kind === 'minor').map((tw) => <circle key={tw.key} className="coast-minor-dot" cx={x(tw.lon)} cy={y(tw.lat)} r="2.5" />)}
+        {numbered.map((tw, i) => (
+          <g key={tw.key} className={`coast-pin${tw.kind ? ` ${tw.kind}` : ''}`}>
+            <circle cx={x(tw.lon)} cy={y(tw.lat)} r="8" style={tw.kind ? undefined : { fill: tw.color }} />
+            <text x={x(tw.lon)} y={y(tw.lat) + 3.5} textAnchor="middle">{i + 1}</text>
+          </g>
+        ))}
+        <g className="coast-scale" transform={`translate(${CW - 16 - km} ${ch - 34})`}>
+          <line x1="0" y1="0" x2={km} y2="0" />
+          <line x1="0" y1="-4" x2="0" y2="4" />
+          <line x1={km} y1="-4" x2={km} y2="4" />
+          <text x={km / 2} y="-8" textAnchor="middle">{r.scaleKm} km</text>
+        </g>
+      </svg>
+      <ol className="coast-legend">
+        {numbered.map((tw, i) => {
+          const note = tw.kind === 'office' ? t.office : tw.kind === 'airport' ? t.airport : null;
+          const body = (
+            <>
+              <span className={`coast-legend-n${tw.kind ? ` ${tw.kind}` : ''}`} style={tw.kind ? undefined : { background: tw.color }}>{i + 1}</span>
+              <span className="coast-legend-name">{tw.kind === 'airport' ? `${tw.name} · ${t.airport}` : tw.name}{note && tw.kind === 'office' && <em> · {note}</em>}</span>
+              <span className="coast-legend-coord mono">{fmtCoord(tw)}</span>
+            </>
+          );
+          return <li key={tw.key}>{tw.link ? <a href={`#${tw.link}`}>{body}</a> : body}</li>;
+        })}
+      </ol>
+    </div>
+  );
+}
+
 function RegionMap({ id, t }) {
   const r = REGIONS[id];
   const { x, y, s } = projection(r.bounds);
@@ -72,7 +133,7 @@ function RegionMap({ id, t }) {
   const km = (r.scaleKm / KM_PER_DEG) * s;
   const copy = t.regions[id];
   return (
-    <svg className="coast-svg" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={copy.label}>
+    <svg className="coast-svg wide" viewBox={`0 0 ${W} ${H}`} role="img" aria-label={copy.label}>
       <rect className="coast-sea" width={W} height={H} />
       {r.land.map((poly, i) => <path key={i} className={`coast-land${r.shore ? '' : ' outlined'}`} d={`M${pts(poly).join(' L')} Z`} />)}
       {r.region && <path className="coast-region" d={`M${pts(r.region).join(' L')} Z`} />}
@@ -107,8 +168,6 @@ export const Coastline = () => {
   const [region, setRegion] = useState('algarve');
   const [ref, shown] = useReveal(0.3);
   const copy = t.regions[region];
-  // On phones, open each map on its main town: Faro, Lisbon or Porto.
-  const scrollRef = useStartScroll({ algarve: 0.62, lisboa: 0.5, porto: 0.42 }[region], [region]);
   return (
     <figure className={`coast${shown ? ' is-in' : ''}`} ref={ref}>
       <figcaption className="coast-head">
@@ -131,8 +190,8 @@ export const Coastline = () => {
           </button>
         ))}
       </div>
-      <p className="swipe-hint mono coast-hint" aria-hidden="true">{t.swipe}</p>
-      <div className="coast-scroll" ref={scrollRef} id="coast-panel" role="tabpanel" aria-labelledby={`coast-tab-${region}`}>
+      <div className="coast-scroll" id="coast-panel" role="tabpanel" aria-labelledby={`coast-tab-${region}`}>
+        <RegionMapCompact key={`c-${region}`} id={region} t={t} />
         <RegionMap key={region} id={region} t={t} />
       </div>
     </figure>
