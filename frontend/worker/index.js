@@ -6,7 +6,7 @@
 //
 // Secrets and variables (set in the Cloudflare dashboard or with wrangler):
 //   RESEND_API_KEY      secret, required   (wrangler secret put RESEND_API_KEY)
-//   SENDER_EMAIL        optional, default 'onboarding@resend.dev'
+//   SENDER_EMAIL        optional, default 'nextStep <website@nextstep.com.pt>' (domain verified in Resend)
 //   NOTIFICATION_EMAIL  optional, default 'hello@nextstep.com.pt'
 
 const JSON_HEADERS = { 'Content-Type': 'application/json' };
@@ -24,7 +24,7 @@ async function sendEmail(env, to, subject, html, replyTo) {
     method: 'POST',
     headers: { Authorization: `Bearer ${env.RESEND_API_KEY}`, 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      from: env.SENDER_EMAIL || 'onboarding@resend.dev',
+      from: env.SENDER_EMAIL || 'nextStep <website@nextstep.com.pt>',
       to,
       subject,
       html,

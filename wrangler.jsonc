@@ -19,7 +19,7 @@
     "run_worker_first": true
   },
   "vars": {
-    "SENDER_EMAIL": "onboarding@resend.dev",
+    "SENDER_EMAIL": "nextStep <website@nextstep.com.pt>",
     "NOTIFICATION_EMAIL": "hello@nextstep.com.pt"
   },
   "observability": { "enabled": true }
