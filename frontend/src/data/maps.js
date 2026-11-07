@@ -30,6 +30,8 @@ export const REGIONS = {
       { key: 'lagos', name: 'Lagos', lat: 37.10, lon: -8.67, color: C.orange, dx: -34, dy: -70, side: 'middle', link: 'place-lagos' },
       { key: 'portimao', name: 'Portimão', lat: 37.14, lon: -8.54, color: C.yellow, dx: 52, dy: -70, side: 'middle' },
       { key: 'qdl', name: 'Quinta do Lago', lat: 37.04, lon: -8.02, color: C.green, dx: -56, dy: -66, side: 'middle', link: 'place-qdl' },
+      // Faro airport sits ~3 km west of the office; on phones its marker is nudged (cdx/cdy) with a leader to the real spot.
+      { key: 'fao', name: 'FAO', lat: 37.014, lon: -7.966, kind: 'airport', dx: -14, dy: 30, side: 'end', cdx: -12, cdy: 22 },
       { key: 'faro', name: 'Faro', lat: 37.02, lon: -7.93, kind: 'office', dx: 0, dy: 58, side: 'middle', link: 'place-faro' },
       { key: 'tavira', name: 'Tavira', lat: 37.13, lon: -7.65, color: C.blue, dx: -44, dy: -66, side: 'middle', link: 'place-tavira' },
       { key: 'vrsa', name: 'Vila Real de Santo António', lat: 37.19, lon: -7.42, color: C.magenta, dx: 84, dy: 112, side: 'end' },
