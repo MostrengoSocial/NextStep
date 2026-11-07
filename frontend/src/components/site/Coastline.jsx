@@ -96,12 +96,19 @@ function RegionMapCompact({ id, t }) {
         ))}
         <text className="coast-ocean" x={CW / 2} y={ch - 12} textAnchor="middle">{t.ocean}</text>
         {r.towns.filter((tw) => tw.kind === 'minor').map((tw) => <circle key={tw.key} className="coast-minor-dot" cx={x(tw.lon)} cy={y(tw.lat)} r="2.5" />)}
-        {numbered.map((tw, i) => (
-          <g key={tw.key} className={`coast-pin${tw.kind ? ` ${tw.kind}` : ''}`}>
-            <circle cx={x(tw.lon)} cy={y(tw.lat)} r="8" style={tw.kind ? undefined : { fill: tw.color }} />
-            <text x={x(tw.lon)} y={y(tw.lat) + 3.5} textAnchor="middle">{i + 1}</text>
-          </g>
-        ))}
+        {numbered.map((tw, i) => {
+          // A marker can be nudged off a crowded spot; a leader then points to the real position.
+          const px = x(tw.lon) + (tw.cdx || 0);
+          const py = y(tw.lat) + (tw.cdy || 0);
+          return (
+            <g key={tw.key} className={`coast-pin${tw.kind ? ` ${tw.kind}` : ''}`}>
+              {(tw.cdx || tw.cdy) && <line className="coast-pin-leader" x1={x(tw.lon)} y1={y(tw.lat)} x2={px} y2={py} />}
+              {(tw.cdx || tw.cdy) && <circle className="coast-pin-spot" cx={x(tw.lon)} cy={y(tw.lat)} r="2" />}
+              <circle cx={px} cy={py} r="8" style={tw.kind ? undefined : { fill: tw.color }} />
+              <text x={px} y={py + 3.5} textAnchor="middle">{i + 1}</text>
+            </g>
+          );
+        })}
         <g className="coast-scale" transform={`translate(${CW - 16 - km} ${ch - 34})`}>
           <line x1="0" y1="0" x2={km} y2="0" />
           <line x1="0" y1="-4" x2="0" y2="4" />
