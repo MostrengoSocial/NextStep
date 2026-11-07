@@ -645,6 +645,9 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
 .coast-airport path { stroke: var(--ink); stroke-width: 1.4; fill: none; stroke-linecap: round; }
 .coast-airport text { font: 400 10.5px var(--mono); letter-spacing: .08em; fill: var(--muted); text-transform: uppercase; }
 .coast-airport .code { fill: var(--ink); font-weight: 500; }
+.coast-airport .nudge { stroke: var(--ink); stroke-width: 1; }
+.coast-airport .spot { fill: var(--ink); stroke: none; }
+.coast-area.island { font-size: 11px; letter-spacing: .22em; fill: var(--ink-2); }
 .pass-credit { position: absolute; z-index: 2; right: 10px; bottom: 8px; font: 400 9.5px/1 var(--mono); letter-spacing: .04em; color: rgba(255,255,255,.8); text-decoration: none; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
 
 /* ================================================================
@@ -720,6 +723,9 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
   .bridge-svg.compact .bridge-end { font-size: 18px; }
   .bridge.is-in .bridge-svg.compact .bridge-traveller { animation-name: cross-narrow; }
   .coast-svg.compact .coast-area.region { font-size: 22px; }
+  .coast-svg.compact .coast-area.island { font-size: 8px; letter-spacing: .14em; }
+  .coast-tabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 2px; margin: 14px 16px 0; }
+  .coast-tabs button { padding: 9px 2px; font-size: 13px; }
   .coast-svg.compact .coast-ocean { font-size: 9px; letter-spacing: .3em; }
   .coast-svg.compact .coast-scale text { font-size: 10px; }
 }
