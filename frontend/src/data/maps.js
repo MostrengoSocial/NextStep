@@ -1,9 +1,13 @@
-// Destination maps: the Algarve, Lisbon and Porto.
-// Outlines are approximate, drawn by hand. Town positions are real coordinates.
+// Destination maps: the Algarve, Lisbon, Porto, Madeira and the Azores.
+// Mainland outlines are approximate, drawn by hand; island outlines are Natural Earth.
+// Town positions are real coordinates. `capital` marks a district or regional capital
+// (drawn larger). An airport can be nudged off a crowded spot: ndx/ndy on desktop,
+// cdx/cdy on phones, with a short leader back to its real position.
 // Land polygons run out to far-away points so the land fills the frame edges.
 // Label offsets (dx, dy) are in map pixels from the town's dot; `side` is the
 // text anchor ('start' = label to the right, 'end' = to the left).
 import { algarveCoast, algarveWestCoast, algarveNorthBorder, guadiana } from './site';
+import { azoresIslands, madeiraIslands } from './islands';
 
 const C = { red: 'var(--red)', orange: 'var(--orange)', yellow: 'var(--yellow)', green: 'var(--green)', blue: 'var(--blue)', magenta: 'var(--magenta)' };
 
@@ -32,9 +36,9 @@ export const REGIONS = {
       { key: 'qdl', name: 'Quinta do Lago', lat: 37.04, lon: -8.02, color: C.green, dx: -56, dy: -66, side: 'middle', link: 'place-qdl' },
       // Faro airport sits ~3 km west of the office; on phones its marker is nudged (cdx/cdy) with a leader to the real spot.
       { key: 'fao', name: 'FAO', lat: 37.014, lon: -7.966, kind: 'airport', dx: -14, dy: 30, side: 'end', cdx: -12, cdy: 22 },
-      { key: 'faro', name: 'Faro', lat: 37.02, lon: -7.93, kind: 'office', dx: 0, dy: 58, side: 'middle', link: 'place-faro' },
+      { key: 'faro', name: 'Faro', lat: 37.02, lon: -7.93, kind: 'office', capital: true, dx: 0, dy: 58, side: 'middle', link: 'place-faro' },
       { key: 'tavira', name: 'Tavira', lat: 37.13, lon: -7.65, color: C.blue, dx: -44, dy: -66, side: 'middle', link: 'place-tavira' },
-      { key: 'vrsa', name: 'Vila Real de Santo António', lat: 37.19, lon: -7.42, color: C.magenta, dx: 84, dy: 112, side: 'end' },
+      { key: 'vrsa', name: 'Vila Real de Santo António', lat: 37.19, lon: -7.42, color: C.magenta, dx: 10, dy: 92, side: 'middle' },
     ],
   },
 
@@ -60,10 +64,10 @@ export const REGIONS = {
       { key: 'caparica', name: 'Costa da Caparica', lat: 38.637, lon: -9.235, kind: 'minor', dx: -10, dy: 4, side: 'end' },
       { key: 'almada', name: 'Almada', lat: 38.679, lon: -9.157, kind: 'minor', dx: 0, dy: 22, side: 'middle' },
       { key: 'lis', name: 'LIS', lat: 38.774, lon: -9.134, kind: 'airport', dx: 12, dy: 4, side: 'start' },
-      { key: 'lisboa', name: 'Lisboa', lat: 38.722, lon: -9.139, color: C.red, dx: -30, dy: -44, side: 'end' },
+      { key: 'lisboa', name: 'Lisboa', lat: 38.722, lon: -9.139, color: C.red, capital: true, dx: -30, dy: -44, side: 'end' },
       { key: 'sintra', name: 'Sintra', lat: 38.801, lon: -9.381, color: C.green, dx: 22, dy: -30, side: 'start' },
       { key: 'cascais', name: 'Cascais', lat: 38.697, lon: -9.421, color: C.orange, dx: -18, dy: 44, side: 'end' },
-      { key: 'setubal', name: 'Setúbal', lat: 38.524, lon: -8.893, color: C.blue, dx: 24, dy: 4, side: 'start' },
+      { key: 'setubal', name: 'Setúbal', lat: 38.524, lon: -8.893, color: C.blue, capital: true, dx: 24, dy: 4, side: 'start' },
     ],
   },
 
@@ -87,13 +91,61 @@ export const REGIONS = {
     towns: [
       { key: 'foz', name: 'Foz do Douro', lat: 41.152, lon: -8.676, kind: 'minor', dx: -10, dy: 4, side: 'end' },
       { key: 'opo', name: 'OPO', lat: 41.242, lon: -8.678, kind: 'airport', dx: 12, dy: 4, side: 'start' },
-      { key: 'porto', name: 'Porto', lat: 41.149, lon: -8.611, color: C.red, dx: 26, dy: -14, side: 'start' },
+      { key: 'porto', name: 'Porto', lat: 41.149, lon: -8.611, color: C.red, capital: true, dx: 26, dy: -14, side: 'start' },
       { key: 'gaia', name: 'Vila Nova de Gaia', lat: 41.124, lon: -8.61, color: C.orange, dx: 26, dy: 58, side: 'start' },
       { key: 'matosinhos', name: 'Matosinhos', lat: 41.185, lon: -8.69, color: C.green, dx: -24, dy: -16, side: 'end' },
       { key: 'viladoconde', name: 'Vila do Conde', lat: 41.353, lon: -8.746, color: C.blue, dx: -24, dy: 4, side: 'end' },
       { key: 'espinho', name: 'Espinho', lat: 41.007, lon: -8.641, color: C.magenta, dx: -24, dy: -16, side: 'end' },
     ],
   },
+
+  madeira: {
+    bounds: { lon0: -17.35, lon1: -16.15, top: 33.2, bottom: 32.35 },
+    land: madeiraIslands,
+    rivers: [],
+    areas: [
+      { key: 'madeiraName', name: 'Madeira', at: [-16.98, 32.735], big: true },
+      { key: 'portoSanto', name: 'Porto Santo', at: [-16.34, 33.15], island: true },
+      { key: 'desertas', name: 'Desertas', at: [-16.39, 32.52], island: true },
+    ],
+    ocean: [-16.62, 32.42],
+    scaleKm: 10,
+    towns: [
+      { key: 'portomoniz', name: 'Porto Moniz', lat: 32.866, lon: -17.168, kind: 'minor', dx: 0, dy: -12, side: 'middle' },
+      { key: 'calheta', name: 'Calheta', lat: 32.718, lon: -17.177, kind: 'minor', dx: 0, dy: 22, side: 'middle' },
+      { key: 'funchal', name: 'Funchal', lat: 32.650, lon: -16.908, color: C.red, capital: true, dx: -20, dy: 62, side: 'middle' },
+      { key: 'fnc', name: 'FNC', lat: 32.698, lon: -16.775, kind: 'airport', dx: 12, dy: 4, side: 'start' },
+      { key: 'pxo', name: 'PXO', lat: 33.073, lon: -16.350, kind: 'airport', dx: 0, dy: 50, side: 'middle' },
+    ],
+  },
+
+  azores: {
+    bounds: { lon0: -31.4, lon1: -24.95, top: 39.85, bottom: 36.8 },
+    land: azoresIslands,
+    rivers: [],
+    areas: [
+      { key: 'corvo', name: 'Corvo', at: [-30.85, 39.69], island: true, cat: [-30.55, 39.72] },
+      { key: 'flores', name: 'Flores', at: [-30.86, 39.43], island: true, cat: [-30.55, 39.42] },
+      { key: 'graciosa', name: 'Graciosa', at: [-28.0, 39.19], island: true, cat: [-28.0, 39.27] },
+      { key: 'saojorge', name: 'São Jorge', at: [-28.1, 38.84], island: true, cat: [-28.45, 38.92] },
+      { key: 'terceira', name: 'Terceira', at: [-27.2, 38.9], island: true, cat: [-27.05, 39.02] },
+      { key: 'faial', name: 'Faial', at: [-29.06, 38.6], island: true, cat: [-29.45, 38.6] },
+      { key: 'pico', name: 'Pico', at: [-27.86, 38.4], island: true, cat: [-28.25, 38.2] },
+      { key: 'saomiguel', name: 'São Miguel', at: [-25.5, 38.0], island: true, cat: [-25.5, 38.07] },
+      { key: 'santamaria', name: 'Santa Maria', at: [-25.11, 37.1], island: true, cat: [-25.8, 36.95] },
+    ],
+    ocean: [-27.6, 37.3],
+    scaleKm: 50,
+    compactScaleLeft: true,
+    towns: [
+      { key: 'pdelgada', name: 'Ponta Delgada', lat: 37.740, lon: -25.669, color: C.red, capital: true, dx: 24, dy: 62, side: 'middle' },
+      { key: 'pdl', name: 'PDL', lat: 37.741, lon: -25.698, kind: 'airport', dx: -12, dy: 4, side: 'end', ndx: -26, ndy: 18, cdx: -14, cdy: 16 },
+      { key: 'angra', name: 'Angra do Heroísmo', lat: 38.655, lon: -27.221, color: C.orange, capital: true, dx: 0, dy: 60, side: 'middle' },
+      { key: 'ter', name: 'TER', lat: 38.762, lon: -27.091, kind: 'airport', dx: 12, dy: 4, side: 'start', cdx: 12, cdy: -12 },
+      { key: 'horta', name: 'Horta', lat: 38.536, lon: -28.632, color: C.blue, capital: true, dx: 30, dy: 62, side: 'middle' },
+      { key: 'hor', name: 'HOR', lat: 38.520, lon: -28.716, kind: 'airport', dx: -12, dy: 4, side: 'end', ndx: -14, ndy: 16, cdx: -14, cdy: 14 },
+    ],
+  },
 };
 
-export const REGION_KEYS = ['algarve', 'lisboa', 'porto'];
+export const REGION_KEYS = ['algarve', 'lisboa', 'porto', 'madeira', 'azores'];

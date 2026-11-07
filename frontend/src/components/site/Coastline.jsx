@@ -23,41 +23,64 @@ function projection({ lon0, lon1, top, bottom }, w = W, h = H) {
 
 const fmtCoord = (t) => `${t.lat.toFixed(2)}° N · ${Math.abs(t.lon).toFixed(2)}° W`;
 
-/* A major town: coloured dot, dashed leader to a label block with the name
-   and, 18 px below it, the coordinates. */
+/* Leader from a dot to its label: a straight dashed line on the line between the
+   dot's centre and the label's near edge, starting just outside the dot, so it always
+   points exactly at the dot. */
+function leaderPath(cx, cy, r, tx, ty) {
+  const dx = tx - cx;
+  const dy = ty - cy;
+  const len = Math.hypot(dx, dy);
+  if (len < r + 8) return null;
+  const sx = cx + (dx / len) * (r + 3);
+  const sy = cy + (dy / len) * (r + 3);
+  return `M${sx.toFixed(1)} ${sy.toFixed(1)} L${tx.toFixed(1)} ${ty.toFixed(1)}`;
+}
+
+/* A town: coloured dot (larger for district and regional capitals), a dashed leader
+   to a label block with the name and, 18 px below it, the coordinates. */
 function Town({ t, x, y, label }) {
-  const cx = x(t.lon);
-  const cy = y(t.lat);
-  const lx = cx + t.dx;
-  const ly = cy + t.dy;
+  const rx = x(t.lon);
+  const ry = y(t.lat);
   if (t.kind === 'minor') {
     return (
       <g className="coast-minor">
-        <circle cx={cx} cy={cy} r="3.5" />
-        <text x={lx} y={ly} textAnchor={t.side}>{t.name}</text>
+        <circle cx={rx} cy={ry} r="3.5" />
+        <text x={rx + t.dx} y={ry + t.dy} textAnchor={t.side}>{t.name}</text>
       </g>
     );
   }
   if (t.kind === 'airport') {
+    // Nudged off a crowded spot: draw the icon offset, with a leader to the real position.
+    const cx = rx + (t.ndx || 0);
+    const cy = ry + (t.ndy || 0);
+    const nudged = Boolean(t.ndx || t.ndy);
     return (
       <g className="coast-airport">
+        {nudged && <line className="nudge" x1={rx} y1={ry} x2={cx} y2={cy} />}
+        {nudged && <circle className="spot" cx={rx} cy={ry} r="2" />}
         <rect x={cx - 6} y={cy - 6} width="12" height="12" rx="2" />
         <path d={`M${cx - 3.5} ${cy + 1} L${cx + 3.5} ${cy - 2.5} M${cx - 1} ${cy - 1} L${cx + 1} ${cy + 3}`} />
-        <text x={lx} y={ly} textAnchor={t.side}><tspan className="code">{t.name}</tspan> {label}</text>
+        <text x={cx + t.dx} y={cy + t.dy} textAnchor={t.side}><tspan className="code">{t.name}</tspan> {label}</text>
       </g>
     );
   }
-  const above = t.dy < 0;
-  // Leader runs from the dot's edge to just short of the label block.
-  const endY = above ? ly + 28 : ly - 20;
-  const startY = above ? cy - 9 : cy + 9;
-  const leader = t.side === 'middle' ? `M${cx} ${startY} L${lx} ${endY}` : `M${cx + (t.side === 'start' ? 9 : -9)} ${cy} L${lx + (t.side === 'start' ? -6 : 6)} ${ly - 5}`;
+  const cx = rx;
+  const cy = ry;
+  const lx = cx + t.dx;
+  const ly = cy + t.dy;
   const office = t.kind === 'office';
+  const r = office ? 10 : t.capital ? 9 : 6.5;
+  // The leader ends just short of the label block: under the coordinates for a label
+  // above the dot, over the name for a label below, beside the name for a side label.
+  const above = t.dy < 0;
+  const tx = t.side === 'middle' ? lx : lx + (t.side === 'start' ? -6 : 6);
+  const ty = t.side === 'middle' ? (above ? ly + 27 : ly - 19) : ly - 5;
+  const leader = leaderPath(cx, cy, r, tx, ty);
   const body = (
-    <g className={`coast-town${office ? ' office' : ''}`}>
-      <path className="leader" d={leader} />
-      {office && <circle cx={cx} cy={cy} r="15" className="halo" />}
-      <circle cx={cx} cy={cy} r={office ? 8 : 6.5} style={office ? undefined : { fill: t.color }} />
+    <g className={`coast-town${office ? ' office' : ''}${t.capital ? ' capital' : ''}`}>
+      {leader && <path className="leader" d={leader} />}
+      {office && <circle cx={cx} cy={cy} r="17" className="halo" />}
+      <circle cx={cx} cy={cy} r={r} style={office ? undefined : { fill: t.color }} />
       <text className="name" x={lx} y={ly} textAnchor={t.side}>{t.name}</text>
       <text className="coord" x={lx} y={ly + 18} textAnchor={t.side}>{office ? `${fmtCoord(t)} · ${label}` : fmtCoord(t)}</text>
     </g>
@@ -91,8 +114,8 @@ function RegionMapCompact({ id, t }) {
         {r.region && <path className="coast-region" d={`M${pts(r.region).join(' L')} Z`} />}
         {r.rivers.map((rv) => <path key={rv.name} className="coast-river" d={`M${pts(rv.points).join(' L')}`} />)}
         {r.shore && <path className="coast-line" d={`M${pts(r.shore).join(' L')}`} pathLength="1" />}
-        {r.areas.filter((a) => a.big).map((a) => (
-          <text key={a.key} className="coast-area region" x={x(a.at[0])} y={y(a.at[1])} textAnchor="middle">{t[a.key]}</text>
+        {r.areas.filter((a) => a.big || a.island).map((a) => (
+          <text key={a.key} className={`coast-area${a.big ? ' region' : ' island'}`} x={x((a.cat || a.at)[0])} y={y((a.cat || a.at)[1])} textAnchor="middle">{a.name || t[a.key]}</text>
         ))}
         <text className="coast-ocean" x={CW / 2} y={ch - 12} textAnchor="middle">{t.ocean}</text>
         {r.towns.filter((tw) => tw.kind === 'minor').map((tw) => <circle key={tw.key} className="coast-minor-dot" cx={x(tw.lon)} cy={y(tw.lat)} r="2.5" />)}
@@ -104,12 +127,12 @@ function RegionMapCompact({ id, t }) {
             <g key={tw.key} className={`coast-pin${tw.kind ? ` ${tw.kind}` : ''}`}>
               {(tw.cdx || tw.cdy) && <line className="coast-pin-leader" x1={x(tw.lon)} y1={y(tw.lat)} x2={px} y2={py} />}
               {(tw.cdx || tw.cdy) && <circle className="coast-pin-spot" cx={x(tw.lon)} cy={y(tw.lat)} r="2" />}
-              <circle cx={px} cy={py} r="8" style={tw.kind ? undefined : { fill: tw.color }} />
+              <circle cx={px} cy={py} r={tw.capital ? 10.5 : 8} style={tw.kind ? undefined : { fill: tw.color }} />
               <text x={px} y={py + 3.5} textAnchor="middle">{i + 1}</text>
             </g>
           );
         })}
-        <g className="coast-scale" transform={`translate(${CW - 16 - km} ${ch - 34})`}>
+        <g className="coast-scale" transform={`translate(${r.compactScaleLeft ? 16 : CW - 16 - km} ${ch - 34})`}>
           <line x1="0" y1="0" x2={km} y2="0" />
           <line x1="0" y1="-4" x2="0" y2="4" />
           <line x1={km} y1="-4" x2={km} y2="4" />
@@ -148,7 +171,7 @@ function RegionMap({ id, t }) {
       {r.shore && <path className="coast-line" d={`M${pts(r.shore).join(' L')}`} pathLength="1" />}
 
       {r.areas.map((a) => (
-        <text key={a.key} className={`coast-area${a.big ? ' region' : ''}`} x={x(a.at[0])} y={y(a.at[1])} textAnchor="middle">{t[a.key]}</text>
+        <text key={a.key} className={`coast-area${a.big ? ' region' : ''}${a.island ? ' island' : ''}`} x={x(a.at[0])} y={y(a.at[1])} textAnchor="middle">{a.name || t[a.key]}</text>
       ))}
       {r.rivers.map((rv) => <text key={rv.name} className="coast-river-name" x={x(rv.at[0]) + (rv.dx || 0)} y={y(rv.at[1])}>{rv.name}</text>)}
       {(r.riverLabels || []).map((rl) => <text key={rl.name} className="coast-river-name" x={x(rl.at[0])} y={y(rl.at[1])} textAnchor="middle">{rl.name}</text>)}

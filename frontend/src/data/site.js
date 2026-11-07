@@ -204,11 +204,13 @@ export const content = {
       pendingText: 'Contracts, title checks and tax planning before you commit.', villaAlt: 'Modern white villa with a pool and palm trees',
       coast: {
         office: 'nextStep office', airport: 'Airport', seePhoto: 'see the photo', swipe: 'Swipe to explore the map ↔', ocean: 'Atlantic Ocean', region: 'Algarve', north: 'Alentejo', spain: 'Spain',
-        note: 'Approximate outlines. Places at their real coordinates.', tabsLabel: 'Choose a region',
+        note: 'Approximate outlines. Places at their real coordinates. Larger dots mark district and regional capitals.', tabsLabel: 'Choose a region',
         regions: {
           algarve: { tab: 'Algarve', title: 'The Algarve, west to east', label: 'Map of the Algarve with Lagos, Portimão, Quinta do Lago, Faro, Tavira and Vila Real de Santo António' },
           lisboa: { tab: 'Lisbon', title: 'Lisbon and the Tagus', label: 'Map of the Lisbon area with Lisbon, Sintra, Cascais, Setúbal and Lisbon airport' },
           porto: { tab: 'Porto', title: 'Porto and the Douro', label: 'Map of the Porto area with Porto, Vila Nova de Gaia, Matosinhos, Vila do Conde, Espinho and Porto airport' },
+          madeira: { tab: 'Madeira', title: 'Madeira and Porto Santo', label: 'Map of Madeira, Porto Santo and the Desertas with Funchal and the Madeira and Porto Santo airports' },
+          azores: { tab: 'Azores', title: 'The Azores, nine islands', label: 'Map of the nine Azores islands with Ponta Delgada, Angra do Heroísmo, Horta and their airports' },
         },
       },
     },
@@ -331,11 +333,13 @@ export const content = {
       pendingText: 'Contratos, verificação do registo e planeamento fiscal antes de se comprometer.', villaAlt: 'Moradia branca moderna com piscina e palmeiras',
       coast: {
         office: 'Escritório nextStep', airport: 'Aeroporto', seePhoto: 'ver a fotografia', swipe: 'Deslize para explorar o mapa ↔', ocean: 'Oceano Atlântico', region: 'Algarve', north: 'Alentejo', spain: 'Espanha',
-        note: 'Contornos aproximados. Localidades nas coordenadas reais.', tabsLabel: 'Escolha uma região',
+        note: 'Contornos aproximados. Localidades nas coordenadas reais. Os pontos maiores marcam capitais de distrito e de região.', tabsLabel: 'Escolha uma região',
         regions: {
           algarve: { tab: 'Algarve', title: 'O Algarve, de oeste para este', label: 'Mapa do Algarve com Lagos, Portimão, Quinta do Lago, Faro, Tavira e Vila Real de Santo António' },
           lisboa: { tab: 'Lisboa', title: 'Lisboa e o Tejo', label: 'Mapa da região de Lisboa com Lisboa, Sintra, Cascais, Setúbal e o aeroporto' },
           porto: { tab: 'Porto', title: 'O Porto e o Douro', label: 'Mapa da região do Porto com Porto, Vila Nova de Gaia, Matosinhos, Vila do Conde, Espinho e o aeroporto' },
+          madeira: { tab: 'Madeira', title: 'A Madeira e o Porto Santo', label: 'Mapa da Madeira, do Porto Santo e das Desertas com o Funchal e os aeroportos da Madeira e do Porto Santo' },
+          azores: { tab: 'Açores', title: 'Os Açores, nove ilhas', label: 'Mapa das nove ilhas dos Açores com Ponta Delgada, Angra do Heroísmo, Horta e os seus aeroportos' },
         },
       },
     },
