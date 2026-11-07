@@ -60,7 +60,7 @@ function Town({ t, x, y, label }) {
         {nudged && <circle className="spot" cx={rx} cy={ry} r="2" />}
         <rect x={cx - 6} y={cy - 6} width="12" height="12" rx="2" />
         <path d={`M${cx - 3.5} ${cy + 1} L${cx + 3.5} ${cy - 2.5} M${cx - 1} ${cy - 1} L${cx + 1} ${cy + 3}`} />
-        <text x={cx + t.dx} y={cy + t.dy} textAnchor={t.side}><tspan className="code">{t.name}</tspan> {label}</text>
+        <text x={cx + t.dx} y={cy + t.dy} textAnchor={t.side}><tspan className="code">{t.name}</tspan>{t.short ? null : ` ${label}`}</text>
       </g>
     );
   }
@@ -145,7 +145,7 @@ function RegionMapCompact({ id, t }) {
           const body = (
             <>
               <span className={`coast-legend-n${tw.kind ? ` ${tw.kind}` : ''}`} style={tw.kind ? undefined : { background: tw.color }}>{i + 1}</span>
-              <span className="coast-legend-name">{tw.kind === 'airport' ? `${tw.name} · ${t.airport}` : tw.name}{note && tw.kind === 'office' && <em> · {note}</em>}</span>
+              <span className="coast-legend-name">{tw.kind === 'airport' ? `${tw.name} · ${t.airport}${tw.place ? ` · ${tw.place}` : ''}` : tw.name}{note && tw.kind === 'office' && <em> · {note}</em>}</span>
               <span className="coast-legend-coord mono">{fmtCoord(tw)}</span>
             </>
           );
