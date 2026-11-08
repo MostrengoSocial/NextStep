@@ -485,8 +485,11 @@ section { padding-block: clamp(72px, 10vw, 136px); }
 .plan-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 6px 20px; }
 .plan-title { font: 700 1.35rem/1.1 var(--display); letter-spacing: -0.03em; }
 .plan-note { font-size: 13.5px; color: var(--muted); }
-.plan-scroll { overflow-x: auto; }
-.plan-chart { min-width: 760px; display: grid; gap: 6px; }
+/* The chart always fits its frame: no sideways scrolling at any width. */
+.plan-scroll { overflow: visible; }
+.plan-chart { display: grid; gap: 6px; }
+/* Lines at month 6 sit just inside the right edge instead of 1px past it. */
+.plan-grid > span:last-child { transform: translateX(-100%); }
 .plan-axis, .plan-lane { display: grid; grid-template-columns: 210px minmax(0, 1fr); align-items: center; }
 .plan-track { position: relative; height: 100%; }
 .plan-axis .plan-track { height: 18px; }
@@ -662,18 +665,6 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
   /* Step label: chevrons on their own line, then "Step n of 7 · Section" on one line. */
   .eyebrow.steps .steps-chev { flex-basis: 100%; }
   /* Services timeline: the service name sits above its bar, which gets the full width. */
-  .plan-chart { min-width: 0; }
-  .plan-axis, .plan-lane { grid-template-columns: minmax(0, 1fr); }
-  .plan-axis .plan-label { display: none; }
-  .plan-lane { height: auto; padding: 6px 0 2px; }
-  .plan-lane .plan-label { padding-left: 0; margin-bottom: 4px; }
-  .plan-lane .plan-track { height: 28px; }
-  .plan-lane .plan-bar { top: 0; }
-  .plan-grid { left: 0; }
-  .plan-tick { font-size: 9.5px; }
-  .plan-tick:nth-child(even) { display: none; } /* show months 0, 2, 4 and 6 */
-  .plan-grid > .plan-milestone:nth-last-child(2) em { left: auto; right: 6px; } /* "Arrival" sits left of its line */
-  .plan-milestone em { font-size: 9.5px; }
   /* Contact details: label above value, so the email address stays on one line. */
   .info div { grid-template-columns: minmax(0, 1fr) auto; row-gap: 4px; }
   .info dt { grid-column: 1 / -1; }
@@ -730,3 +721,19 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
   .coast-svg.compact .coast-scale text { font-size: 10px; }
 }
 @keyframes cross-narrow { from { transform: translateX(6px); } to { transform: translateX(560px); } }
+
+/* Services timeline: below 860px the service names sit above their bars, so the
+   chart fits the width without scrolling. */
+@media (max-width: 860px) {
+  .plan-axis, .plan-lane { grid-template-columns: minmax(0, 1fr); }
+  .plan-axis .plan-label { display: none; }
+  .plan-lane { height: auto; padding: 6px 0 2px; }
+  .plan-lane .plan-label { padding-left: 0; margin-bottom: 4px; }
+  .plan-lane .plan-track { height: 28px; }
+  .plan-lane .plan-bar { top: 0; }
+  .plan-grid { left: 0; }
+  .plan-tick { font-size: 9.5px; }
+  .plan-tick:nth-child(even) { display: none; } /* show months 0, 2, 4 and 6 */
+  .plan-grid > .plan-milestone:nth-last-child(2) em { left: auto; right: 6px; } /* "Arrival" sits left of its line */
+  .plan-milestone em { font-size: 9.5px; }
+}
