@@ -41,7 +41,7 @@ export const Services = () => {
               </div>
               <div className="plan-lanes" role="tablist" aria-label={t.eyebrow}>
                 <div className="plan-grid" aria-hidden="true">
-                  {Array.from({ length: MONTHS + 1 }, (_, m) => <span key={m} style={{ left: pct(m) }} />)}
+                  {Array.from({ length: MONTHS + 1 }, (_, m) => <span key={m} style={{ left: pct(m), transform: m === MONTHS ? 'translateX(-100%)' : undefined }} />)}
                   {plan.milestones.map(([m, label]) => (
                     <span key={label} className="plan-milestone" style={{ left: pct(m) }}><em className="mono">{label}</em></span>
                   ))}
