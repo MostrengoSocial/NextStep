@@ -445,7 +445,7 @@ section { padding-block: clamp(72px, 10vw, 136px); }
 .bridge-cable { fill: none; stroke: var(--ink); stroke-width: 2.6; }
 .bridge-deck { stroke: var(--ink); stroke-width: 7; stroke-linecap: round; }
 .bridge-tower-name { font: 700 22px var(--display); letter-spacing: -0.03em; fill: var(--ink); }
-.bridge-end { font: 400 13px var(--mono); letter-spacing: .12em; text-transform: uppercase; fill: var(--muted); }
+.bridge-end { font: 700 16px var(--mono); letter-spacing: .1em; text-transform: uppercase; fill: var(--ink-2); }
 .bridge-end.here { fill: var(--accent); }
 .bridge.is-in .bridge-traveller { animation: cross 10s linear infinite; }
 @keyframes cross { from { transform: translateX(10px); } to { transform: translateX(1140px); } }
@@ -720,7 +720,7 @@ img.lift { filter: brightness(1.32) contrast(.92) saturate(1.12); }
   .atlas-svg.compact .atlas-dest text { font-size: 11.5px; }
   .atlas-svg.compact .atlas-inset-label { font-size: 9px; }
   .bridge-svg.compact .bridge-tower-name { font-size: 28px; }
-  .bridge-svg.compact .bridge-end { font-size: 18px; }
+  .bridge-svg.compact .bridge-end { font-size: 22px; letter-spacing: .06em; }
   .bridge.is-in .bridge-svg.compact .bridge-traveller { animation-name: cross-narrow; }
   .coast-svg.compact .coast-area.region { font-size: 22px; }
   .coast-svg.compact .coast-area.island { font-size: 8px; letter-spacing: .14em; }

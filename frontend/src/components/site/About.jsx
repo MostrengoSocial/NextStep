@@ -40,9 +40,10 @@ const CHEVRONS = [
   ['M26 11 L35 20 L26 29', '#3BAF6A', 3.5], ['M30 14 L37 20 L30 26', '#4A7FBF', 3],
 ];
 
-// One drawing of the bridge; the phone version is narrower with larger labels.
-const BridgeSvg = ({ g, w, t, className }) => (
-  <svg className={className} viewBox={`0 0 ${w} 270`} role="img" aria-label={t.label}>
+// One drawing of the bridge; the phone version is narrower with larger labels, which
+// sit below the water (endY) so they clear the towers.
+const BridgeSvg = ({ g, w, t, className, h = 270, endY = g.DECK + 28 }) => (
+  <svg className={className} viewBox={`0 0 ${w} ${h}`} role="img" aria-label={t.label}>
     <path className="bridge-water" d={water(w, 236)} />
     <path className="bridge-water faint" d={water(w, 252)} />
     {g.hangers.map(([x, y]) => <line key={x} className="bridge-hanger" x1={x} y1={y} x2={x} y2={g.DECK} />)}
@@ -59,8 +60,8 @@ const BridgeSvg = ({ g, w, t, className }) => (
         {CHEVRONS.map(([d, c, sw]) => <path key={d} d={d} style={{ fill: 'none', stroke: c, strokeWidth: sw, strokeLinecap: 'round', strokeLinejoin: 'round' }} />)}
       </g>
     </g>
-    <text className="bridge-end" x={g.LEFT - 14} y={g.DECK + 28}>{t.there}</text>
-    <text className="bridge-end here" x={g.RIGHT + 14} y={g.DECK + 28} textAnchor="end">{t.here}</text>
+    <text className="bridge-end" x={g.LEFT - 14} y={endY}>{t.there}</text>
+    <text className="bridge-end here" x={g.RIGHT + 14} y={endY} textAnchor="end">{t.here}</text>
   </svg>
 );
 
@@ -71,7 +72,7 @@ export const Bridge = () => {
     <figure className={`bridge${shown ? ' is-in' : ''}`} ref={ref}>
       <figcaption className="bridge-title">{t.title}</figcaption>
       <div className="bridge-scroll">
-        <BridgeSvg g={NARROW} w={600} t={t} className="bridge-svg compact" />
+        <BridgeSvg g={NARROW} w={600} t={t} className="bridge-svg compact" h={300} endY={290} />
         <BridgeSvg g={WIDE} w={1200} t={t} className="bridge-svg wide" />
       </div>
       <ul className="bridge-towers">
