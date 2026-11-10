@@ -24,7 +24,7 @@ export const SiteFooter = () => {
         <p className="foot-ask-line mono">
           <span>Faro</span>
           <span>{contact.email}</span>
-          <span>{contact.phone}</span>
+          <a href={contact.tel}>{contact.phone}</a>
           {legalPaths.map((p, i) => <Link key={p} to={pathFor(p, language)}>{t.legalLinks[i]}</Link>)}
           <span>© {new Date().getFullYear()} nextStep</span>
         </p>

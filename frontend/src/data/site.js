@@ -29,8 +29,9 @@ export const slides = [
 export const contact = {
   address: 'Largo de São Luís, nº11 C, 4ºD, 8000-143 Faro',
   email: 'hello@nextstep.com.pt',
-  phone: '+351 934 229 144',
-  whatsapp: 'https://wa.me/351934229144',
+  phone: '+351 965 638 867',
+  tel: 'tel:+351965638867',
+  whatsapp: 'https://wa.me/351965638867',
 };
 
 // Relocation routes. lat/lon are real city coordinates; `to` is the
@@ -230,6 +231,7 @@ export const content = {
       photoAlt: 'Two people holding hands on a tree-lined path',
       office: 'Office', email: 'Email', phone: 'Phone', hours: 'Hours', hoursValue: '24/7 by appointment', copy: 'Copy', copied: 'Copied',
       whatsapp: 'Chat on WhatsApp', whatsappDesc: 'Quick replies, even outside office hours',
+      waFloat: 'Chat with nextStep on WhatsApp', waGreeting: "Hello nextStep, I'd like to talk about moving to Portugal.",
       map: { title: 'Find the office', floor: '4th floor, D', directions: 'Get directions', note: 'Schematic map, not to scale', centre: 'Faro · Centre', label: 'Schematic map of central Faro with a pin on Largo de São Luís' },
       form: {
         tag: 'New consultation', ref: 'Confidential', name: 'Full name', email: 'Email', phone: 'Phone (optional)', from: 'Moving from',
@@ -359,6 +361,7 @@ export const content = {
       photoAlt: 'Duas pessoas de mãos dadas num caminho arborizado',
       office: 'Escritório', email: 'Email', phone: 'Telefone', hours: 'Horário', hoursValue: '24/7 por marcação', copy: 'Copiar', copied: 'Copiado',
       whatsapp: 'Conversar no WhatsApp', whatsappDesc: 'Resposta rápida, mesmo fora de horas',
+      waFloat: 'Falar com a nextStep no WhatsApp', waGreeting: 'Olá nextStep, gostaria de falar sobre a mudança para Portugal.',
       map: { title: 'Encontre o escritório', floor: '4.º andar, D', directions: 'Obter direções', note: 'Mapa esquemático, sem escala', centre: 'Faro · Centro', label: 'Mapa esquemático do centro de Faro com marcador no Largo de São Luís' },
       form: {
         tag: 'Nova consulta', ref: 'Confidencial', name: 'Nome completo', email: 'Email', phone: 'Telefone (opcional)', from: 'País de origem',
