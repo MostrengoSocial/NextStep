@@ -29,9 +29,9 @@ export const slides = [
 export const contact = {
   address: 'Largo de São Luís, nº11 C, 4ºD, 8000-143 Faro',
   email: 'hello@nextstep.com.pt',
-  phone: '+351 965 638 867',
-  tel: 'tel:+351965638867',
-  whatsapp: 'https://wa.me/351965638867',
+  phone: '+351 965 638 897',
+  tel: 'tel:+351965638897',
+  whatsapp: 'https://wa.me/351965638897',
 };
 
 // Relocation routes. lat/lon are real city coordinates; `to` is the
