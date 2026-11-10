@@ -12,6 +12,7 @@ import { Places } from "./components/site/Places";
 import { Stories } from "./components/site/Stories";
 import { Contact } from "./components/site/Contact";
 import { SiteFooter } from "./components/site/SiteFooter";
+import { WhatsAppFloat } from "./components/site/shared";
 import { PrivacyPolicy } from "./components/pages/PrivacyPolicy";
 import { TermsOfService } from "./components/pages/TermsOfService";
 import { LegalDisclaimer } from "./components/pages/LegalDisclaimer";
@@ -82,6 +83,7 @@ export function Site() {
           </Routes>
         </main>
         <SiteFooter />
+        <WhatsAppFloat />
       </div>
     </LanguageProvider>
   );

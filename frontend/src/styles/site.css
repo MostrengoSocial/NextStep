@@ -308,6 +308,15 @@ section { padding-block: clamp(72px, 10vw, 136px); }
 .wa strong { display: block; }
 .wa span { color: var(--muted); font-size: 14px; }
 .wa .arr { margin-left: auto; font-family: var(--mono); color: var(--muted); }
+.info dd a { color: inherit; text-decoration: none; }
+.info dd a:hover { color: var(--accent); }
+/* Floating WhatsApp button: WhatsApp green, bottom-right, clear of the phone's home bar. */
+.wa-float { position: fixed; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); z-index: 40; width: 58px; height: 58px; border-radius: 50%; display: grid; place-items: center; background: #25D366; box-shadow: 0 6px 20px rgba(0, 0, 0, .22); transition: transform .2s ease, box-shadow .2s ease; }
+.wa-float:hover { transform: scale(1.06); box-shadow: 0 8px 26px rgba(0, 0, 0, .28); }
+.wa-float:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.wa-float svg { width: 32px; height: 32px; fill: #fff; }
+@media (max-width: 640px) { .wa-float { width: 54px; height: 54px; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); } .wa-float svg { width: 30px; height: 30px; } }
+@media print { .wa-float { display: none; } }
 
 .form { border: 1px solid var(--line); border-radius: 18px; background: var(--surface); padding: clamp(20px, 3vw, 36px); display: grid; gap: 18px; align-content: start; min-width: 0; }
 .form-top { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); padding-bottom: 18px; border-bottom: 1px dashed var(--line); }

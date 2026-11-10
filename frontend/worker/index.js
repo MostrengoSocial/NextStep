@@ -67,7 +67,7 @@ async function handleContact(request, env) {
       <h2>Thank you for reaching out, ${esc(name.split(' ')[0])}!</h2>
       <p>We've received your inquiry and will get back to you within 24 hours to schedule your consultation.</p>
       <p><strong>Your message:</strong><br/>${msgHtml}</p>
-      <p>Reach us directly via WhatsApp for a faster response: <a href="https://wa.me/351934229144">Chat on WhatsApp</a></p>
+      <p>Reach us directly via WhatsApp for a faster response: <a href="https://wa.me/351965638867">Chat on WhatsApp</a></p>
     </div>`;
 
   try {
